@@ -4,9 +4,29 @@ import apiRouter from './api';
 import express from 'express';
 const server = express();
 
+const mongoose = require('mongoose');
+
+mongoose.connect('mongodb://localhost:27017/test');
+
 server.set('view engine', 'ejs');
 
-server.get(['/','/test'], (req, res) => {
+server.get(['/',
+'/login',
+'/register',
+'/accomodation',
+'/event-participation',
+'/tshirt',
+'/tours',
+'/previews',
+'/report/registered',
+'/report/summary',
+'/report/tshirt',
+'/report/participation',
+'/report/totalcost',
+'/report/paymentstatus',
+'/report/balance',
+'/test',
+], (req, res) => {
     res.render('index');
 });
 
