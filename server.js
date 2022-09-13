@@ -12,7 +12,8 @@ mongoose.connect('mongodb://localhost:27017/test', {
   useUnifiedTopology: true
 });
 
-const baseSchema = new mongoose.Schema({
+const registrationSchema = new mongoose.Schema({
+  username: String,
   name: String,
   branch: String,
   spouse: String,
@@ -25,19 +26,10 @@ const baseSchema = new mongoose.Schema({
 });
 
 const paxSchema = new mongoose.Schema({
-  alumni: {
-    type: Number,
-    default: 1
-  },
-  spouse: {
-    type: Number
-  },
-  familyMembers: {
-    type: Number
-  },
-  grandKids: {
-    type: Number
-  }
+  alumni: Number,
+  spouse: Number,
+  familyMembers: Number,
+  grandKids: Number
 });
 
 const roomOneSchema = new mongoose.Schema({
@@ -63,13 +55,12 @@ const roomTwoSchema = new mongoose.Schema({
 });
 
 const accomodationSchema = new mongoose.Schema({
+  username: String,
   participationType: {
     type: String,
     enum: ['single', 'withFamily']
   },
-  pax: {
-    type: paxSchema
-  },
+  pax: paxSchema,
   hotelRoom: {
     type: String,
     enum: ['required', 'notRequired']
@@ -78,12 +69,8 @@ const accomodationSchema = new mongoose.Schema({
     type: [String],
     enum: ['singleOccupancy', 'doubleOccupancy', 'twinShare']
   },
-  checkInDate: {
-    type: Date
-  },
-  checkOutDate: {
-    type: Date
-  },
+  checkInDate: Date,
+  checkOutDate: Date,
   hotel: {
     breezeResidency: {
       type: [roomOneSchema]
@@ -95,81 +82,45 @@ const accomodationSchema = new mongoose.Schema({
 });
 
 const eventSchema = new mongoose.Schema({
+  username: String,
   Date1: {
-    cond1: {
-      type: Boolean
-    },
-    cond2: {
-      type: Boolean
-    },
-    cond3: {
-      type: Boolean
-    },
+    cond1: Boolean,
+    cond2: Boolean,
+    cond3: Boolean,
     count: {
-      veg: {
-        type: Number
-      },
-      nonveg: {
-        type: Number
-      }
+      veg: Number,
+      nonveg: Number
     }
   },
   Date2: {
-    cond1: {
-      type: Boolean
-    },
-    cond2: {
-      type: Boolean
-    },
-    count: {
-      type: Number
-    }
+    cond1: Boolean,
+    cond2: Boolean,
+    count: Number
   },
   Date3: {
-    cond1: {
-      type: Boolean
-    },
-    cond2: {
-      type: Boolean
-    },
-    cond3: {
-      type: Boolean
-    },
+    cond1: Boolean,
+    cond2: Boolean,
+    cond3: Boolean,
     count: {
-      veg: {
-        type: Number
-      },
-      nonveg: {
-        type: Number
-      }
+      veg: Number,
+      nonveg: Number
     }
   }
 });
 
 const tshirtSchema = new mongoose.Schema({
-  isInterested: {
-    type: Boolean
-  },
+  username: String,
+  isInterested: Boolean,
   menOption: {
-    supimaCotton: {
-      type: Boolean
-    },
-    sweatWickingFabric: {
-      type: Boolean
-    }
+    supimaCotton: Boolean,
+    sweatWickingFabric: Boolean
   },
   womenOption: {
-    supimaCotton: {
-      type: Boolean
-    },
-    sweatWickingFabric: {
-      type: Boolean
-    }
+    supimaCotton: Boolean,
+    sweatWickingFabric: Boolean
   },
   grandKidsOption: {
-    supimaCotton: {
-      type: Boolean
-    }
+    supimaCotton: Boolean
   },
   quantity: {
     menQuantity: {
@@ -214,6 +165,7 @@ const tshirtSchema = new mongoose.Schema({
 });
 
 const tourSchema = new mongoose.Schema({
+  username: String,
   isInterested: Boolean,
   paxCount: {
     trichy: Number,
@@ -236,14 +188,14 @@ const userSchema = new mongoose.Schema({
   isAdmin: {
     type: Boolean,
     required: true
-  },
-  base: baseSchema,
-  accomodation: accomodationSchema,
-  event: eventSchema,
-  tshirt: tshirtSchema,
-  tour: tourSchema
+  }
 });
 
+const Registration = mongoose.model('Registration', registrationSchema);
+const Accomodation = mongoose.model('Accomodation', accomodationSchema);
+const Event = mongoose.model('Event', eventSchema);
+const Tshirt = mongoose.model('Tshirt', tshirtSchema);
+const Tour = mongoose.model('Tour', tourSchema);
 const User = mongoose.model('User', userSchema);
 
 server.set('view engine', 'ejs');
@@ -260,7 +212,6 @@ mongoose.connect("mongodb://localhost:27017/test", {
 
 server.get(['/',
 '/login',
-'/register',
 '/accomodation',
 '/event-participation',
 '/tshirt',
@@ -276,6 +227,24 @@ server.get(['/',
 '/test',
 ], (req, res) => {
     res.render('index');
+});
+
+server.get('/dbtest', (req, res) => {
+  let user = new User({
+    username: "testUsername1",
+    password: "testPassword1",
+    isAdmin: false
+  });
+  user.save();
+  res.send("Done!");
+});
+
+server.get('/dbclear', (req, res) => {
+  User.deleteMany({}).then(() => {
+    res.send("Done!");
+  }).catch(() => {
+    res.send("Error!");
+  });
 });
 
 server.use('/api', apiRouter);
