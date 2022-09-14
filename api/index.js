@@ -6,4 +6,4 @@ router.get('/', (req, res) => {
     res.send({ data: ['hello world'] });
 });
 
-export default router;
+module.exports = router;
