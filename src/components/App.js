@@ -5,29 +5,43 @@ import {
     Routes
 } from 'react-router-dom';
 
-import Home, { Test, NotFound } from './comp';
+import Home, { NotFound } from './pages/Home';
+import Accomodation from './pages/Accomodation';
+import EventParticipation from './pages/EventParticipation';
+import Login from './pages/Login';
+import Register from './pages/Register';
+import Tours from './pages/Tours';
+import Tshirt from './pages/Tshirt';
+
+import Previews from './reports/Previews';
+import ReportBalance from './reports/ReportBalance';
+import ReportParticipation from './reports/ReportParticipation';
+import ReportPaymentstatus from './reports/ReportPaymentstatus';
+import ReportRegistered from './reports/ReportRegistered';
+import ReportSummary from './reports/ReportSummary';
+import ReportTotalcost from './reports/ReportTotalcost';
+import ReportTshirt from './reports/ReportTshirt';
 
 const App = () => {
     return (
         <Router>
             <Routes>
                 <Route path='' element={<Home />} />
-                <Route path='test' element={<Test />} />
-                <Route path='login' element={<Test />} />
-                <Route path='accomodation' element={<Test />} />
-                <Route path='event-participation' element={<Test />} />
-                <Route path='tshirt' element={<Test />} />
-                <Route path='tours' element={<Test />} />
-                <Route path='previews' element={<Test />} />
+                <Route path='login' element={<Login />} />
+                <Route path='accomodation' element={<Accomodation />} />
+                <Route path='event-participation' element={<EventParticipation />} />
+                <Route path='tshirt' element={<Tshirt />} />
+                <Route path='tours' element={<Tours />} />
+                <Route path='previews' element={<Previews />} />
                 <Route path='/report'>
-                    <Route index element={<Test />} />
-                    <Route path='registered' element={<Test />} />
-                    <Route path='summary' element={<Test />} />
-                    <Route path='tshirt' element={<Test />} />
-                    <Route path='participation' element={<Test />} />
-                    <Route path='totalcost' element={<Test />} />
-                    <Route path='paymentstatus' element={<Test />} />
-                    <Route path='balance' element={<Test />} />
+                    <Route index element={<Previews />} />
+                    <Route path='registered' element={<ReportRegistered />} />
+                    <Route path='summary' element={<ReportSummary />} />
+                    <Route path='tshirt' element={<ReportTshirt />} />
+                    <Route path='participation' element={<ReportParticipation />} />
+                    <Route path='totalcost' element={<ReportTotalcost />} />
+                    <Route path='paymentstatus' element={<ReportPaymentstatus />} />
+                    <Route path='balance' element={<ReportBalance />} />
                 </Route>
                 <Route path='*' element={<NotFound />} />
             </Routes>

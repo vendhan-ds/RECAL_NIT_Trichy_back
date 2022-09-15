@@ -54,6 +54,8 @@ server.get(['/',
     res.render('index');
 });
 
+
+
 server.get('/dbtest', (req, res) => {
   let user = new User({
     username: "testUsername2",
