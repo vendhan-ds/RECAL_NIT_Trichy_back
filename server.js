@@ -1,9 +1,13 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
+const MongoStore = require("connect-mongo");
+const session = require("express-session");
 
 const apiRouter = require('./api');
 const config = require('./config/config.js');
+
+import login, { passport } from './app/routes/login';
 
 const server = express();
 server.use(express.json({
@@ -14,7 +18,7 @@ server.use(express.json({
 mongoose.connect(config.mongodb.dbURI, {
   useNewUrlParser: true,
   useUnifiedTopology: true
-});
+}).then(console.log("MongoDB Connected"));
 
 // View Engine Setup
 server.set('view engine', 'ejs');
@@ -33,6 +37,20 @@ const Registration = require('./app/models/Registration');
 const Tour = require('./app/models/Tour');
 const Tshirt = require('./app/models/Tshirt');
 const User = require('./app/models/Users');
+
+// Express Session
+server.use(
+  session({
+    store: MongoStore.create({mongoUrl: config.mongodb.dbURI}),
+    secret: "texy",
+    resave: false,
+    saveUninitialized: true,
+  })
+);
+
+// Passport Middleware
+server.use(passport.initialize());
+server.use(passport.session());
 
 // Routes
 server.get(['/',
@@ -54,8 +72,6 @@ server.get(['/',
     res.render('index');
 });
 
-
-
 server.get('/dbtest', (req, res) => {
   let user = new User({
     username: "testUsername2",
@@ -76,6 +92,7 @@ server.get('/dbclear', (req, res) => {
 });
 
 server.use('/api', apiRouter);
+server.use('/login', login);
 
 server.get('*', (req, res) => {
     res.render('index');
