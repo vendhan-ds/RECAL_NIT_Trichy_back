@@ -4,7 +4,7 @@ function EventParticipation() {
 
     function sendpost(){
         console.log('ss');
-        axios.get('http://localhost:8080/api/').then((res) => console.log(res.data));
+        axios.get('http://localhost:8080/api/eventsSave').then((res) => console.log(res.data));
         window.location.href = "/tshirt";
     }
 
@@ -76,6 +76,7 @@ I agree to pay the Lumpsum Participation Fee of Rs.4,500 towards this for Myself
 
 
 </td>
+<td></td>
                     <td><input type = "number" min="0"></input></td>
                     </tr>
                     
