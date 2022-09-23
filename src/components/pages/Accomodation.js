@@ -33,7 +33,13 @@ function Accomodation() {
 // change the pricess
     function sendpost(){
         console.log('ss');
-        var data = {'participationType' : fam, 'hotelRoom' : rreq, 'checkInDate' : cin, 'checkOutDate' : cout ,'hotel1' : room , 'hotel2' : room2};
+        //handle null error
+        var a = document.querySelector('#alumni').value;
+        var s = document.querySelector('#spouse').value;
+        var f = document.querySelector('#family').value;
+        var g = document.querySelector('#grandkids').value;
+
+        var data = {'participationType' : fam, 'hotelRoom' : rreq, 'checkInDate' : cin, 'checkOutDate' : cout ,'alumni' : a ,'spouse' : s,'familyMembers' : f,'grandKids' : g,'hotel1' : room , 'hotel2' : room2};
         axios.post('http://localhost:8080/api/data',data).then((res) => console.log(res.data));
         // window.location.href = "/event-participation";
     }
@@ -73,27 +79,27 @@ function Accomodation() {
                         <td><label>Alumni count 
                         
                     </label></td>
-                    <td><input type="number" min = "0"/></td>
+                    <td><input type="number" id='alumni' min = "0"/></td>
                         </tr>
                         <tr>
                         <td>
                     <label>Spouse count 
                         
                     </label></td>
-                    <td><input type="number" min = "0"/></td>
+                    <td><input type="number" id='spouse' min = "0"/></td>
                         </tr>
                         <tr>
                         <td>
                     <label>Family members count 
                         
                     </label></td>
-                    <td><input type="number" min = "0"/></td>
+                    <td><input type="number" id='family' min = "0"/></td>
                         </tr>
                         <tr>
                         <td>
                         <label>Grand Kids count 
                     </label></td>
-                    <td> <input type="number" min = "0"/>
+                    <td> <input type="number" id='grandkids' min = "0"/>
 </td>
                         </tr>
                     </tbody>

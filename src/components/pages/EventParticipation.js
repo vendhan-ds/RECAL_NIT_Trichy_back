@@ -17,27 +17,23 @@ function EventParticipation() {
             <table>
                 <tbody>
                     <tr><td>I will join the evening event at the Hotel</td>
-                    <td><input type = "number" min="0"></input></td>
+                    <td><input type = "checkbox" min="0"></input></td>
                     </tr>
                     <tr>
                         <td>I agree to pay the Lumpsum Participation Fee of Rs.4,500 towards this for Myself & Family
 </td>
-<td><input type = "number" min="0"></input></td>
+<td><input type = "checkbox" min="0"></input></td>
                     </tr>
                     <tr>
                         <td>I agree to pay Rs.750 per Head for Veg-Dinner & Rs.850 per Head for Non-Veg Dinner for the Participants (including Family). I also understand there is no Charge for Grand Children
 </td>
-<td><input type = "number" min="0"></input></td>
+<td><input type = "checkbox" min="0"></input></td>
                     </tr>
                     <tr><td>No. of Participants for Event at Hotel
 </td>
                     <td><input type = "number" min="0"></input></td>
                     </tr>
-                    <tr><td>Indicate numbers in the cells for Dinner Type
-
-</td>
-                    <td><input type = "number" min="0"></input></td>
-                    </tr>
+                    
                 </tbody>
             </table>
         </div><div className='mainc1'>
@@ -46,13 +42,13 @@ function EventParticipation() {
                 <tbody>
                     <tr><td>I will join for the Event at the Campus
 </td>
-                    <td><input type = "number" min="0"></input></td>
+                    <td><input type = "checkbox" min="0"></input></td>
                     </tr>
                     <tr>
                         <td>I agree to pay the Lumpsum Participation Fee of Rs.1,600 towards this for Myself & Family. I understand there is no charge for the Lunch at Campus
 
 </td>
-<td><input type = "number" min="0"></input></td>
+<td><input type = "checkbox" min="0"></input></td>
                     </tr>
                     <tr><td>No. of Participants for Event at Campus
 
@@ -61,19 +57,20 @@ function EventParticipation() {
 </td>
                     <td><input type = "number" min="0"></input></td>
                     </tr>
+                    <h1>26th Jan</h1>
                     <tr><td>"I will join for the Evening Event at the Hotel
 I agree to pay the Lumpsum Participation Fee of Rs.4,500 towards this for Myself & Family"
 
 
 
 </td>
-                    <td><input type = "number" min="0"></input></td>
+                    <td><input type = "checkbox" min="0"></input></td>
                     </tr>
                     <tr><td>I agree to pay Rs.750 per Head for Veg-Dinner & Rs.850 per Head for Non-Veg Dinner for the Participants (including Family). I also understand there is no Charge for Grand Children
 
 
 </td>
-                    <td><input type = "number" min="0"></input></td>
+                    <td><input type = "checkbox" min="0"></input></td>
                     </tr>
                     <tr><td>No. of Participants for Event at Hotel
 
@@ -81,12 +78,7 @@ I agree to pay the Lumpsum Participation Fee of Rs.4,500 towards this for Myself
 </td>
                     <td><input type = "number" min="0"></input></td>
                     </tr>
-                    <tr><td>Indicate numbers in the cells for Dinner Type
-
-
-</td>
-                    <td><input type = "number" min="0"></input></td>
-                    </tr>
+                    
                 </tbody>
             </table>
         </div>
