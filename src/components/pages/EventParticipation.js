@@ -24,7 +24,7 @@ function EventParticipation() {
         var arr = [a1,a2,a3,a4,a5,a6,a7,a8];
         console.log(arr);
         var data = {'conditions' : arr , 'd1v' : v1, 'd1nv' : nv1 , 'd2c' : v3 , 'd3v' : v2 , 'd3nv' : nv2};
-        axios.post('http://localhost:8080/api/eventsSave').then((res) => console.log(res.data));
+        axios.post('http://localhost:8080/api/eventsSave' , data).then((res) => console.log(res.data));
     }
 
     return (

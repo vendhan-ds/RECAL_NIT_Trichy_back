@@ -11,4 +11,9 @@ router.post('/accomodationSave', (req,res) => {
     res.send({data : r});
 })
 
+router.post('/eventsSave', (req,res) => {
+    var r = req.body;
+    res.send({data : r});
+})
+
 module.exports = router;
