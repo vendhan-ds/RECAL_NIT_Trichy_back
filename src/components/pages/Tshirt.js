@@ -44,7 +44,7 @@ function Tshirt() {
         <motion.div variants={variants1} initial ={{x:'100vw'}} animate="anim" exit={{opacity:0}} className = "outerc" transition={{delay : 0.2 , duration  :0.5}}> 
         <motion.div drag dragConstraints={{top:0,bottom:0,left:0,right:0}}  className='mtitle'><h1>Tshirt</h1></motion.div>
         <div className='mainc1'>
-            <label>I am Interested in T-Shirt : </label>
+            <label >I am Interested in T-Shirt : </label>
             <input type="checkbox" onChange={(e) => setn(e.target.checked)}></input>
         {need && <motion.div initial ={{opacity : 0}} animate = {{opacity : 1}} className='rdetails'>
             <table>

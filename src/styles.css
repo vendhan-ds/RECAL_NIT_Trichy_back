@@ -226,6 +226,11 @@ input[type=checkbox]:checked:after {
     .mainc{
         padding: 1rem 0.5rem;
         width: 95%;
+        font-size: 0.7rem;
+    }
+    .mainc1{
+        padding: 1rem 0.5rem;
+        width: 95%;
     }
     .rdetails{
         width: 100%;
