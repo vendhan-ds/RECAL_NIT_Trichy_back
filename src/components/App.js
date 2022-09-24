@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import {
     BrowserRouter as Router,
     Route,
-    Routes
+    Routes,useLocation
 } from 'react-router-dom';
 
 import Home, { NotFound } from './pages/Home';
@@ -12,7 +12,7 @@ import Login from './pages/Login';
 import Register from './pages/Register';
 import Tours from './pages/Tours';
 import Tshirt from './pages/Tshirt';
-
+import { AnimatePresence } from 'framer-motion';
 import Previews from './reports/Previews';
 import ReportBalance from './reports/ReportBalance';
 import ReportParticipation from './reports/ReportParticipation';
@@ -23,9 +23,12 @@ import ReportTotalcost from './reports/ReportTotalcost';
 import ReportTshirt from './reports/ReportTshirt';
 
 const App = () => {
+    const location = useLocation();
+
     return (
-        <Router>
-            <Routes>
+            <>         
+            <AnimatePresence>
+            <Routes location={location} key = {location.pathname}>
                 <Route path='' element={<Home />} />
                 <Route path='login' element={<Login />} />
                 <Route path='accomodation' element={<Accomodation />} />
@@ -45,7 +48,9 @@ const App = () => {
                 </Route>
                 <Route path='*' element={<NotFound />} />
             </Routes>
-        </Router>
+            </AnimatePresence>
+
+        </>
     );
 };
 

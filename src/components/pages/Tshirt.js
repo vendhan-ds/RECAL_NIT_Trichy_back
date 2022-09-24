@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import {AnimatePresence,motion} from 'framer-motion'
 
 
 function Tshirt() {
@@ -24,8 +25,8 @@ function Tshirt() {
     
 
     return (
-        <> 
-        <div className='mtitle'><h1>Tshirt</h1></div>
+        <motion.div initial ={{x:'100vw'}} animate={{x:'0'}} className = "outerc" transition={{delay : 0.2 , duration  :0.5}}> 
+        <div  className='mtitle'><h1>Tshirt</h1></div>
         <div className='mainc1'>
             <label>I am Interested in T-Shirt : </label>
             <input type="checkbox" onChange={(e) => setn(e.target.checked)}></input>
@@ -207,7 +208,7 @@ Design - Round Neck"
         <button onClick={() => sendpost()} className="eventbut">Save and continue</button>
         </div>        
  
- </>   );
+ </motion.div>   );
 }
 
 export default Tshirt;

@@ -36,8 +36,12 @@ td{
     margin-left: auto;
     margin-right: auto;
     overflow-x: auto;
-    animation: fadein 0.5s;
+    /* animation: fadein 0.5s; */
     width: fit-content;
+}
+
+.outerc{
+    width: 100%;
 }
 
 input[type=number], select {

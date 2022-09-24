@@ -1,5 +1,7 @@
 import React from 'react';
 import axios from 'axios';
+import {motion} from 'framer-motion'
+import {Link} from 'react-router-dom'
 function EventParticipation() {
 
     function sendpost(){
@@ -28,7 +30,7 @@ function EventParticipation() {
     }
 
     return (
-        <>
+        <motion.div initial ={{x:'100vw'}} animate={{x:'0'}} exit={{x:'100vw'}} className = "outerc" transition={{delay : 0.2 , duration  :0.5}}> 
         <div className='mtitle'><h1>EventParticipation</h1></div>
         
         <div className='mainc1'>
@@ -115,10 +117,10 @@ I agree to pay the Lumpsum Participation Fee of Rs.4,500 towards this for Myself
             </table>
         </div>
         <div className=' c1but'>
-        <button onClick={() => {window.location.href = "/accomodation"}} className="eventbut">Go Back and edit</button>
+        <Link to = "/accomodation"><button className="eventbut">Go Back and edit</button></Link>
         <button onClick={() => sendpost()} className="eventbut">Save and continue</button>
         </div>
-        </>
+        </motion.div>
     );
 }
 
