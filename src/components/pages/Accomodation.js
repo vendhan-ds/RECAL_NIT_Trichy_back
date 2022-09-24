@@ -72,7 +72,7 @@ function Accomodation() {
         anim : {
             x : "0",
             transition : {
-                delay : 0.2 , 
+                delay : 0.6 , 
                 duration : 0.7, 
             }
         }

@@ -1,21 +1,44 @@
 import { func } from 'prop-types';
 import React, { useState } from 'react';
 import axios from 'axios';
+import {Link} from 'react-router-dom'
+import {AnimatePresence,motion} from 'framer-motion'
+
 
 function Tours() {
 
     const [tour,setn] = useState(false);
-    
+    const [saved,sets] = useState(false);
+
     function sendpost(){
+        sets(false);
+        if(tour){
         var arr = [document.querySelector('#c1').value,document.querySelector('#c2').value,document.querySelector('#c3').value,document.querySelector('#c4').value];
-        var data = {'need' : tour , 'tour' : arr};
+        var data = {'need' : 1 , 'tour' : arr};
+        }
+        else{
+            var data = {'need' : 0};
+        }
         axios.post('http://localhost:8080/api/ToursSave' , data).then((res) => console.log(res.data));
+        sets(true);
 
 
     }
 
+    const variants1 = {
+        anim : {
+            x : "0",
+            transition : {
+                delay : 0.6 , 
+                duration : 0.7, 
+            }
+        }
+
+    }
+
     return (
-        <>
+        <motion.div variants={variants1} initial ={{x:'100vw'}} animate="anim" exit={{opacity:0}} className = "outerc" transition={{delay : 0.2 , duration  :0.5}}> 
+
         <div className='mtitle'><h1>Tours</h1></div>
         <div className='mainc'>
         <label>I am Interested in Tour option : </label>
@@ -92,11 +115,14 @@ function Tours() {
         </div>}
            
         </div>
-        <div className='c1but'>
-        <button onClick={() => {window.location.href = "/tshirt"}} className="eventbut">Go Back and edit</button>
-        <button onClick={() => sendpost()} className="eventbut">Save and continue</button>
+        <div className=' c1but'>
+        <Link to = "/tshirt"><button className="eventbut">Go Back and edit</button></Link>
+        <button onClick={() => sendpost()}>Save</button>
+            
+        {saved && <Link to="/" ><button>Continue</button> </Link>}
+        {saved &&  <p>Successfully Saved</p>}
         </div>
-        </>
+        </motion.div>
     );
 }
 

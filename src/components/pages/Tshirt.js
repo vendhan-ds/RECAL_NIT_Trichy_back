@@ -1,13 +1,16 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import {AnimatePresence,motion} from 'framer-motion'
-
+import {Link} from 'react-router-dom'
 
 function Tshirt() {
 
     const [need,setn] = useState(false);
+    const [saved,sets] = useState(false);
 
     function sendpost(){
+        sets(false);
+        if(need){
         var c = [document.querySelector('#c1').checked,document.querySelector('#c2').checked,document.querySelector('#c3').checked,document.querySelector('#c4').checked,document.querySelector('#c5').checked];
         console.log(c);
         var men1 = [document.querySelector('#m1').value,document.querySelector('#m2').value,document.querySelector('#m3').value,document.querySelector('#m4').value,document.querySelector('#m5').value,document.querySelector('#m6').value];
@@ -17,15 +20,28 @@ function Tshirt() {
         var girls1 = [document.querySelector('#g1').value,document.querySelector('#g2').value,document.querySelector('#g3').value];
         var boys1 = [document.querySelector('#b1').value,document.querySelector('#b2').value,document.querySelector('#b3').value];
         
-        data = {'c' : c, 'men1' : men1 , 'men2' : men2, 'women1' : women1, 'women2' : women2, 'girls1' : girls1 , 'boys1' : boys1};
+        var data = {'need' : 1 ,'c' : c, 'men1' : men1 , 'men2' : men2, 'women1' : women1, 'women2' : women2, 'girls1' : girls1 , 'boys1' : boys1};
+        }
+        else{
+            data = {'need' : 0}
+        }
         axios.post('http://localhost:8080/api/tshirtSave' , data).then((res) => console.log(res.data));
+        sets(true);
+    }
+
+    const variants1 = {
+        anim : {
+            x : "0",
+            transition : {
+                delay : 0.6 , 
+                duration : 0.7, 
+            }
+        }
 
     }
 
-    
-
     return (
-        <motion.div initial ={{x:'100vw'}} animate={{x:'0'}} className = "outerc" transition={{delay : 0.2 , duration  :0.5}}> 
+        <motion.div variants={variants1} initial ={{x:'100vw'}} animate="anim" exit={{opacity:0}} className = "outerc" transition={{delay : 0.2 , duration  :0.5}}> 
         <div  className='mtitle'><h1>Tshirt</h1></div>
         <div className='mainc1'>
             <label>I am Interested in T-Shirt : </label>
@@ -201,14 +217,18 @@ Design - Round Neck"
                 </tbody>
             </table>
             </div>}
+
         {!need && <p>No Tshirts Selected</p>}
         </div>
-        <div className='c1but'>
-        <button onClick={() => {window.location.href = "/event-participation"}} className="eventbut">Go Back and edit</button>
-        <button onClick={() => sendpost()} className="eventbut">Save and continue</button>
+        <div className=' c1but'>
+        <Link to = "/event-participation"><button className="eventbut">Go Back and edit</button></Link>
+        <button onClick={() => sendpost()}>Save</button>
+            
+        {saved && <Link to="/tours" ><button>Continue</button> </Link>}
+        {saved &&  <p>Successfully Saved</p>}
         </div>        
- 
- </motion.div>   );
+                        
+    </motion.div> );
 }
 
 export default Tshirt;

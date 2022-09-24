@@ -144,6 +144,8 @@ button:hover{
     padding: 1rem;
     margin-left: auto;
     margin-right: auto;
+    text-align: center;
+    line-height: 2;
 }
 
 .c1but button{
