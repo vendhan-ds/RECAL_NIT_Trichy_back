@@ -69,8 +69,16 @@ input[type=number]{
     margin-bottom: 7rem;
     background: rgba(4, 4, 4, .7);
     box-shadow: 0 4px 8px 5px rgba(0, 0, 0, 0.4), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-    width: 75%;
+    width: 60%;
     transition: 0.5s;
+}
+
+.mainc:hover{
+    box-shadow: 0 8px 16px 8px rgba(0, 0, 0, 0.4), 0 6px 20px 0 rgba(0, 0, 0, 0.5);
+}
+
+.mainc1:hover{
+    box-shadow: 0 8px 16px 8px rgba(0, 0, 0, 0.4), 0 6px 20px 0 rgba(0, 0, 0, 0.5);
 }
 
 #root{
@@ -121,6 +129,7 @@ button:hover{
 .mtitle{
     margin: 1rem;
     margin-right: auto;
+    font-size: 2rem;
 }
 
 .mainc1{
@@ -132,27 +141,29 @@ button:hover{
     margin-top: 5rem;
     background: rgba(4, 4, 4, .7);
     box-shadow: 0 4px 8px 5px rgba(0, 0, 0, 0.4), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    transition: 0.5s;
 }
 
 
 .eventbut{
     width: 10rem;
+    display: inline;
+    margin-right: 0;
 }
 
 .c1but{
     width: fit-content;
     padding: 1rem;
     margin-left: auto;
-    margin-right: auto;
-    text-align: center;
-    line-height: 2;
+    margin-right: auto;    
 }
 
 .c1but button{
-    margin: 0;
     background-color: rgba(4, 4, 4, .7);
     margin-right: 1rem;
 }
+
+
 
 .c1but button:hover{
     background-color: white;
@@ -182,6 +193,9 @@ input[type=checkbox]:checked:before {
     left: 0;
     background-color:#1E80EF;
 }
+
+
+
 input[type=checkbox]:checked:after {
     content: "";
     display: block;
@@ -236,3 +250,40 @@ input[type=checkbox]:checked:after {
         padding: 0;
     }
   }
+
+
+  /* Removes the clear button from date inputs */
+input[type="date"]::-webkit-clear-button {
+    display: none;
+}
+
+/* Removes the spin button */
+input[type="date"]::-webkit-inner-spin-button { 
+    display: none;
+}
+
+/* Always display the drop down caret */
+input[type="date"]::-webkit-calendar-picker-indicator {
+    color: #2c3e50;
+}
+
+/* A few custom styles for date inputs */
+input[type="date"] {
+    appearance: none;
+    -webkit-appearance: none;
+    color: #95a5a6;
+    font-family: "Helvetica", arial, sans-serif;
+    font-size: 18px;
+    border:1px solid #ecf0f1;
+    background:#ecf0f1;
+    padding:5px;
+    display: inline-block !important;
+    visibility: visible !important;
+}
+
+input[type="date"], focus {
+    color: #95a5a6;
+    box-shadow: none;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+}

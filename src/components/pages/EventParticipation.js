@@ -34,7 +34,7 @@ function EventParticipation() {
 
     const variants1 = {
         anim : {
-            x : "0",
+            opacity : 1,
             transition : {
                 delay : 0.6 , 
                 duration : 0.7, 
@@ -44,8 +44,8 @@ function EventParticipation() {
     }
 
     return (
-        <motion.div initial ={{x:'100vw'}} variants={variants1} animate="anim" exit={{opacity:0}} className = "outerc" transition={{delay : 0.2 , duration  :0.5}}> 
-        <div className='mtitle'><h1>EventParticipation</h1></div>
+        <motion.div initial ={{opacity:0}} variants={variants1} animate="anim" exit={{opacity:0}} className = "outerc" transition={{delay : 0.2 , duration  :0.5}}> 
+        <motion.div drag dragConstraints={{top:0,bottom:0,left:0,right:0}} className='mtitle'><h1>EventParticipation</h1></motion.div>
         
         <div className='mainc1'>
             <h2>24th Jan</h2>
@@ -101,7 +101,7 @@ function EventParticipation() {
                     <div className='mainc1'>
                     <table>
                     <tbody>
-                    <h1>26th Jan</h1>
+                    <h2>25th Jan</h2>
                     <tr><td>"I will join for the Evening Event at the Hotel
 I agree to pay the Lumpsum Participation Fee of Rs.4,500 towards this for Myself & Family"
 
@@ -132,10 +132,13 @@ I agree to pay the Lumpsum Participation Fee of Rs.4,500 towards this for Myself
         </div>
         <div className=' c1but'>
         <Link to = "/accomodation"><button className="eventbut">Go Back and edit</button></Link>
-        <button onClick={() => sendpost()}>Save</button>
+
+        <button className='eventbut' onClick={() => sendpost()}>Save</button>
             
-        {saved && <Link to="/tshirt" ><button>Continue</button> </Link>}
+        {saved && <Link to="/tshirt" ><button className='eventbut'>Continue</button> </Link>}
         {saved &&  <p>Successfully Saved</p>}
+
+
         </div>
         </motion.div>
     );

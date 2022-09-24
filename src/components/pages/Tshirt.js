@@ -42,11 +42,11 @@ function Tshirt() {
 
     return (
         <motion.div variants={variants1} initial ={{x:'100vw'}} animate="anim" exit={{opacity:0}} className = "outerc" transition={{delay : 0.2 , duration  :0.5}}> 
-        <div  className='mtitle'><h1>Tshirt</h1></div>
+        <motion.div drag dragConstraints={{top:0,bottom:0,left:0,right:0}}  className='mtitle'><h1>Tshirt</h1></motion.div>
         <div className='mainc1'>
             <label>I am Interested in T-Shirt : </label>
             <input type="checkbox" onChange={(e) => setn(e.target.checked)}></input>
-        {need && <div>
+        {need && <motion.div initial ={{opacity : 0}} animate = {{opacity : 1}} className='rdetails'>
             <table>
                 <tbody>
                 <h1>T-shirt for men</h1>
@@ -84,14 +84,14 @@ Design - Round Neck"
                     </tr>
                 </tbody>
             </table>
-        </div>
+        </motion.div>
         }
         
         <br />
         </div>
 
         <div className='mainc1'>
-        {need && <div>
+        {need && <motion.div initial ={{opacity : 0}} whileInView={{ opacity: 1 }} transition ={{duration : 2}} className='rdetails'>
             <table>
                 <thead>
                     <tr>
@@ -216,15 +216,15 @@ Design - Round Neck"
                     </tr>
                 </tbody>
             </table>
-            </div>}
+            </motion.div>}
 
         {!need && <p>No Tshirts Selected</p>}
         </div>
         <div className=' c1but'>
         <Link to = "/event-participation"><button className="eventbut">Go Back and edit</button></Link>
-        <button onClick={() => sendpost()}>Save</button>
+        <button className='eventbut' onClick={() => sendpost()}>Save</button>
             
-        {saved && <Link to="/tours" ><button>Continue</button> </Link>}
+        {saved && <Link to="/tours" ><button className='eventbut'>Continue</button> </Link>}
         {saved &&  <p>Successfully Saved</p>}
         </div>        
                         

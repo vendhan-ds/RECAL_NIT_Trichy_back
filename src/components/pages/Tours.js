@@ -39,13 +39,13 @@ function Tours() {
     return (
         <motion.div variants={variants1} initial ={{x:'100vw'}} animate="anim" exit={{opacity:0}} className = "outerc" transition={{delay : 0.2 , duration  :0.5}}> 
 
-        <div className='mtitle'><h1>Tours</h1></div>
-        <div className='mainc'>
+        <motion.div drag dragConstraints={{top:0,bottom:0,left:0,right:0}} className='mtitle'><h1>Tours</h1></motion.div>
+        <div className='mainc1'>
         <label>I am Interested in Tour option : </label>
         <input type="checkbox" onChange={(e) => setn(e.target.checked)}></input>
         <br />
         <br />
-        {tour && <div className='rdetails'>
+        {tour && <motion.div initial ={{opacity : 0}} animate = {{opacity : 1}} className='rdetails'>
         <table>
             <thead>
                 <tr>
@@ -112,14 +112,14 @@ function Tours() {
             </tbody>
         </table>
         
-        </div>}
+        </motion.div>}
            
         </div>
         <div className=' c1but'>
         <Link to = "/tshirt"><button className="eventbut">Go Back and edit</button></Link>
-        <button onClick={() => sendpost()}>Save</button>
+        <button  className='eventbut' onClick={() => sendpost()}>Save</button>
             
-        {saved && <Link to="/" ><button>Continue</button> </Link>}
+        {saved && <Link to="/" ><button className='eventbut'>Continue</button> </Link>}
         {saved &&  <p>Successfully Saved</p>}
         </div>
         </motion.div>

@@ -81,7 +81,7 @@ function Accomodation() {
     return (
         <motion.div variants={variants1} exit={{x:'-100vw'}} initial ={{x:'-100vw'}} animate="anim" className = "outerc" transition={{duration : 0.3}}>
          
-         <div className='mtitle'><h1 className='title'>Accomodation</h1></div>
+         <motion.div drag dragConstraints={{top:0,bottom:0,left:0,right:0}} className='mtitle'><h1>Accomodation</h1></motion.div>
          
          <div className='mainc'>
 
