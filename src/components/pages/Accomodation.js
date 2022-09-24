@@ -179,7 +179,11 @@ function Accomodation() {
                 <option value="hotelTamilNadu">hotelTamilNadu</option>
             </select></>}
             
-            {rreq == 'required' && hotel == "hotelTamilNadu" && <div className='roomdetails'>
+            {rreq == 'required' && <div className='roomdetails'>
+            <br />
+            <br />
+            <h1>hotelTamilNadu</h1>
+            <br />
             <table>
             <thead>
                 <tr>
@@ -324,8 +328,11 @@ function Accomodation() {
                     
 
                 </div>}
-
-            {rreq == 'required' && hotel == "breezeResidency" && <div className='roomdetails'>
+            {rreq == 'required' &&  <div className='roomdetails'>
+            <br />
+            <br />
+            <h1>breezeResidency</h1>
+            <br/>
             <table>
             <thead>
                 <tr>

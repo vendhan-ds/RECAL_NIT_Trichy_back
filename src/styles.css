@@ -230,7 +230,8 @@ input[type=checkbox]:checked:after {
     }
     .mainc1{
         padding: 1rem 0.5rem;
-        width: 95%;
+        width: 90%;
+        font-size: small;
     }
     .rdetails{
         width: 100%;
@@ -239,7 +240,9 @@ input[type=checkbox]:checked:after {
     }
     .exselect{
         width: 50%;
-
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
     }
     .fdetails{
         width: 100%;
@@ -254,6 +257,18 @@ input[type=checkbox]:checked:after {
         margin: 0;
         padding: 0;
     }
+    .mainc1 input[type="number"]{
+        width: 2rem;
+        margin: 0;
+        padding: 0;
+    }
+    td{
+        padding: 0.3rem;
+    }
+    .eventbut{
+        width: 6rem;
+    }
+
   }
 
 
