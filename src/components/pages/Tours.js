@@ -17,7 +17,7 @@ function Tours() {
         var data = {'need' : 1 , 'tour' : arr};
         }
         else{
-            var data = {'need' : 0};
+            var data = {'need' : 0 , 'tour' : [0,0,0,0]};
         }
         axios.post('http://localhost:8080/api/ToursSave' , data).then((res) => console.log(res.data));
         sets(true);
@@ -119,7 +119,7 @@ function Tours() {
         <Link to = "/tshirt"><button className="eventbut">Go Back and edit</button></Link>
         <button  className='eventbut' onClick={() => sendpost()}>Save</button>
             
-        {saved && <Link to="/" ><button className='eventbut'>Continue</button> </Link>}
+        {saved && <Link to="/previews" ><button className='eventbut'>Continue</button> </Link>}
         {saved &&  <p>Successfully Saved</p>}
         </div>
         </motion.div>

@@ -23,7 +23,7 @@ function Tshirt() {
         var data = {'need' : 1 ,'c' : c, 'men1' : men1 , 'men2' : men2, 'women1' : women1, 'women2' : women2, 'girls1' : girls1 , 'boys1' : boys1};
         }
         else{
-            data = {'need' : 0}
+            data = {'need' : 0, 'c' : [0,0,0,0,0], 'men1' : [0,0,0,0,0,0] , 'men2' : [0,0,0,0,0,0], 'women1' : [0,0,0,0], 'women2' : [0,0,0,0], 'girls1' : [0,0,0] , 'boys1' : [0,0,0]}
         }
         axios.post('http://localhost:8080/api/tshirtSave' , data).then((res) => console.log(res.data));
         sets(true);
@@ -50,6 +50,7 @@ function Tshirt() {
             <table>
                 <tbody>
                 <h1>T-shirt for men</h1>
+                
                     <tr>
                         <td>"T-Shirt (Dark Brick Red - Supima Cotton)
 Design - Polo with Collar"
