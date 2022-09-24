@@ -1,14 +1,24 @@
+import { func } from 'prop-types';
 import React, { useState } from 'react';
+import axios from 'axios';
 
 function Tours() {
 
     const [tour,setn] = useState(false);
+    
+    function sendpost(){
+        var arr = [document.querySelector('#c1').value,document.querySelector('#c2').value,document.querySelector('#c3').value,document.querySelector('#c4').value];
+        var data = {'need' : tour , 'tour' : arr};
+        axios.post('http://localhost:8080/api/ToursSave' , data).then((res) => console.log(res.data));
+
+
+    }
 
     return (
         <>
         <div className='mtitle'><h1>Tours</h1></div>
         <div className='mainc'>
-        <label>I am Interested in Tour option</label>
+        <label>I am Interested in Tour option : </label>
         <input type="checkbox" onChange={(e) => setn(e.target.checked)}></input>
         <br />
         <br />
@@ -52,9 +62,39 @@ function Tours() {
                 <td>20,000</td>
                 <td>15,000</td>
             </tr>
+            <tr>
+                <td>accomodation</td>
+                <td>Twin - Share</td>
+            </tr>
+            <tr>
+                <td>Remarks</td>
+                <td>4hrs Tour Srirangam, Tiruvanaikaval and Kallani Dam</td>
+                <td>Trichy - Chennai by volvo Bus</td>
+                <td>Trichy-Mysore by Train</td>
+                <td>By Volvo Bus. Drop to Bangalore</td>
+            </tr>
+            <tr>
+                <td>Note : </td>
+                <td>Rockfort Temple can be done by Participant on their own</td>
+
+            </tr>
+            <tr>
+                <td>Enter No. of Pax in Tour</td>
+                <td><input type="number" id = "c1"></input></td>
+                <td><input type="number" id = "c2"></input></td>
+                <td><input type="number" id = "c3"></input></td>
+                <td><input type="number" id = "c4"></input></td>
+
+            </tr>
             </tbody>
         </table>
+        
         </div>}
+           
+        </div>
+        <div className='c1but'>
+        <button onClick={() => {window.location.href = "/tshirt"}} className="eventbut">Go Back and edit</button>
+        <button onClick={() => sendpost()} className="eventbut">Save and continue</button>
         </div>
         </>
     );
