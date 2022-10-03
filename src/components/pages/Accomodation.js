@@ -48,7 +48,7 @@ function Accomodation() {
         var f = document.querySelector('#family').value;
         var g = document.querySelector('#grandkids').value;
         }
-        var data = {'participationType' : fam, 'hotelRoom' : rreq, 'checkInDate' : cin, 'checkOutDate' : cout ,'alumni' : a ,'spouse' : s,'familyMembers' : f,'grandKids' : g,'hotel1' : room , 'hotel2' : room2};
+        var data = {'participationType' : fam, 'hotelRoom' : rreq, 'checkInDate' : cin, 'checkOutDate' : cout ,'alumni' : a ,'spouse' : s,'familyMembers' : f,'grandKids' : g,'hotel1' : room , 'hotel2' : room2 ,'totalcost' : costs + costs2};
         axios.post('http://localhost:8080/api/accomodationSave',data).then((res) => console.log(res.data));
         sets(true);
         
