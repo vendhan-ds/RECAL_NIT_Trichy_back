@@ -23,11 +23,26 @@ function EventParticipation() {
         var nv2 = document.querySelector('#nv2').value;
         var v3 = document.querySelector('#v3').value;
 
-
-
+        if(v1 == ""){
+            v1 = 0;
+        }
+        if(nv1 == ""){
+            nv1 = 0;
+        }
+        if(v2 == ""){
+            v2 = 0;
+        }
+        if(nv2 == ""){
+            nv2 = 0;
+        }
+        if(v3 == ""){
+            v3 = 0;
+        }
+        
         var arr = [a1,a2,a3,a4,a5,a6,a7,a8];
         console.log(arr);
         var data = {'conditions' : arr , 'd1v' : v1, 'd1nv' : nv1 , 'd2c' : v3 , 'd3v' : v2 , 'd3nv' : nv2};
+        console.log(data);
         axios.post('http://localhost:8080/api/eventsSave' , data).then((res) => console.log(res.data));
         sets(true);
     }

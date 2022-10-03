@@ -3,14 +3,29 @@ import axios from 'axios';
 import {Link} from 'react-router-dom'
 
 function Previews() {
-
+    
+    var res;
     async function get(){   
-        var res = await axios.get('http://localhost:8080/api/previewData');
+        res = await axios.get('http://localhost:8080/api/previewData');
         console.log(res);
-        return res
+        document.querySelector('.paxtype').innerText = res.data[0];
+        document.querySelector('.cin').innerText = res.data[2];
+        document.querySelector('.cout').innerText = res.data[3];
+        document.querySelector('.pax1').innerText = 1
+        document.querySelector('.pax2').innerText = res.data[1].spouse;
+        document.querySelector('.pax3').innerText = res.data[1].familyMembers;
+        document.querySelector('.pax4').innerText = res.data[1].grandKids;
+        document.querySelector('#v1').innerText = res.data[6].count.veg;
+        document.querySelector('#nv1').innerText = res.data[6].count.nonveg;
+        document.querySelector('#v2').innerText = res.data[7].count;
+        document.querySelector('#nv2').innerText = res.data[8].count.veg;
+        document.querySelector('#v3').innerText = res.data[8].count.nonveg;
+        document.querySelector('.cloth').innerText = res.data[10];
+        
     } 
 
-    var res = get();
+    get();
+    
 
     return (
         <>
@@ -30,7 +45,7 @@ function Previews() {
                 </tr>
                 <tr>
                 <td>participationType(with family)</td>
-                <td><input type="checkbox" disabled checked="true"></input></td>
+                <td><p className='paxtype'></p></td>
            
                 </tr>
                 <tr>
@@ -40,8 +55,19 @@ function Previews() {
                     <td>Grand Kids - Nos</td>
                 </tr>
                 <tr>
+                    <td><p className='pax1'></p></td>
+                    <td><p className='pax2'></p></td>
+                    <td><p className='pax3'></p></td>
+                    <td><p className='pax4'></p></td>
+
+                </tr>
+                <tr>
                     <td>Check IN</td>
                     <td>Check OUT</td>
+                </tr>
+                <tr>
+                    <td><p className='cin'></p></td>
+                    <td><p className='cout'></p></td>
                 </tr>
                  </tbody>
         </table>
@@ -62,12 +88,7 @@ function Previews() {
                         <tr>
                             <td>Standard</td>
                             <td>2500</td>
-                            <td><input type="number" id='a11'onChange={(e) =>{
-                                var arr = [...room];
-                                arr[0] = e.target.value;
-                                setroom(arr);
-                                updatecost(arr);
-                            }} ></input></td>
+                            <td><input type="number" id='a11' ></input></td>
                             <td>2800</td>
                             <td><input type="number" id='a12'></input></td>
                             <td>1400</td>
@@ -134,12 +155,7 @@ function Previews() {
                         <tr>
                             <td>Standard</td>
                             <td>2000</td>
-                            <td><input type="number" id='a11'onChange={(e) =>{
-                                var arr = [...room2];
-                                arr[0] = e.target.value;
-                                setroom2(arr);
-                                updatecost2(arr);
-                            }} ></input></td>
+                            <td><input type="number" id='a11' ></input></td>
                             <td>2800</td>
                             <td><input type="number" id='a12'></input></td>
                             <td>1400</td>
@@ -197,27 +213,27 @@ function Previews() {
                             <tr><td>No. of Participants for Event at Hotel
 </td>   
 <td>Veg</td>
-                    <td><input type = "number" min="0" id='v1'></input></td>
+                    <td><p id='v1'></p></td>
                     <td>Non-Veg</td>
-                    <td><input type = "number" min="0" id='nv1'></input></td>
+                    <td><p id='nv1'></p></td>
                     </tr>
                     <tr><td>No. of Participants for Event at Campus
 
 
 
 </td>
-                    <td><input type = "number" min="0" id='v3'></input></td>
+                    <td><p id='v3'></p></td>
                     </tr>
                     <tr><td>No. of Participants for Event at Hotel
 </td>   
 <td>Veg</td>
-                    <td><input type = "number" min="0" id='v2'></input></td>
+                    <td><p id='v2'></p></td>
                     <td>Non-Veg</td>
-                    <td><input type = "number" min="0" id='nv2'></input></td>
+                    <td><p id='nv2'></p></td>
                     </tr>
                         </tbody>
                     </table>
-
+                    <p className='cloth'></p>
                     <table>
                 <thead>
                     <tr>

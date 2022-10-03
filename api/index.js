@@ -35,8 +35,8 @@ router.get("/previewData",async(req,res)=>{
                      inpax=foundUser.pax;
                      chkin=foundUser.checkInDate;
                      chkout=foundUser.checkOutDate;
-                     htl1=foundUser.hotelsArray.hotel11;
-                     htl2=foundUser.hotelsArray.hotel22;
+                     htl1=foundUser.hotel11;
+                     htl2=foundUser.hotel22;
     
                 }
             }
@@ -321,7 +321,7 @@ router.post('/accomodationSave', async(req,res)=>{
 
         const newAcc= new Accomodation({
             typeOfRoom:'singleOccupancy',
-            username:"TestUser",
+            username:"TestUser1",
             pax:{
                 alumini:1,
                 spouse:1,

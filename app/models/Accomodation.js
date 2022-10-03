@@ -1,21 +1,22 @@
 const mongoose = require('mongoose');
 
-const paxSchema = new mongoose.Schema({
-    alumni: Number,
-    spouse: Number,
-    familyMembers: Number,
-    grandKids: Number
-  });
+/*const paxSchema = new mongoose.Schema({
+    alumni: {Type:Number, default:0},
+    spouse:  {Type:Number, Default:0},
+    familyMembers: {Type:Number, Default:0},
+    grandKids:  {Type:Number, Default:0}
+  });*/
   
   const roomOneSchema = new mongoose.Schema({
     roomType: {
       type: String,
-      enum: ['standard', 'executive', 'deluxe', 'luxurySuite', 'grandSuite']
+      enum: ['standard', 'executive', 'deluxe', 'luxurySuite', 'grandSuite'],
     },
     roomOccupancy: {
       type: String,
-      enum: ['singleOccupancy', 'doubleOccupancy', 'twinShare']
-    }
+      enum: ['singleOccupancy', 'doubleOccupancy', 'twinShare'],
+    },
+    count: Number
   });
   
   const roomTwoSchema = new mongoose.Schema({
@@ -26,7 +27,8 @@ const paxSchema = new mongoose.Schema({
     roomOccupancy: {
       type: String,
       enum: ['singleOccupancy', 'doubleOccupancy', 'twinShare']
-    }
+    },
+    count: Number
   });
   
   const accomodationSchema = new mongoose.Schema({
@@ -35,15 +37,20 @@ const paxSchema = new mongoose.Schema({
       type: String,
       enum: ['single', 'withFamily']
     },
-    pax: paxSchema,
+    pax: {
+    alumni: Number,
+    spouse:  Number,
+    familyMembers: Number,
+    grandKids:  Number
+  },
     hotelRoom: {
       type: String,
       enum: ['required', 'notRequired']
     },
-    typeOfRoom: {
+    /*typeOfRoom: {
       type: [String],
       enum: ['singleOccupancy', 'doubleOccupancy', 'twinShare']
-    },
+    },*/
     checkInDate: Date,
     checkOutDate: Date,
     hotel: {
@@ -53,7 +60,11 @@ const paxSchema = new mongoose.Schema({
       hotelTamilNadu: {
         type: [roomTwoSchema]
       }
-    }
+    },
+    
+      hotel11:[{type:Number}],
+      hotel22:[Number]
+    
   });
 
 module.exports = mongoose.model('Accomodation', accomodationSchema);
