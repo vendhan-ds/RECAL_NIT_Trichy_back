@@ -16,6 +16,8 @@ function Previews() {
     var got = 0
     async function get(){
         res = await axios.get('http://localhost:8080/api/previewData');
+        res.data.shift();
+
         document.querySelector('.paxtype').innerText = res.data[0];
         document.querySelector('.cin').innerText = res.data[2];
         document.querySelector('.cout').innerText = res.data[3];

@@ -19,18 +19,19 @@ router.get('/', (req, res) => {
 */
 router.get("/previewData",async(req,res)=>{
     var currentUser="TestUser1";//req.body.username;
-    console.log("h1")
+    //console.log("h1")
     var particitype,inpax,chkin,chkout,htl1,htl2,eventpart,member,foodmembers,tourop,options,quantity;
-    try{console.log("h1")
+    try{//console.log("h1")
     
-         Accomodation.findOne({username:currentUser},function(err,foundUser){
+        await Accomodation.findOne({username:currentUser},function(err,foundUser){
             if(err){
                 console.log("error")
             }else{
-                console.log(String(foundUser));
-                console.log('ttrtt');
+                //console.log(String(foundUser));
+                //console.log('ttrtt');
 
                 if(foundUser){
+                    console.log("hlo4")
                      particitype=foundUser.participationType;
                      inpax=foundUser.pax;
                      chkin=foundUser.checkInDate;
@@ -40,48 +41,50 @@ router.get("/previewData",async(req,res)=>{
     
                 }
             }
-        });
-        Event.findOne({username:currentUser},function(err,foundUser){
+        }).clone();
+        await Event.findOne({username:currentUser},function(err,foundUser){
             if(err){
                 console.log("error")
             }else{
-                console.log(String(foundUser));
+                //console.log(String(foundUser));
                 if(foundUser){
+                    console.log("hlo2")
                      eventpart=foundUser.Date1;
                      member=foundUser.Date2;
                      foodmembers=foundUser.Date3;
     
                 }
             }
-        });
-        Tour.findOne({username:currentUser},
+        }).clone();
+        await Tour.findOne({username:currentUser},
             function(err,foundUser){
                 if(err){
                     console.log("error")
                 }else{
-                    console.log(String(foundUser));
+                    //console.log(String(foundUser));
                     if(foundUser){
+                        console.log("hlo")
                          tourop=[foundUser.isInterested,
                         foundUser.paxCount]
                     }
                 }
-            });
-        Tshirt.findOne({username:currentUser},
+            }).clone();
+        await Tshirt.findOne({username:currentUser},
             function(err,foundUser){
                 if(err){
                     console.log(err)
                 }else{
-                    console.log(String(foundUser));
+                    //console.log(String(foundUser));
                     if(foundUser){
                          options=[foundUser.menOption, foundUser.womenOption, foundUser.grandKidsOption]
                          quantity=foundUser.quantity
                           console.log('sssssss');
-                          var previewData=[particitype,inpax,chkin,chkout,htl1,htl2,eventpart,member,foodmembers,options, quantity,tourop];
+                          var previewData=[currentUser,particitype,inpax,chkin,chkout,htl1,htl2,eventpart,member,foodmembers,options, quantity,tourop];
                           console.log(previewData);
                           res.send(previewData)
                     }
                 }
-            });
+            }).clone();
         /*console.log('sssssss');    
         var previewData=[particitype,inpax,chkin,chkout,htl1,htl2,eventpart,member,foodmembers,options, quantity,tourop]
         console.log('sssssss');
@@ -120,14 +123,21 @@ router.get('/registered',async(req,res)=>{
 })
 
 router.get('/participation',async(req,res)=>{
-    try{var total1=[0,0,0,0], campvis=[0,0,0,0],evening24=[0,0,0,0],evening25=[0,0,0,0], singl=0,doubl=0,tripl=0,singl2=0,doubl2=0,tripl2=0,hsingl=0,hdoubl=0,htripl=0,hsingl2=0,hdoubl2=0,htripl2=0,totalum,totspo,totgrndchld,accomneed1=[0,0,0,0,0,0,0,0],accomneed2=[0,0,0,0,0,0,0,0];
+    var total1=[0,0,0,0], campvis=[0,0,0,0],evening24=[0,0,0,0],evening25=[0,0,0,0], singl=0,doubl=0,tripl=0,singl2=0,doubl2=0,tripl2=0,hsingl=0,hdoubl=0,htripl=0,hsingl2=0,hdoubl2=0,htripl2=0,totalum,totspo,totgrndchld,accomneed1=[0,0,0,0,0,0,0,0],accomneed2=[0,0,0,0,0,0,0,0],paxx={};
+    console.log("abc")
+    var accomdata=await Accomodation.find()
+        console.log(accomdata)
+    try{
         console.log("accom01")
         await Accomodation.find(function(err,docs){
             if(err){
                 console.log(err)
             }else{console.log(docs)
                 docs.forEach((doc)=>{
-                  if(doc.checkInDate=='2022-09-24'&&doc.checkOutDate=='2022-09-25'){
+                    console.log("Updated -> ")
+                    console.log(doc.checkInDate.getDate().toString())
+                    //console.log(Date('2022-10-24T00:00:00.000Z').getDate())
+                  if(doc.checkInDate.getDate().toString()=='24' &&doc.checkOutDate.getDate().toString()=='25'){
                   console.log("inin")
                   singl=singl+doc.hotel11[0]+doc.hotel11[3]+doc.hotel11[9]+doc.hotel11[6]+doc.hotel11[12];
                   doubl=doubl+doc.hotel11[1]+doc.hotel11[4]+doc.hotel11[10]+doc.hotel11[7]+doc.hotel11[13];
@@ -135,7 +145,7 @@ router.get('/participation',async(req,res)=>{
                   hsingl=hsingl+doc.hotel22[0]+doc.hotel22[3]+doc.hotel22[9]+doc.hotel22[6]+doc.hotel22[12];
                   hdoubl=hdoubl+doc.hotel22[1]+doc.hotel22[4]+doc.hotel22[10]+doc.hotel22[7]+doc.hotel22[13];
                   htripl=htripl+doc.hotel22[2]+doc.hotel22[5]+doc.hotel22[11]+doc.hotel22[8]+doc.hotel22[15];}
-                  if(doc.checkInDate=='2022-09-24'&&doc.checkOutDate=='2022-09-26'){
+                  if(doc.checkInDate.getDate().toString()=='24'&&doc.checkOutDate.getDate().toString()=='25'){
                   singl2=singl2+doc.hotel11[0]+doc.hotel11[3]+doc.hotel11[9]+doc.hotel11[6]+doc.hotel11[12];
                   doubl2=doubl2+doc.hotel11[1]+doc.hotel11[4]+doc.hotel11[10]+doc.hotel11[7]+doc.hotel11[13];
                   tripl2=tripl2+doc.hotel11[2]+doc.hotel11[5]+doc.hotel11[11]+doc.hotel11[8]+doc.hotel11[15];
@@ -143,71 +153,83 @@ router.get('/participation',async(req,res)=>{
                   hdoubl2=hdoubl2+doc.hotel22[1]+doc.hotel22[4]+doc.hotel22[10]+doc.hotel22[7]+doc.hotel22[13];
                   htripl2=htripl2+doc.hotel22[2]+doc.hotel22[5]+doc.hotel22[11]+doc.hotel22[8]+doc.hotel22[15];}
                   
-                  if(doc.checkOutDate=='2022-09-24'){
+                  if(doc.checkOutDate.getDate().toString()=='24'){
                     totalum++;
                     totspo=totspo+doc.pax.spouse;
                     totgrndchld=totgrndchld+doc.pax.grandKids;
                   }
-                  var accomneed1=[singl,doubl,tripl,(singl+tripl+doubl),hsingl,hdoubl,htripl,(hsingl+htripl+hdoubl)]
-                console.log(accomneed1)
+                 /* var accomneed1=[singl,doubl,tripl,(singl+tripl+doubl),hsingl,hdoubl,htripl,(hsingl+htripl+hdoubl)]
+                console.log(accomneed1)*/
 
                 })
                 console.log("accom1")
-                var accomneed1=[singl,doubl,tripl,(singl+tripl+doubl),hsingl,hdoubl,htripl,(hsingl+htripl+hdoubl)]
+                accomneed1=[singl,doubl,tripl,(singl+tripl+doubl),hsingl,hdoubl,htripl,(hsingl+htripl+hdoubl)]
                 console.log(accomneed1)
-                var accomneed2=[singl2,doubl2,tripl2,(singl2+tripl2+doubl2),hsingl2,hdoubl2,htripl2,(hsingl2+htripl2+hdoubl2)]
+                accomneed2=[singl2,doubl2,tripl2,(singl2+tripl2+doubl2),hsingl2,hdoubl2,htripl2,(hsingl2+htripl2+hdoubl2)]
             }
         }).clone()
         await Tour.find((err,doc2)=>{
             if(err){console.log(err)}
             else{
-                doc2.forEach(async (doc2)=>{
-                    var paxx=doc2.paxCount;
+                console.log("tourstuf")
+                doc2.forEach( (doc2)=>{
+                     paxx=doc2.paxCount;
                 })
             }
         }).clone()
         await Event.find( (err,doc3)=>{
             if(err){console.log(err)}
             else{
-                doc3.forEach(async (doc3)=>{
-                    await Accomodation.findOne({username:doc3.username},(err,user)=>{
-                        if(err){console.log(err)}
-                        else{
-                            if(doc3.Date2.cond1==true){
-                        console.log(user)
-                        campvis[0]++;
-                        campvis[1]=campvis[1]+user.pax.spouse
-                        campvis[2]=campvis[2]+user.pax.familyMembers
-                        campvis[3]=campvis[3]+user.pax.grandKids
-                    }
-                    if(doc3.Date1.cond1==true){
-                        evening24[0]++;
-                        evening24[1]=evening24[1]+user.pax.spouse
-                        evening24[2]=evening24[2]+user.pax.familyMembers
-                        evening24[3]=evening24[3]+user.pax.grandKids
-                    }
-                    if(doc3.Date3.cond1==true){
-                        evening25[0]++;
-                        evening25[1]=evening24[1]+user.pax.spouse
-                        evening25[2]=evening24[2]+user.pax.familyMembers
-                        evening25[3]=evening24[3]+user.pax.grandKids
-                    }
-            
-                    var total1=[(campvis[0]+evening24[0]+evening25[0]),(campvis[1]+evening24[1]+evening25[1]),(campvis[2]+evening24[2]+evening25[2]),(campvis[3]+evening24[3]+evening25[3])];
-                    console.log(campvis)}
-                    }).clone()
+                doc3.forEach( (doc34)=>{
+                    console.log("doc34")
+                    console.log(doc34)
+                    accomdata.forEach ( (user)=>{
+                        if(user.username==doc34.username){
+                            if(doc34.Date2.cond1==true){
+                                console.log("helo")
+                                console.log(user)
+                                campvis[0]++;
+                                campvis[1]=campvis[1]+user.pax.spouse
+                                campvis[2]=campvis[2]+user.pax.familyMembers
+                                campvis[3]=campvis[3]+user.pax.grandKids
+                            }
+                            if(doc34.Date1.cond1==true){
+                            evening24[0]++;
+                            evening24[1]=evening24[1]+user.pax.spouse
+                            evening24[2]=evening24[2]+user.pax.familyMembers
+                            evening24[3]=evening24[3]+user.pax.grandKids
+                            }
+                            if(doc34.Date3.cond1==true){
+                            evening25[0]++;
+                            evening25[1]=evening25[1]+user.pax.spouse
+                            evening25[2]=evening25[2]+user.pax.familyMembers
+                            evening25[3]=evening25[3]+user.pax.grandKids
+                            }}
+                        else{console.log("No UserFound")}})
+
+                        total1=[(campvis[0]+evening24[0]+evening25[0]),(campvis[1]+evening24[1]+evening25[1]),(campvis[2]+evening24[2]+evening25[2]),(campvis[3]+evening24[3]+evening25[3])];
+                        console.log(campvis)
+                         })
+                        
+                        var datasend={
+                    campusvisit:campvis,EveningHotel24th:evening24, EveningHotel25th:evening25,
+                    totalval:total1, 
+                    breezeRes:accomneed1, TamilnaduHotel:accomneed2, 
+                    eventdata:total1,
+                    tourdata:paxx};
+                console.log(datasend)
+                res.send(datasend);
+            }}).clone()
                     
-                })
+                    /*console.log(total1)
+                    
+                }
                 console.log("accom13")
                 //var total1=[(campvis[0]+evening24[0]+evening25[0]),(campvis[1]+evening24[1]+evening25[1]),(campvis[2]+evening24[2]+evening25[2]),(campvis[3]+evening24[3]+evening25[3])]
                 var total2=[]
-                var datasend={
-                    
-                    campusvisit:campvis,EveningHotel24th:evening24, EveningHotel25th:evening25,totalval:total1, breezeRes:accomneed1, TamilnaduHotel:accomneed2, eventdata:total1};
-                console.log(datasend)
-                res.send(datasend);
             }
-        }).clone()
+        }).clone()*/
+        
         
     }
     catch(e){
@@ -283,9 +305,115 @@ router.get('/tshirt',async(req,res)=>{
    }
 })
 
-router.get("/summary",async(req,res)=>{
+router.get("/registrationList",async(req,res)=>{
     try{
-        
+       // var userlist=[];
+        Registration.find(function(err,docs){
+            if(err){
+                console.log(err);
+            }else{
+                console.log(docs);
+                res.send(docs)
+            }
+        }).clone()
+    }
+    catch(e){
+    console.log(e.message);
+   }
+})
+
+router.get("/summary",async(req,res)=>{
+    var accomdata=await Accomodation.find()
+    var eventdata=await Event.find()
+    var tourdata= await Tour.find()
+    var tshirtData=await Tshirt.find()
+    var regdata= await Registration.find()
+    var datasend=[];
+    try{
+        regdata.forEach((user)=>{
+            eventdata.forEach((user2)=>{
+                if(user2.username==user.username){
+                accomdata.forEach((user3)=>{
+                    if(user3.username==user.username){
+                    tourdata.forEach((user4)=>{
+                        if(user4.username==user.username){
+                        tshirtData.forEach((user5)=>{
+                            if(user5.username==user.username){
+                            var Branch=user.branch;
+                            var Alumini_name=user.name;
+                            var Spouse=user.spouse;
+                            var family=user3.pax.familyMembers;
+                            var granchd=user3.pax.grandKids;
+                            var totalppl=2+family+granchd
+                            var singl=user3.hotel11[0]+user3.hotel11[3]+user3.hotel11[6]+user3.hotel11[9]+user3.hotel11[12]+user3.hotel22[0]+user3.hotel22[3]+user3.hotel22[6]+user3.hotel22[9]+user3.hotel22[12];
+                            var doubl=user3.hotel11[1]+user3.hotel11[4]+user3.hotel11[7]+user3.hotel11[10]+user3.hotel11[13]+user3.hotel22[1]+user3.hotel22[4]+user3.hotel22[7]+user3.hotel22[10]+user3.hotel22[13];
+                            var Tshare=user3.hotel11[2]+user3.hotel11[5]+user3.hotel11[8]+user3.hotel11[11]+user3.hotel11[14]+user3.hotel22[2]+user3.hotel22[5]+user3.hotel22[8]+user3.hotel22[11]+user3.hotel22[14];
+                            var totalrooms=singl+doubl+Tshare;
+
+                            var event24=user2.Date1.cond2?4500:0;
+                            var campus25=user2.Date2.cond1?1600:0;
+                            var event25=user2.Date3.cond1?4500:0; 
+                            var totEveCost=event24+campus25+event25;
+                            var dinner24=user2.Date1.cond2?(totalppl*700):0;
+                            var dinner25=user2.Date3.cond2?(totalppl*700):0;
+                            var dinnerCost=dinner25+dinner24;
+
+                            var singlCost=singl*2800;
+                            var doublCost=doubl*3500;
+                            var TshareCost=Tshare*1750;
+                            var roomcost=singl*2800+doubl*3500+Tshare*1750;
+
+                            //barFee=(2+family)*1000;
+                             var trichyTour=user4.paxCount.trichy*500
+                             var phuketTour=user4.paxCount.phuketKrabi*53000
+                             var mysoreTour=user4.paxCount.mysoreBandipur*20000
+                             var hampiTour=user4.paxCount.belurHampi*16000
+                             var tourCost=trichyTour+phuketTour+mysoreTour+hampiTour;
+                             
+                             var grandTotal=tourCost+roomcost+dinnerCost+totEveCost
+                        
+                             var reportData={
+                                Branch:Branch,
+                                Alumini_name:Alumini_name,
+                                SPouse_name:Spouse,
+                                familymem:family,
+                                grandchildren:granchd,
+                                totalmembers:totalppl,
+                                Single:singl,
+                                Double:doubl,
+                                Twinshare:Tshare,
+                                Rooms:totalrooms,
+                                Event24th:event24,
+                                Campus25th:campus25,
+                                Event25th:event25,
+                                TotalFee:totEveCost,
+                                Dinner24th:dinner24,
+                                Dinner25th:dinner25,
+                                totaldinner:dinnerCost,
+                                singleCost:singlCost,
+                                doubleCost:doublCost,
+                                twinCost:TshareCost,
+                                totalCost:roomcost,
+                                trichy:trichyTour,
+                                phuket:phuketTour,
+                                mysore:mysoreTour,
+                                hampi:hampiTour,
+                                tourCost:tourCost,
+                                FrandTotal:grandTotal,
+                        
+                                
+                            }
+                             
+                            datasend.push(reportData); 
+                        }}
+                        )}
+                    })}
+                })
+            }
+        })
+            
+        res.send(datasend)
+        })
     }
     catch(e){
     console.log(e.message);
