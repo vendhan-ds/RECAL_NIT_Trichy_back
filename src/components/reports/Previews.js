@@ -1,13 +1,21 @@
-import React from 'react';
+import React, { useState } from 'react';
 import axios from 'axios';
 import {Link} from 'react-router-dom'
 
 function Previews() {
     
+    const [hotel1,seth1] = useState([0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]);
+    const [hotel2,seth2] = useState([0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]);
+    const [m1a,setm1] = useState([0,0,0,0,0,0]);
+    const [m2a,setm2] = useState([0,0,0,0,0,0]);
+    const [wa1,setw] = useState([0,0,0,0]);
+    const [ba1,setb] = useState([0,0,0]);
+    const [ga1,setg] = useState([0,0,0]);
+
     var res;
-    async function get(){   
+    var got = 0
+    async function get(){
         res = await axios.get('http://localhost:8080/api/previewData');
-        console.log(res);
         document.querySelector('.paxtype').innerText = res.data[0];
         document.querySelector('.cin').innerText = res.data[2];
         document.querySelector('.cout').innerText = res.data[3];
@@ -21,11 +29,39 @@ function Previews() {
         document.querySelector('#nv2').innerText = res.data[8].count.veg;
         document.querySelector('#v3').innerText = res.data[8].count.nonveg;
         document.querySelector('.cloth').innerText = res.data[10];
-        
+        var a1 = res.data[5];
+        a1 = [...a1];
+        seth2(a1);
+        var a2 = res.data[4];
+        a2 = [...a2];
+        seth1(a2);
+
+        var temp = res.data[10];
+        var m1 = temp.menQuantity.supimaCotton;
+        var am1 = [m1.sSize,m1.mSize,m1.lSize,m1.xlSize,m1.xxlSize,m1.xxxlSize];
+        m1 = temp.menQuantity.sweatWickingFabric;
+        var am2 = [m1.sSize,m1.mSize,m1.lSize,m1.xlSize,m1.xxlSize,m1.xxxlSize];
+        setm1(am1);
+        setm2(am2); 
+
+        m1 = temp.womenQuantity.supimaCotton;
+        var aw1 = [m1.sSize,m1.mSize,m1.lSize,m1.xlSize];
+        setw(aw1);
+        m1 = temp.grandKids.boys;
+        var ba = [m1.category1,m1.category2,m1.category3];
+        setb(ba);
+        m1 = temp.grandKids.girls;
+        var ga = [m1.category1,m1.category2,m1.category3];
+        setg(ga);
+
+        document.querySelector('.t1').innerText = res.data[11][1].trichy;
+        document.querySelector('.t2').innerText = res.data[11][1].phuketKrabi;
+        document.querySelector('.t3').innerText = res.data[11][1].mysoreBandipur;
+        document.querySelector('.t4').innerText = res.data[11][1].belurHampi;
+
     } 
 
-    get();
-    
+    get();    
 
     return (
         <>
@@ -88,51 +124,51 @@ function Previews() {
                         <tr>
                             <td>Standard</td>
                             <td>2500</td>
-                            <td><input type="number" id='a11' ></input></td>
+                            <td><input type="number" id='a11' value = {hotel1[0]} ></input></td>
                             <td>2800</td>
-                            <td><input type="number" id='a12'></input></td>
+                            <td><input type="number" id='a12' value = {hotel1[1]}></input></td>
                             <td>1400</td>
-                            <td><input type="number" id='a13'></input></td>
+                            <td><input type="number" id='a13' value = {hotel1[2]}></input></td>
 
                         </tr>
                         <tr>
                             <td>Executive</td>
                             <td>3000</td>
-                            <td><input type="number" id='a21'></input></td>
+                            <td><input type="number" id='a21' value = {hotel1[3]}></input></td>
                             <td>3600</td>
-                            <td><input type="number" id='a22'></input></td>
+                            <td><input type="number" id='a22' value = {hotel1[4]}></input></td>
                             <td>1800</td>
-                            <td><input type="number" id='a23'></input></td>
+                            <td><input type="number" id='a23' value = {hotel1[5]}></input></td>
 
                         </tr>
                         <tr>
                             <td>Deluxe</td>
                             <td>3800</td>
-                            <td><input type="number" id='a31'></input></td>
+                            <td><input type="number" id='a31' value = {hotel1[6]}></input></td>
                             <td>4300</td>
-                            <td><input type="number" id='a32'></input></td>
+                            <td><input type="number" id='a32' value = {hotel1[7]}></input></td>
                             <td>2150</td>
-                            <td><input type="number" id='a33'></input></td>
+                            <td><input type="number" id='a33' value = {hotel1[8]}></input></td>
 
                         </tr>
                         <tr>
                             <td>Luxury suite</td>
                             <td>5000</td>
-                            <td><input type="number" id='a41'></input></td>
+                            <td><input type="number" id='a41' value = {hotel1[9]}></input></td>
                             <td>5000</td>
-                            <td><input type="number" id='a42' ></input></td>
+                            <td><input type="number" id='a42' value = {hotel1[10]} ></input></td>
                             <td>2500</td>
-                            <td><input type="number" id='a43' ></input></td>
+                            <td><input type="number" id='a43' value = {hotel1[11]} ></input></td>
 
                         </tr>
                         <tr>
                             <td>Grand Suite</td>
                             <td>6700</td>
-                            <td><input type="number" id='a51' ></input></td>
+                            <td><input type="number" id='a51' value = {hotel1[12]} ></input></td>
                             <td>6700</td>
-                            <td><input type="number" id='a52' ></input></td>
+                            <td><input type="number" id='a52' value = {hotel1[13]} ></input></td>
                             <td>3350</td>
-                            <td><input type="number" id='a53' ></input></td>
+                            <td><input type="number" id='a53' value = {hotel1[14]} ></input></td>
 
                         </tr>
                         </tbody>
@@ -155,51 +191,51 @@ function Previews() {
                         <tr>
                             <td>Standard</td>
                             <td>2000</td>
-                            <td><input type="number" id='a11' ></input></td>
+                            <td><input type="number" id='a11' value = {hotel2[0]} ></input></td>
                             <td>2800</td>
-                            <td><input type="number" id='a12'></input></td>
+                            <td><input type="number" id='a12' value = {hotel2[1]}></input></td>
                             <td>1400</td>
-                            <td><input type="number" id='a13'></input></td>
+                            <td><input type="number" id='a13' value = {hotel2[2]}></input></td>
 
                         </tr>
                         <tr>
                             <td>Deluxe</td>
                             <td>3000</td>
-                            <td><input type="number" id='a21'></input></td>
+                            <td><input type="number" id='a21' value = {hotel2[3]}></input></td>
                             <td>3600</td>
-                            <td><input type="number" id='a22'></input></td>
+                            <td><input type="number" id='a22' value = {hotel2[4]}></input></td>
                             <td>1800</td>
-                            <td><input type="number" id='a23'></input></td>
+                            <td><input type="number" id='a23' value = {hotel2[5]}></input></td>
 
                         </tr>
                         <tr>
                             <td>Family Room</td>
                             <td>3800</td>
-                            <td><input type="number" id='a31'></input></td>
+                            <td><input type="number" id='a31' value = {hotel2[6]}></input></td>
                             <td>4300</td>
-                            <td><input type="number" id='a32'></input></td>
+                            <td><input type="number" id='a32' value = {hotel2[7]}></input></td>
                             <td>2150</td>
-                            <td><input type="number" id='a33'></input></td>
+                            <td><input type="number" id='a33' value = {hotel2[8]}></input></td>
 
                         </tr>
                         <tr>
                             <td>Suite</td>
                             <td>5000</td>
-                            <td><input type="number" id='a41'></input></td>
+                            <td><input type="number" id='a41' value = {hotel2[9]}></input></td>
                             <td>5000</td>
-                            <td><input type="number" id='a42' ></input></td>
+                            <td><input type="number" id='a42' value = {hotel2[10]} ></input></td>
                             <td>2500</td>
-                            <td><input type="number" id='a43' ></input></td>
+                            <td><input type="number" id='a43' value = {hotel2[11]} ></input></td>
 
                         </tr>
                         <tr>
                             <td>Additional Member</td>
                             <td>6700</td>
-                            <td><input type="number" id='a51' ></input></td>
+                            <td><input type="number" id='a51' value = {hotel2[12]} ></input></td>
                             <td>6700</td>
-                            <td><input type="number" id='a52' ></input></td>
+                            <td><input type="number" id='a52' value = {hotel2[13]} ></input></td>
                             <td>3350</td>
-                            <td><input type="number" id='a53' ></input></td>
+                            <td><input type="number" id='a53' value = {hotel2[14]} ></input></td>
 
                         </tr>
                         </tbody>
@@ -250,33 +286,33 @@ function Previews() {
                     </tr>
                     <tr>
                         <td>S(38)</td>
-                        <td><input type="number" id='m1'></input></td>
-                        <td><input type="number" id='m12'></input></td>
+                        <td><input type="number" id='m1'  value = {m1a[0]}></input></td>
+                        <td><input type="number" id='m12' value = {m2a[0]}></input></td>
                     </tr>
                     <tr>
                         <td>M(40)</td>
-                        <td><input type="number" id='m2'></input></td>
-                        <td><input type="number" id='m22'></input></td>
+                        <td><input type="number" id='m2' value = {m1a[1]}></input></td>
+                        <td><input type="number" id='m22' value = {m2a[1]}></input></td>
                     </tr>
                     <tr>
                         <td>L(42)</td>
-                        <td><input type="number" id='m3'></input></td>
-                        <td><input type="number" id='m32'></input></td>
+                        <td><input type="number" id='m3' value = {m1a[2]}></input></td>
+                        <td><input type="number" id='m32' value = {m2a[2]}></input></td>
                     </tr>
                     <tr>
                         <td>XL(44)</td>
-                        <td><input type="number" id='m4'></input></td>
-                        <td><input type="number" id='m42'></input></td>
+                        <td><input type="number" id='m4' value = {m1a[3]}></input></td>
+                        <td><input type="number" id='m42' value = {m2a[3]}></input></td>
                     </tr>
                     <tr>
                         <td>XXL(46)</td>
-                        <td><input type="number" id='m5'></input></td>
-                        <td><input type="number" id='m52'></input></td>
+                        <td><input type="number" id='m5' value = {m1a[4]}></input></td>
+                        <td><input type="number" id='m52' value = {m2a[4]}></input></td>
                     </tr>
                     <tr>
                         <td>XXL(48)</td>
-                        <td><input type="number" id='m6'></input></td>
-                        <td><input type="number" id='m62'></input></td>
+                        <td><input type="number" id='m6' value = {m1a[5]}></input></td>
+                        <td><input type="number" id='m62' value = {m2a[5]}></input></td>
                     </tr>
                     <tr>
                         <td>Total Mens T-Shirt</td>
@@ -291,22 +327,22 @@ function Previews() {
                     </tr>
                     <tr>
                         <td>S</td>
-                        <td><input type="number" id='w1'></input></td>
+                        <td><input type="number" id='w1'  value = {wa1[0]}></input></td>
                         <td><input type="number" id='w12'></input></td>
                     </tr>
                     <tr>
                         <td>M</td>
-                        <td><input type="number" id='w2'></input></td>
+                        <td><input type="number" id='w2' value = {wa1[1]}></input></td>
                         <td><input type="number" id='w22'></input></td>
                     </tr>
                     <tr>
                         <td>L</td>
-                        <td><input type="number" id='w3'></input></td>
+                        <td><input type="number" id='w3' value = {wa1[2]}></input></td>
                         <td><input type="number" id='w32'></input></td>
                     </tr>
                     <tr>
                         <td>XL</td>
-                        <td><input type="number" id='w4'></input></td>
+                        <td><input type="number" id='w4' value = {wa1[3]}></input></td>
                         <td><input type="number" id='w42'></input></td>
                     </tr>
                     <tr>
@@ -321,15 +357,15 @@ function Previews() {
                     </tr>
                     <tr>
                         <td>5-8 Years</td>
-                        <td><input type="number" id='g1'></input></td>
+                        <td><input type="number" id='g1' value = {ga1[0]}></input></td>
                     </tr>
                     <tr>
                         <td>9-12 Years</td>
-                        <td><input type="number" id='g2'></input></td>
+                        <td><input type="number" id='g2' value = {ga1[1]}></input></td>
                     </tr>
                     <tr>
                         <td>13-15 Years</td>
-                        <td><input type="number" id='g3'></input></td>
+                        <td><input type="number" id='g3' value = {ga1[2]}></input></td>
                     </tr>
                     <tr>
                         <td>Total Girls T-Shirt</td>
@@ -342,23 +378,22 @@ function Previews() {
                     </tr>
                     <tr>
                         <td>5-8 Years</td>
-                        <td><input type="number" id='b1'></input></td>
+                        <td><input type="number" id='b1' value = {ba1[0]}></input></td>
                     </tr>
                     <tr>
                         <td>9-12 Years</td>
-                        <td><input type="number" id='b2'></input></td>
+                        <td><input type="number" id='b2' value = {ba1[1]}></input></td>
                     </tr>
                     <tr>
                         <td>13-15 Years</td>
-                        <td><input type="number" id='b3'></input></td>
+                        <td><input type="number" id='b3' value = {ba1[2]}></input></td>
                     </tr>
                     <tr>
                         <td>Total Girls T-Shirt</td>
-                        {/* <td>{totalboy}</td> */}
+                    
                     </tr>
                 </tbody>
             </table>
-
             <table>
                 <thead>
                     <tr>
@@ -368,25 +403,25 @@ function Previews() {
                     </tr>
                     <tr>
                         <td>Trichy Local</td>
-                        <td>no of participation</td>
+                        <td className='t1'>no of participation</td>
                         <td>no of participation</td>
 
                     </tr>
                     <tr>
                         <td>Phuket-Krabi Tour</td>
-                        <td>no of participation</td>
+                        <td className='t2'>no of participation</td>
                         <td>no of participation</td>
 
                     </tr>
                     <tr>
                         <td>Mysore Tour</td>
-                        <td>no of participation</td>
+                        <td className='t3'>no of participation</td>
                         <td>no of participation</td>
 
                     </tr>
                     <tr>
                         <td>Belur-Hampi Tour</td>
-                        <td>no of participation</td>
+                        <td className='t4'>no of participation</td>
                         <td>no of participation</td>
 
                     </tr>
