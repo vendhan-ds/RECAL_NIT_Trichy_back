@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import {Link} from 'react-router-dom'
 
@@ -14,23 +14,11 @@ function Previews() {
 
     var res;
     var got = 0
-    async function get(){
-        res = await axios.get('http://localhost:8080/api/previewData');
+    useEffect(() => {
+        res = axios.get('http://localhost:8080/api/previewData').then((res) => {
         res.data.shift();
-
-        document.querySelector('.paxtype').innerText = res.data[0];
-        document.querySelector('.cin').innerText = res.data[2];
-        document.querySelector('.cout').innerText = res.data[3];
-        document.querySelector('.pax1').innerText = 1
-        document.querySelector('.pax2').innerText = res.data[1].spouse;
-        document.querySelector('.pax3').innerText = res.data[1].familyMembers;
-        document.querySelector('.pax4').innerText = res.data[1].grandKids;
-        document.querySelector('#v1').innerText = res.data[6].count.veg;
-        document.querySelector('#nv1').innerText = res.data[6].count.nonveg;
-        document.querySelector('#v2').innerText = res.data[7].count;
-        document.querySelector('#nv2').innerText = res.data[8].count.veg;
-        document.querySelector('#v3').innerText = res.data[8].count.nonveg;
-        document.querySelector('.cloth').innerText = res.data[10];
+        console.log(res);
+        
         var a1 = res.data[5];
         a1 = [...a1];
         seth2(a1);
@@ -55,15 +43,31 @@ function Previews() {
         m1 = temp.grandKids.girls;
         var ga = [m1.category1,m1.category2,m1.category3];
         setg(ga);
-
+        document.querySelector('.paxtype').innerText = res.data[0];
+        document.querySelector('.cin').innerText = res.data[2];
+        document.querySelector('.cout').innerText = res.data[3];
+        document.querySelector('.pax1').innerText = 1
+        document.querySelector('.pax2').innerText = res.data[1].spouse;
+        document.querySelector('.pax3').innerText = res.data[1].familyMembers;
+        document.querySelector('.pax4').innerText = res.data[1].grandKids;
+        document.querySelector('#v1').innerText = res.data[6].count.veg;
+        document.querySelector('#nv1').innerText = res.data[6].count.nonveg;
+        document.querySelector('#v2').innerText = res.data[7].count;
+        document.querySelector('#nv2').innerText = res.data[8].count.veg;
+        document.querySelector('#v3').innerText = res.data[8].count.nonveg;
+        document.querySelector('.cloth').innerText = res.data[10];
         document.querySelector('.t1').innerText = res.data[11][1].trichy;
         document.querySelector('.t2').innerText = res.data[11][1].phuketKrabi;
         document.querySelector('.t3').innerText = res.data[11][1].mysoreBandipur;
         document.querySelector('.t4').innerText = res.data[11][1].belurHampi;
 
-    } 
+        
 
-    get();    
+    });
+    return () => {
+        console.log('This will be logged on unmount');
+      };
+    },[])
 
     return (
         <>
