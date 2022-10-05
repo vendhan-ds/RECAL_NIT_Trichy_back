@@ -8,6 +8,7 @@ function ReportParticipation() {
     console.log(res);
     }
     get();
+    
     return(
         <h1>ReportParticipation</h1>
     );
