@@ -1,10 +1,29 @@
-import React, { useState } from 'react';
+import React from 'react';
 import axios from 'axios';
-import {AnimatePresence,motion} from 'framer-motion'
+import {motion} from 'framer-motion'
 import {Link} from 'react-router-dom'
+import {useState} from 'react'
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableCell from '@mui/material/TableCell';
+import TableContainer from '@mui/material/TableContainer';
+import TableHead from '@mui/material/TableHead';
+import TableRow from '@mui/material/TableRow';
+import Paper from '@mui/material/Paper';
+import Stack from '@mui/material/Stack';
+import Button from '@mui/material/Button';
+import Divider from '@mui/material/Divider';
+import Checkbox from '@mui/material/Checkbox';
+import { func } from 'prop-types';
+import { TextField } from '@mui/material';
 
 function Tshirt() {
 
+
+    const mystyle = {
+        width : 'fit-content',
+        padding : '1rem',
+      };
     const [need,setn] = useState(false);
     const [saved,sets] = useState(false);
 
@@ -29,6 +48,56 @@ function Tshirt() {
         sets(true);
     }
 
+    function updateno(){
+        var men1 = [document.querySelector('#m1').value,document.querySelector('#m2').value,document.querySelector('#m3').value,document.querySelector('#m4').value,document.querySelector('#m5').value,document.querySelector('#m6').value];
+        var men2 = [document.querySelector('#m12').value,document.querySelector('#m22').value,document.querySelector('#m32').value,document.querySelector('#m42').value,document.querySelector('#m52').value,document.querySelector('#m62').value];
+        var women1 = [document.querySelector('#w1').value,document.querySelector('#w2').value,document.querySelector('#w3').value,document.querySelector('#w4').value];
+        var women2 = [document.querySelector('#w12').value,document.querySelector('#w22').value,document.querySelector('#w32').value,document.querySelector('#w42').value];
+        var girls1 = [document.querySelector('#g1').value,document.querySelector('#g2').value,document.querySelector('#g3').value];
+        var boys1 = [document.querySelector('#b1').value,document.querySelector('#b2').value,document.querySelector('#b3').value];
+        var sm1,sm2,sw1,sw2,sg,sb;
+        sm1=sm2=sw1=sw2=sg=sb=0;
+        for(var i of men1){
+            if(i != ''){
+                sm1 += parseInt(i);
+            }
+        }
+        for(var i of men2){
+            if(i != ''){
+                sm2 += parseInt(i);
+            }
+        }
+        for(var i of women1){
+            if(i != ''){
+                sw1 += parseInt(i);
+            }
+        }
+        for(var i of women2){
+            if(i != ''){
+                sw2 += parseInt(i);
+            }
+        }
+        for(var i of girls1){
+            if(i != ''){
+                sg += parseInt(i);
+            }
+        }
+        for(var i of boys1){
+            if(i != ''){
+                sb += parseInt(i);
+            }
+        }
+        document.querySelector('.rm1').innerText = sm1;
+        document.querySelector('.rm2').innerText = sm2;
+        document.querySelector('.rw1').innerText = sw1;
+        document.querySelector('.rw2').innerText = sw2;
+        document.querySelector('.rg').innerText = sg;
+        document.querySelector('.rb').innerText = sb;
+
+
+
+    }
+
     const variants1 = {
         anim : {
             x : "0",
@@ -43,192 +112,232 @@ function Tshirt() {
     return (
         <motion.div variants={variants1} initial ={{x:'100vw'}} animate="anim" exit={{opacity:0}} className = "outerc" transition={{delay : 0.2 , duration  :0.5}}> 
         <motion.div drag dragConstraints={{top:0,bottom:0,left:0,right:0}}  className='mtitle'><h1>Tshirt</h1></motion.div>
-        <div className='mainc1'>
+        <div className='center'>
             <label >I am Interested in T-Shirt : </label>
-            <input type="checkbox" onChange={(e) => setn(e.target.checked)}></input>
+            <Checkbox onChange={(e) => setn(e.target.checked)}/>
         {need && <motion.div initial ={{opacity : 0}} animate = {{opacity : 1}} className='rdetails'>
-            <table>
-                <tbody>
+        <TableContainer component = {Paper} style = {mystyle}>
+
+            <Table>
+                <TableBody>
                 <h1>T-shirt for men</h1>
                 
-                    <tr>
-                        <td>"T-Shirt (Dark Brick Red - Supima Cotton)
-Design - Polo with Collar"
-</td>
-                    <td><input type="checkbox" id='c1'></input></td>
-                    </tr>
-                    <tr>
-                        <td>"T-Shirt (Navy Blue - Sweat-wicking Fabric)
-Design - Round Neck for Walking & Exercise)"
-</td>
-                    <td><input type="checkbox" id='c2'></input></td>
-                    </tr>
-                    <h1>T-shirt for Women</h1>
-                    <tr>
-                        <td>T-Shirt Navy Blue - Sweat-wicking Fabric)
+                    <TableRow>
+                        <TableCell>T-Shirt (Dark Brick Red - Supima Cotton)
+Design - Polo with Collar
+</TableCell>
+                    <TableCell><Checkbox id='c1'/></TableCell>
+                    </TableRow>
+                    <TableRow>
+                        <TableCell>T-Shirt (Navy Blue - Sweat-wicking Fabric)
 Design - Round Neck for Walking & Exercise
-</td>
-                    <td><input type="checkbox" id='c3'></input></td>
-                    </tr>
-                    <tr>
-                        <td>"T-Shirt (Royal Blue - Sweat-wicking Fabric)
-Design - Round Neck for Walking & Exercise)"
-</td>
-                    <td><input type="checkbox" id='c4'></input></td>
-                    </tr>
+</TableCell>
+                    <TableCell><Checkbox id='c2'/></TableCell>
+                    </TableRow>
+                    <h1>T-shirt for Women</h1>
+                    <TableRow>
+                        <TableCell>T-Shirt Navy Blue - Sweat-wicking Fabric)
+Design - Round Neck for Walking & Exercise
+</TableCell>
+                    <TableCell><Checkbox id='c3'/></TableCell>
+                    </TableRow>
+                    <TableRow>
+                        <TableCell>T-Shirt (Royal Blue - Sweat-wicking Fabric)
+Design - Round Neck for Walking & Exercise)
+</TableCell>
+                    <TableCell><Checkbox id='c4'/></TableCell>
+                    </TableRow>
                     <h1>T-Shirt for GrandChildren</h1>
-                    <tr>
-                        <td>"T-Shirt (Maroon - Supima Cotton)
-Design - Round Neck"
-</td>
-                    <td><input type="checkbox" id='c5'></input></td>
-                    </tr>
-                </tbody>
-            </table>
+                    <TableRow>
+                        <TableCell>T-Shirt (Maroon - Supima Cotton)
+Design - Round Neck
+</TableCell>
+                    <TableCell><Checkbox id='c5'/></TableCell>
+                    </TableRow>
+                </TableBody>
+            </Table>
+            </TableContainer>
         </motion.div>
         }
         
         <br />
         </div>
 
-        <div className='mainc1'>
-        {need && <motion.div initial ={{opacity : 0}} whileInView={{ opacity: 1 }} transition ={{duration : 2}} className='rdetails'>
-            <table>
-                <thead>
-                    <tr>
-                        <td>Description and size</td>
-                        <td>Suprima Cotton @ Rs.1,200</td>
-                        <td>Sweat-wicking @ Rs.600</td>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>Mens Polo T-Shirt with Collar</td>
-                        <td>Qty</td>
-                        <td>Qty</td>
-                    </tr>
-                    <tr>
-                        <td>S(38)</td>
-                        <td><input type="number" id='m1'></input></td>
-                        <td><input type="number" id='m12'></input></td>
-                    </tr>
-                    <tr>
-                        <td>M(40)</td>
-                        <td><input type="number" id='m2'></input></td>
-                        <td><input type="number" id='m22'></input></td>
-                    </tr>
-                    <tr>
-                        <td>L(42)</td>
-                        <td><input type="number" id='m3'></input></td>
-                        <td><input type="number" id='m32'></input></td>
-                    </tr>
-                    <tr>
-                        <td>XL(44)</td>
-                        <td><input type="number" id='m4'></input></td>
-                        <td><input type="number" id='m42'></input></td>
-                    </tr>
-                    <tr>
-                        <td>XXL(46)</td>
-                        <td><input type="number" id='m5'></input></td>
-                        <td><input type="number" id='m52'></input></td>
-                    </tr>
-                    <tr>
-                        <td>XXL(48)</td>
-                        <td><input type="number" id='m6'></input></td>
-                        <td><input type="number" id='m62'></input></td>
-                    </tr>
-                    <tr>
-                        <td>Total Mens T-Shirt</td>
-                        {/* <td>{totalmen1}</td>
-                        <td>{totalmen2}</td> */}
+        <div className='center'>
+        {need && <motion.div initial ={{opacity : 0}} whileInView={{ opacity: 1 }} TableRowansition ={{duration : 2}} className='rdetails'>
+        <TableContainer component = {Paper} style = {mystyle}>
 
-                    </tr>
-                    <tr>
-                        <td>Womens Round Neck T-shirt</td>
-                        <td>Qty</td>
-                        <td>Qty</td>
-                    </tr>
-                    <tr>
-                        <td>S</td>
-                        <td><input type="number" id='w1'></input></td>
-                        <td><input type="number" id='w12'></input></td>
-                    </tr>
-                    <tr>
-                        <td>M</td>
-                        <td><input type="number" id='w2'></input></td>
-                        <td><input type="number" id='w22'></input></td>
-                    </tr>
-                    <tr>
-                        <td>L</td>
-                        <td><input type="number" id='w3'></input></td>
-                        <td><input type="number" id='w32'></input></td>
-                    </tr>
-                    <tr>
-                        <td>XL</td>
-                        <td><input type="number" id='w4'></input></td>
-                        <td><input type="number" id='w42'></input></td>
-                    </tr>
-                    <tr>
-                        <td>Total Womens T-Shirt</td>
-                        {/* <td>{totalwomen1}</td>
-                        <td>{totalwomen2}</td> */}
-                    </tr>
-                    <tr>
-                        <td>Children(Girls) Round Neck T-shirt</td>
-                        <td>Qty</td>
-                        <td>Qty</td>
-                    </tr>
-                    <tr>
-                        <td>5-8 Years</td>
-                        <td><input type="number" id='g1'></input></td>
-                    </tr>
-                    <tr>
-                        <td>9-12 Years</td>
-                        <td><input type="number" id='g2'></input></td>
-                    </tr>
-                    <tr>
-                        <td>13-15 Years</td>
-                        <td><input type="number" id='g3'></input></td>
-                    </tr>
-                    <tr>
-                        <td>Total Girls T-Shirt</td>
-                        {/* <td>{totalgirl}</td> */}
-                    </tr>
-                    <tr>
-                        <td>Children(Boys) Round Neck T-shirt</td>
-                        <td>Qty</td>
-                        <td>Qty</td>
-                    </tr>
-                    <tr>
-                        <td>5-8 Years</td>
-                        <td><input type="number" id='b1'></input></td>
-                    </tr>
-                    <tr>
-                        <td>9-12 Years</td>
-                        <td><input type="number" id='b2'></input></td>
-                    </tr>
-                    <tr>
-                        <td>13-15 Years</td>
-                        <td><input type="number" id='b3'></input></td>
-                    </tr>
-                    <tr>
-                        <td>Total Girls T-Shirt</td>
-                        {/* <td>{totalboy}</td> */}
-                    </tr>
-                </tbody>
-            </table>
+            <Table>
+                <thead>
+                    <TableRow>
+                        <TableCell>Description and size</TableCell>
+                        <TableCell>Suprima Cotton @ Rs.1,200</TableCell>
+                        <TableCell>Sweat-wicking @ Rs.600</TableCell>
+                    </TableRow>
+                </thead>
+                <TableBody>
+                    <TableRow>
+                        <TableCell>Mens Polo T-Shirt with Collar</TableCell>
+                        <TableCell>Qty</TableCell>
+                        <TableCell>Qty</TableCell>
+                    </TableRow>
+                    <TableRow>
+                        <TableCell>S(38)</TableCell>
+                        <TableCell><TextField onChange = {() => {updateno()}}  id='m1'/></TableCell>
+                        <TableCell><TextField onChange = {() => {updateno()}}  id='m12'/></TableCell>
+                    </TableRow>
+                    <TableRow>
+                        <TableCell>M(40)</TableCell>
+                        <TableCell><TextField onChange = {() => {updateno()}}  id='m2'/></TableCell>
+                        <TableCell><TextField onChange = {() => {updateno()}}  id='m22'/></TableCell>
+                    </TableRow>
+                    <TableRow>
+                        <TableCell>L(42)</TableCell>
+                        <TableCell><TextField onChange = {() => {updateno()}}  id='m3'/></TableCell>
+                        <TableCell><TextField onChange = {() => {updateno()}}  id='m32'/></TableCell>
+                    </TableRow>
+                    <TableRow>
+                        <TableCell>XL(44)</TableCell>
+                        <TableCell><TextField onChange = {() => {updateno()}}  id='m4'/></TableCell>
+                        <TableCell><TextField onChange = {() => {updateno()}}  id='m42'/></TableCell>
+                    </TableRow>
+                    <TableRow>
+                        <TableCell>XXL(46)</TableCell>
+                        <TableCell><TextField onChange = {() => {updateno()}}  id='m5'/></TableCell>
+                        <TableCell><TextField onChange = {() => {updateno()}}  id='m52'/></TableCell>
+                    </TableRow>
+                    <TableRow>
+                        <TableCell>XXL(48)</TableCell>
+                        <TableCell><TextField onChange = {() => {updateno()}}  id='m6'/></TableCell>
+                        <TableCell><TextField onChange = {() => {updateno()}}  id='m62'/></TableCell>
+                    </TableRow>
+                    <TableRow>
+                        <TableCell><h3>Total Mens T-Shirt</h3></TableCell>
+                        <TableCell><h3 className='rm1'></h3></TableCell>
+                        <TableCell><h3 className='rm2'></h3></TableCell>
+
+                    </TableRow>
+                    <TableRow>
+                        <TableCell>Womens Round Neck T-shirt</TableCell>
+                        <TableCell>Qty</TableCell>
+                        <TableCell>Qty</TableCell>
+                    </TableRow>
+                    <TableRow>
+                        <TableCell>S</TableCell>
+                        <TableCell><TextField onChange = {() => {updateno()}}  id='w1'/></TableCell>
+                        <TableCell><TextField onChange = {() => {updateno()}}  id='w12'/></TableCell>
+                    </TableRow>
+                    <TableRow>
+                        <TableCell>M</TableCell>
+                        <TableCell><TextField onChange = {() => {updateno()}}  id='w2'/></TableCell>
+                        <TableCell><TextField onChange = {() => {updateno()}}  id='w22'/></TableCell>
+                    </TableRow>
+                    <TableRow>
+                        <TableCell>L</TableCell>
+                        <TableCell><TextField onChange = {() => {updateno()}}  id='w3'/></TableCell>
+                        <TableCell><TextField onChange = {() => {updateno()}}  id='w32'/></TableCell>
+                    </TableRow>
+                    <TableRow>
+                        <TableCell>XL</TableCell>
+                        <TableCell><TextField onChange = {() => {updateno()}}  id='w4'/></TableCell>
+                        <TableCell><TextField onChange = {() => {updateno()}}  id='w42'/></TableCell>
+                    </TableRow>
+                    <TableRow>
+                        <TableCell><h3>Total Womens T-Shirt</h3></TableCell>
+                        <TableCell><h3 className='rw1'></h3></TableCell>
+                        <TableCell><h3 className='rw2'></h3></TableCell>
+                    </TableRow>
+                    <TableRow>
+                        <TableCell>Children(Girls) Round Neck T-shirt</TableCell>
+                        <TableCell>Qty</TableCell>
+                        <TableCell>Qty</TableCell>
+                    </TableRow>
+                    <TableRow>
+                        <TableCell>5-8 Years</TableCell>
+                        <TableCell><TextField onChange = {() => {updateno()}}  id='g1'/></TableCell>
+                        <TableCell></TableCell>
+
+                    </TableRow>
+                    <TableRow>
+                        <TableCell>9-12 Years</TableCell>
+                        <TableCell><TextField onChange = {() => {updateno()}}  id='g2'/></TableCell>
+                        <TableCell></TableCell>
+
+                    </TableRow>
+                    <TableRow>
+                        <TableCell>13-15 Years</TableCell>
+                        <TableCell><TextField onChange = {() => {updateno()}}  id='g3'/></TableCell>
+                        <TableCell></TableCell>
+
+                    </TableRow>
+                    <TableRow>
+                        <TableCell><h3>Total Girls T-Shirt</h3></TableCell>
+                        <TableCell><h3><label className='rg'></label></h3></TableCell>
+                        <TableCell></TableCell>
+
+
+                    </TableRow>
+                    <TableRow>
+                        <TableCell>Children(Boys) Round Neck T-shirt</TableCell>
+                        <TableCell>Qty</TableCell>
+                        <TableCell>Qty</TableCell>
+                    </TableRow>
+                    <TableRow>
+                        <TableCell>5-8 Years</TableCell>
+                        <TableCell><TextField onChange = {() => {updateno()}}  id='b1'/></TableCell>
+                        <TableCell></TableCell>
+
+                    </TableRow>
+                    <TableRow>
+                        <TableCell>9-12 Years</TableCell>
+                        <TableCell><TextField onChange = {() => {updateno()}}  id='b2'/></TableCell>
+                        <TableCell></TableCell>
+
+                    </TableRow>
+                    <TableRow>
+                        <TableCell>13-15 Years</TableCell>
+                        <TableCell><TextField onChange = {() => {updateno()}}  id='b3'/></TableCell>
+                        <TableCell></TableCell>
+
+                    </TableRow>
+                    <TableRow>
+                        <TableCell><h3>Total Boys T-Shirt</h3></TableCell>
+                        <TableCell><h3><label className='rb'></label></h3></TableCell>
+                        <TableCell></TableCell>
+
+                    </TableRow>
+                </TableBody>
+            </Table>
+            </TableContainer>
             </motion.div>}
 
         {!need && <p>No Tshirts Selected</p>}
-        </div>
+        {/* </div>
         <div className=' c1but'>
         <Link to = "/event-participation"><button className="eventbut">Go Back and edit</button></Link>
         <button className='eventbut' onClick={() => sendpost()}>Save</button>
             
         {saved && <Link to="/tours" ><button className='eventbut'>Continue</button> </Link>}
         {saved &&  <p>Successfully Saved</p>}
-        </div>        
-                        
+        </div>         */}
+
+        <br />
+        <div className='center'>
+                <Stack direction="row" spacing={2} style = {{padding : '1rem'}} align = 'center' divider={<Divider orientation="vertical" flexItem />} component = {Paper}>
+                <Button size="large" variant="contained" >
+                    Save
+                </Button>
+                <Link to="/tours"><Button size="large" variant="contained" >
+                    Next
+                </Button></Link>
+                
+                <Link to="/event-participation"><Button size="large" variant="contained" >
+                    Edit previous
+                </Button></Link>
+                
+                </Stack>
+                </div>
+            </div>
     </motion.div> );
 }
 

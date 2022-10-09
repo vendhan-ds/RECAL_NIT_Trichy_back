@@ -1,14 +1,13 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import axios from 'axios';
 
 function ReportParticipation() {
 
-    async function get(){
-    var res = await axios.get('http://localhost:8080/api/previewData');
-    console.log(res);
-    }
-    get();
-    
+    useEffect(() => {
+        axios.get("http://localhost:8080/api/participation").then((res) =>{
+            console.log(res);
+        })
+    })
     return(
         <h1>ReportParticipation</h1>
     );

@@ -2,29 +2,54 @@ import React, { useState } from 'react';
 import axios from 'axios'
 import {AnimatePresence,motion} from 'framer-motion'
 import {Link} from 'react-router-dom'
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableCell from '@mui/material/TableCell';
+import TableContainer from '@mui/material/TableContainer';
+import TableHead from '@mui/material/TableHead';
+import TableRow from '@mui/material/TableRow';
+import Paper from '@mui/material/Paper';
+import TextField from '@mui/material/TextField';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import Select from '@mui/material/Select';
+import InputLabel from '@mui/material/InputLabel';
+import Divider from '@mui/material/Divider';
+import Stack from '@mui/material/Stack';
+import Button from '@mui/material/Button';
+import Checkbox from '@mui/material/Checkbox';
+
+
 
 function Accomodation() {
 
     const [fam,setfam] = useState("single");
-    const [rreq,setrreq] = useState("notRequired");
-    const [roomt,setroomt] = useState(null);
+    const [rreq,seTableRowreq] = useState("noTableRowequired");
+    const [roomt,seTableRowoomt] = useState(null);
     const [cin,setcin] = useState(null);
     const [cout,setcout] = useState(null);
     const [hotel,sethotel] = useState(null);
-    const [room,setroom] = useState([0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]);
+    const [room,seTableRowoom] = useState([0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]);
     const [costs,setcost] = useState(0)
-    const [room2,setroom2] = useState([0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]);
+    const [room2,seTableRowoom2] = useState([0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]);
     const [costs2,setcost2] = useState(0)
     const [saved,sets] = useState(false);
     
     var key = 0;
     
+    const mystyle = {
+        width : 'fit-content',
+        padding : '1rem',
+      };
 
     function updatecost(room){
         var temp = [2500,2800,1400,3000,3600,1800,3800,4300,2150,5000,5000,2500,6700,6700,3350];
         var cost = 0;
         console.log(room);
         for(var i in room){
+            if(room[i] == ""){
+                room[i] = 0;
+            }
             console.log(temp[i],room[i]);
             cost += (parseInt(room[i]) * parseInt(temp[i]));
         }
@@ -48,9 +73,9 @@ function Accomodation() {
         var f = document.querySelector('#family').value;
         var g = document.querySelector('#grandkids').value;
         }
-        var data = {'participationType' : fam, 'hotelRoom' : rreq, 'checkInDate' : cin, 'checkOutDate' : cout ,'alumni' : a ,'spouse' : s,'familyMembers' : f,'grandKids' : g,'hotel1' : room , 'hotel2' : room2 ,'totalcost' : costs + costs2};
+        var data = {'participationType' : fam, 'hotelRoom' : rreq, 'checkInDate' : cin, 'checkOuTableCellate' : cout ,'alumni' : a ,'spouse' : s,'familyMembers' : f,'grandKids' : g,'hotel1' : room , 'hotel2' : room2 ,'totalcost' : costs + costs2};
         axios.post('http://localhost:8080/api/accomodationSave',data).then((res) => console.log(res.data));
-        sets(true);
+        sets(TableRowue);
         
     }
 
@@ -60,6 +85,9 @@ function Accomodation() {
         var cost = 0;
         console.log(room2);
         for(var i in room2){
+            if(room2[i] == ""){
+                room2[i] = 0;
+            }
             console.log(temp[i],room2[i]);
             cost += (parseInt(room2[i]) * parseInt(temp[i]));
         }
@@ -79,408 +107,474 @@ function Accomodation() {
     return (
         <motion.div variants={variants1} exit={{x:'-100vw'}} initial ={{x:'-100vw'}} animate="anim" className = "outerc" transition={{duration : 0.3}}>
          
-         <motion.div drag dragConstraints={{top:0,bottom:0,left:0,right:0}} className='mtitle'><h1>Accomodation</h1></motion.div>
+         <motion.div drag dragConstraints ={{top:0,bottom:0,left:0,right:0}} className='mtitle'><h1>Accomodation</h1></motion.div>
          
-         <div className='mainc'>
+         <div className='center'>
 
-         
-         <label>Participation Type 
-            <select className='exselect' onChange={(e) => setfam(e.target.value)}>
-                <option value="single" >single</option>
-                <option value="withFamily" >withFamily</option>
-            </select>
-            </label>
-            <br />
-            <br />
-            <AnimatePresence>
-            {fam == 'withFamily' && <motion.div
+            <motion.div
              initial ={{opacity : 0}} animate = {{opacity : 1}} transition = {{duration : 1}}
-             className='fdetails'>
-                    <table>
-                    <tbody>
-                        <tr>
-                        <td><label>Alumni count 
+             className='center'>
+                <TableContainer component = {Paper} style = {mystyle}>
+
+                    <Table>
+                    <TableBody>
+                        <TableRow>
+                            <TableCell><h3>Participation Type</h3></TableCell>
+                            <TableCell>Single</TableCell>
+                            <TableCell>With Family</TableCell>
+                        </TableRow>
+                        <TableRow>
+                        <TableCell></TableCell>
+                        <TableCell><label>Alumni count 
                         
-                    </label></td>
-                    <td><input type="number" min = "0" id='alumni' /></td>
-                        </tr>
-                        <tr>
-                        <td>
+                    </label></TableCell>
+                    <TableCell><TextField size = "small"   variant="outlined" min = "0" id='alumni' /></TableCell>
+                        </TableRow>
+                        <TableRow>
+                        <TableCell>No of pax for family participation</TableCell>
+
+                        <TableCell>
                     <label>Spouse count 
                         
-                    </label></td>
-                    <td><input type="number" id='spouse' min = "0" /></td>
-                        </tr>
-                        <tr>
-                        <td>
+                    </label></TableCell>
+                    <TableCell><TextField size = "small"   variant="outlined" id='spouse' min = "0" /></TableCell>
+                        </TableRow>
+
+                        <TableRow>
+                        <TableCell>Please indicate against each row </TableCell>
+
+                        <TableCell>
                     <label>Family members count 
                         
-                    </label></td>
-                    <td><input type="number" id='family' min = "0" /></td>
-                        </tr>
-                        <tr>
-                        <td>
+                    </label></TableCell>
+                    <TableCell><TextField size = "small"   variant="outlined" id='family' min = "0" /></TableCell>
+                        </TableRow>
+
+                        <TableRow>
+                        <TableCell></TableCell>
+
+                        <TableCell>
                         <label>Grand Kids count 
-                    </label></td>
-                    <td> <input type="number" id='grandkids' min = "0" />
-</td>
-                        </tr>
-                    </tbody>
-                    </table>
+                    </label></TableCell>
+                    <TableCell> <TextField size = "small"   variant="outlined" id='grandkids' min = "0" />
+</TableCell>
+                        </TableRow>
                     
                     
                     
                     
-                </motion.div>}
-                </AnimatePresence>
-                <br />
-            <br />
+                    
+                
+            <TableRow>
+                <TableCell><h3>Hotel Room</h3></TableCell>
+                <TableCell><FormControl style = {{width : '20rem'}}>
 
-            <label>Hotel Room 
-            <select className='exselect' onChange={(e) => setrreq(e.target.value)}>
-                <option value="notRequired" >notRequired</option>
-                <option value="required" >required</option>
-            </select>
-            </label>
+<InputLabel id="label">Hotel Room</InputLabel>
+
+<Select className='exselect' onChange={(e) => seTableRowreq(e.target.value)} label="Age" labelId="label" >
+    <MenuItem value="not required" >not required</MenuItem>
+    <MenuItem value="required" >required</MenuItem>
+</Select>
+</FormControl></TableCell>
+            </TableRow>
+            
+
+            
+            </TableBody>
+            </Table>
+            </TableContainer>
+            </motion.div>
             <br />
             <br />
-            {rreq == 'required' && <div className='rdetails'>
-            <table>
-            <tbody>
+            <div className='center'>
+            <TableContainer component = {Paper} style = {mystyle}>
+
+            <Table>
+            <TableHead>
+                <TableRow>
+                    <TableCell><h3>Please select check-in Date</h3></TableCell>
+                </TableRow>
+            </TableHead>
+            <TableBody>
             
-            <tr>
-            <td><label>CheckIn</label></td>
+            <TableRow>
+            <TableCell><label>Early Check-in</label></TableCell>
+            <TableCell>23rd Jan (12 Noon)</TableCell>
+            <TableCell><Checkbox  onChange={(e) => setcout(e.target.value)}/></TableCell>
+
+            </TableRow>
+            <TableRow>
+            <TableCell><label>Standard Check-in</label></TableCell>
+            <TableCell>24th Jan (12 Noon)</TableCell>           
+             <TableCell><Checkbox  onChange={(e) => setcout(e.target.value)}/></TableCell>
+            </TableRow>
+            <TableRow>
+            <TableCell><label>Late Check-in</label></TableCell>
+            <TableCell>25th Jan (12 Noon)</TableCell>            
+            <TableCell><Checkbox  onChange={(e) => setcout(e.target.value)}/></TableCell>
+            </TableRow>
+            <TableRow>
+                <TableCell><h3>Please Select Check-out Date</h3></TableCell>
+            </TableRow>
+            <TableRow>
+            <TableCell><label>Early Check-out</label></TableCell>
+            <TableCell>25th Jan (12 Noon)</TableCell>            
+            <TableCell><Checkbox  onChange={(e) => setcout(e.target.value)}/></TableCell>
+            </TableRow>
+            <TableRow>
+            <TableCell><label>Standard Check-out</label></TableCell>
+            <TableCell>26th Jan (12 Noon)</TableCell>          
+              <TableCell><Checkbox  onChange={(e) => setcout(e.target.value)}/></TableCell>
+            </TableRow>
+            <TableRow>
+            <TableCell><label>Extended Stay</label></TableCell>
+            <TableCell>27th Jan (12 Noon)</TableCell>           
+             <TableCell><Checkbox  onChange={(e) => setcout(e.target.value)}/></TableCell>
+            </TableRow>
             
-            <td><input type="date"  onChange={(e) => setcin(e.target.value)}/></td>
-            </tr>
-            <tr>
-            <td><label>CheckOut</label></td>
-            <td><input type="date"  onChange={(e) => setcout(e.target.value)}/></td>
-            </tr>
+            
+            {/* <TableRow>
+                <TableCell><label>Hotel</label></TableCell>
+                <TableCell><FormControl style = {{width : '20rem'}}>
+            <InputLabel id="label1">Hotel</InputLabel>
+            <Select onChange={(e) => sethotel(e.target.value)} labelId = "label1">
+                <MenuItem >Select</MenuItem>
+                <MenuItem value="breezeResidency">breezeResidency</MenuItem>
+                <MenuItem value="hotelTamilNadu">hotelTamilNadu</MenuItem>
+            </Select>
+            </FormControl></TableCell>
+            </TableRow> */}
             
             
-            </tbody>
-            </table>
+            </TableBody>
+            </Table>
+            </TableContainer>
+            </div>
+            
+             <div className='roomdetails'>
             <br />
             <br />
-            
-            
-            
-            </div>}
+            <h1>Hotel Tamilnadu</h1>
             <br />
-            <br />
-            
-            {rreq == 'required' &&<>
-            <label>Hotel</label><select onChange={(e) => sethotel(e.target.value)}>
-                <option >Select</option>
-                <option value="breezeResidency">breezeResidency</option>
-                <option value="hotelTamilNadu">hotelTamilNadu</option>
-            </select></>}
-            
-            {rreq == 'required' && <div className='roomdetails'>
-            <br />
-            <br />
-            <h1>hotelTamilNadu</h1>
-            <br />
-            <table>
+            <TableContainer component = {Paper} style = {mystyle}>
+
+            <Table>
             <thead>
-                <tr>
-                <td>Room type</td>
-                <td>Single Occupancy</td>
-                <td>Cart</td>
-                <td>Double</td>
-                <td>Cart</td>
-                <td>Twin-Share</td>
-                <td>cart</td>
-                </tr>
+                <TableRow>
+                <TableCell>Room type</TableCell>
+                <TableCell>Single Occupancy</TableCell>
+                <TableCell>Cart</TableCell>
+                <TableCell>Double</TableCell>
+                <TableCell>Cart</TableCell>
+                <TableCell>Twin-Share</TableCell>
+                <TableCell>cart</TableCell>
+                </TableRow>
             </thead>
-            <tbody>
+            <TableBody>
                         
-                        <tr>
-                            <td>Standard</td>
-                            <td>2000</td>
-                            <td><input type="number" min = "0" id='a11'onChange={(e) =>{
+                        <TableRow>
+                            <TableCell>Standard</TableCell>
+                            <TableCell>2000</TableCell>
+                            <TableCell><TextField size = "small"   variant="outlined" min = "0" id='a11'onChange={(e) =>{
                                 var arr = [...room2];
                                 arr[0] = e.target.value;
-                                setroom2(arr);
+                                seTableRowoom2(arr);
                                 updatecost2(arr);
-                            }} ></input></td>
-                            <td>2000</td>
-                            <td><input type="number" min = "0" id='a12' onChange={(e) =>{
+                            }} /></TableCell>
+                            <TableCell>2000</TableCell>
+                            <TableCell><TextField size = "small" variant="outlined" min = "0" id='a12' onChange={(e) =>{
                                 var arr = [...room2];
                                 arr[1] = e.target.value;
-                                setroom2(arr);
+                                seTableRowoom2(arr);
                                 updatecost2(arr);
-                            }}></input></td>
-                            <td>1000</td>
-                            <td><input type="number" min = "0" id='a13' onChange={(e) =>{
+                            }}/></TableCell>
+                            <TableCell>1000</TableCell>
+                            <TableCell><TextField size = "small"   variant="outlined" min = "0" id='a13' onChange={(e) =>{
                                 var arr = [...room2];
                                 arr[2] = e.target.value;
-                                setroom2(arr);
+                                seTableRowoom2(arr);
                                 updatecost2(arr);
-                            }}></input></td>
+                            }}/></TableCell>
 
-                        </tr>
-                        <tr>
-                            <td>Deluxe</td>
-                            <td>2500</td>
-                            <td><input type="number" min = "0" id='a21' onChange={(e) =>{
+                        </TableRow>
+                        <TableRow>
+                            <TableCell>Deluxe</TableCell>
+                            <TableCell>2500</TableCell>
+                            <TableCell><TextField size = "small"   variant="outlined" min = "0" id='a21' onChange={(e) =>{
                                 var arr = [...room2];
                                 arr[3] = e.target.value;
-                                setroom2(arr);
+                                seTableRowoom2(arr);
                                 updatecost2(arr);
-                            }}></input></td>
-                            <td>2500</td>
-                            <td><input type="number" min = "0" id='a22' onChange={(e) =>{
+                            }}/></TableCell>
+                            <TableCell>2500</TableCell>
+                            <TableCell><TextField size = "small"   variant="outlined" min = "0" id='a22' onChange={(e) =>{
                                 var arr = [...room2];
                                 arr[4] = e.target.value;
-                                setroom2(arr);
+                                seTableRowoom2(arr);
                                 updatecost2(arr);
-                            }}></input></td>
-                            <td>1250</td>
-                            <td><input type="number" min = "0" id='a23' onChange={(e) =>{
+                            }}/></TableCell>
+                            <TableCell>1250</TableCell>
+                            <TableCell><TextField size = "small"   variant="outlined" min = "0" id='a23' onChange={(e) =>{
                                 var arr = [...room2];
                                 arr[5] = e.target.value;
-                                setroom2(arr);
+                                seTableRowoom2(arr);
                                 updatecost2(arr);
-                            }}></input></td>
+                            }}/></TableCell>
 
-                        </tr>
-                        <tr>
-                            <td>Family Room</td>
-                            <td>3700</td>
-                            <td><input type="number" min = "0" id='a31' onChange={(e) =>{
+                        </TableRow>
+                        <TableRow>
+                            <TableCell>Family Room</TableCell>
+                            <TableCell>3700</TableCell>
+                            <TableCell><TextField size = "small"   variant="outlined" min = "0" id='a31' onChange={(e) =>{
                                 var arr = [...room2];
                                 arr[6] = e.target.value;
-                                setroom2(arr);
+                                seTableRowoom2(arr);
                                 updatecost2(arr);
-                            }}></input></td>
-                            <td>3700</td>
-                            <td><input type="number" min = "0" id='a32' onChange={(e) =>{
+                            }}/></TableCell>
+                            <TableCell>3700</TableCell>
+                            <TableCell><TextField size = "small"   variant="outlined" min = "0" id='a32' onChange={(e) =>{
                                 var arr = [...room2];
                                 arr[7] = e.target.value;
-                                setroom2(arr);
+                                seTableRowoom2(arr);
                                 updatecost2(arr);
-                            }}></input></td>
-                            <td>1850</td>
-                            <td><input type="number" min = "0" id='a33' onChange={(e) =>{
+                            }}/></TableCell>
+                            <TableCell>1850</TableCell>
+                            <TableCell><TextField size = "small"   variant="outlined" min = "0" id='a33' onChange={(e) =>{
                                 var arr = [...room2];
                                 arr[8] = e.target.value;
-                                setroom2(arr);
+                                seTableRowoom2(arr);
                                 updatecost2(arr);
-                            }}></input></td>
+                            }}/></TableCell>
 
-                        </tr>
-                        <tr>
-                            <td>Suite</td>
-                            <td>4500</td>
-                            <td><input type="number" min = "0" id='a41' onChange={(e) =>{
+                        </TableRow>
+                        <TableRow>
+                            <TableCell>Suite</TableCell>
+                            <TableCell>4500</TableCell>
+                            <TableCell><TextField size = "small"   variant="outlined" min = "0" id='a41' onChange={(e) =>{
                                 var arr = [...room2];
                                 arr[9] = e.target.value;
-                                setroom2(arr);
+                                seTableRowoom2(arr);
                                 updatecost2(arr);
-                            }}></input></td>
-                            <td>4500</td>
-                            <td><input type="number" min = "0" id='a42' onChange={(e) =>{
+                            }}/></TableCell>
+                            <TableCell>4500</TableCell>
+                            <TableCell><TextField size = "small"   variant="outlined" min = "0" id='a42' onChange={(e) =>{
                                 var arr = [...room2];
                                 arr[10] = e.target.value;
-                                setroom2(arr);
+                                seTableRowoom2(arr);
                                 updatecost2(arr);
-                            }}></input></td>
-                            <td>2250</td>
-                            <td><input type="number" min = "0" id='a43' onChange={(e) =>{
+                            }}/></TableCell>
+                            <TableCell>2250</TableCell>
+                            <TableCell><TextField size = "small"   variant="outlined" min = "0" id='a43' onChange={(e) =>{
                                 var arr = [...room2];
                                 arr[11] = e.target.value;
-                                setroom2(arr);
+                                seTableRowoom2(arr);
                                 updatecost2(arr);
-                            }}></input></td>
+                            }}/></TableCell>
 
-                        </tr>
-                        <tr>
-                            <td>Additional Member</td>
-                            <td>350</td>
-                            <td><input type="number" min = "0" id='a51' onChange={(e) =>{
+                        </TableRow>
+                        <TableRow>
+                            <TableCell>Additional Member</TableCell>
+                            <TableCell>350</TableCell>
+                            <TableCell><TextField size = "small"   variant="outlined" min = "0" id='a51' onChange={(e) =>{
                                 var arr = [...room2];
                                 arr[12] = e.target.value;
-                                setroom2(arr);
+                                seTableRowoom2(arr);
                                 updatecost2(arr);
-                            }}></input></td>
-                            <td>350</td>
-                            <td><input type="number" min = "0" id='a52' onChange={(e) =>{
+                            }}/></TableCell>
+                            <TableCell>350</TableCell>
+                            <TableCell><TextField size = "small"   variant="outlined" min = "0" id='a52' onChange={(e) =>{
                                 var arr = [...room2];
                                 arr[13] = e.target.value;
-                                setroom2(arr);
+                                seTableRowoom2(arr);
                                 updatecost2(arr);
-                            }}></input></td>
-                            <td>350</td>
-                            <td><input type="number" min = "0" id='a53' onChange={(e) =>{
+                            }}/></TableCell>
+                            <TableCell>350</TableCell>
+                            <TableCell><TextField size = "small"   variant="outlined" min = "0" id='a53' onChange={(e) =>{
                                 var arr = [...room2];
                                 arr[14] = e.target.value;
-                                setroom2(arr);
+                                seTableRowoom2(arr);
                                 updatecost2(arr);
-                            }}></input></td>
+                            }}/></TableCell>
 
-                        </tr>
-                        </tbody>
-                    </table>
+                        </TableRow>
+                        </TableBody>
+                    </Table>
                     
-
-                </div>}
-            {rreq == 'required' &&  <div className='roomdetails'>
+                </TableContainer>
+                </div>
+             <div className='roomdetails'>
             <br />
             <br />
-            <h1>breezeResidency</h1>
+            <h1>Breeze Residency</h1>
             <br/>
-            <table>
+            <TableContainer component = {Paper} style = {mystyle}>
+
+            <Table>
             <thead>
-                <tr>
-                <td>Room type</td>
-                <td>Single Occupancy</td>
-                <td>Cart</td>
-                <td>Double</td>
-                <td>Cart</td>
-                <td>Twin-Share</td>
-                <td>cart</td>
-                </tr>
+                <TableRow>
+                <TableCell>Room type</TableCell>
+                <TableCell>Single Occupancy</TableCell>
+                <TableCell>Cart</TableCell>
+                <TableCell>Double</TableCell>
+                <TableCell>Cart</TableCell>
+                <TableCell>Twin-Share</TableCell>
+                <TableCell>cart</TableCell>
+                </TableRow>
             </thead>
-            <tbody>
+            <TableBody>
                         
-                        <tr>
-                            <td>Standard</td>
-                            <td>2500</td>
-                            <td><input type="number" min = "0" id='a11'onChange={(e) =>{
+                        <TableRow>
+                            <TableCell>Standard</TableCell>
+                            <TableCell>2500</TableCell>
+                            <TableCell><TextField size = "small"   variant="outlined" min = "0" id='a11'onChange={(e) =>{
                                 var arr = [...room];
                                 arr[0] = e.target.value;
-                                setroom(arr);
+                                seTableRowoom(arr);
                                 updatecost(arr);
-                            }} ></input></td>
-                            <td>2800</td>
-                            <td><input type="number" min = "0" id='a12' onChange={(e) =>{
+                            }} /></TableCell>
+                            <TableCell>2800</TableCell>
+                            <TableCell><TextField size = "small"   variant="outlined" min = "0" id='a12' onChange={(e) =>{
                                 var arr = [...room];
                                 arr[1] = e.target.value;
-                                setroom(arr);
+                                seTableRowoom(arr);
                                 updatecost(arr);
-                            }}></input></td>
-                            <td>1400</td>
-                            <td><input type="number" min = "0" id='a13' onChange={(e) =>{
+                            }}/></TableCell>
+                            <TableCell>1400</TableCell>
+                            <TableCell><TextField size = "small"   variant="outlined" min = "0" id='a13' onChange={(e) =>{
                                 var arr = [...room];
                                 arr[2] = e.target.value;
-                                setroom(arr);
+                                seTableRowoom(arr);
                                 updatecost(arr);
-                            }}></input></td>
+                            }}/></TableCell>
 
-                        </tr>
-                        <tr>
-                            <td>Executive</td>
-                            <td>3000</td>
-                            <td><input type="number" min = "0" id='a21' onChange={(e) =>{
+                        </TableRow>
+                        <TableRow>
+                            <TableCell>Executive</TableCell>
+                            <TableCell>3000</TableCell>
+                            <TableCell><TextField size = "small"   variant="outlined" min = "0" id='a21' onChange={(e) =>{
                                 var arr = [...room];
                                 arr[3] = e.target.value;
-                                setroom(arr);
+                                seTableRowoom(arr);
                                 updatecost(arr);
-                            }}></input></td>
-                            <td>3600</td>
-                            <td><input type="number" min = "0" id='a22' onChange={(e) =>{
+                            }}/></TableCell>
+                            <TableCell>3600</TableCell>
+                            <TableCell><TextField size = "small"   variant="outlined" min = "0" id='a22' onChange={(e) =>{
                                 var arr = [...room];
                                 arr[4] = e.target.value;
-                                setroom(arr);
+                                seTableRowoom(arr);
                                 updatecost(arr);
-                            }}></input></td>
-                            <td>1800</td>
-                            <td><input type="number" min = "0" id='a23' onChange={(e) =>{
+                            }}/></TableCell>
+                            <TableCell>1800</TableCell>
+                            <TableCell><TextField size = "small"   variant="outlined" min = "0" id='a23' onChange={(e) =>{
                                 var arr = [...room];
                                 arr[5] = e.target.value;
-                                setroom(arr);
+                                seTableRowoom(arr);
                                 updatecost(arr);
-                            }}></input></td>
+                            }}/></TableCell>
 
-                        </tr>
-                        <tr>
-                            <td>Deluxe</td>
-                            <td>3800</td>
-                            <td><input type="number" min = "0" id='a31' onChange={(e) =>{
+                        </TableRow>
+                        <TableRow>
+                            <TableCell>Deluxe</TableCell>
+                            <TableCell>3800</TableCell>
+                            <TableCell><TextField size = "small"   variant="outlined" min = "0" id='a31' onChange={(e) =>{
                                 var arr = [...room];
                                 arr[6] = e.target.value;
-                                setroom(arr);
+                                seTableRowoom(arr);
                                 updatecost(arr);
-                            }}></input></td>
-                            <td>4300</td>
-                            <td><input type="number" min = "0" id='a32' onChange={(e) =>{
+                            }}/></TableCell>
+                            <TableCell>4300</TableCell>
+                            <TableCell><TextField size = "small"   variant="outlined" min = "0" id='a32' onChange={(e) =>{
                                 var arr = [...room];
                                 arr[7] = e.target.value;
-                                setroom(arr);
+                                seTableRowoom(arr);
                                 updatecost(arr);
-                            }}></input></td>
-                            <td>2150</td>
-                            <td><input type="number" min = "0" id='a33' onChange={(e) =>{
+                            }}/></TableCell>
+                            <TableCell>2150</TableCell>
+                            <TableCell><TextField size = "small"   variant="outlined" min = "0" id='a33' onChange={(e) =>{
                                 var arr = [...room];
                                 arr[8] = e.target.value;
-                                setroom(arr);
+                                seTableRowoom(arr);
                                 updatecost(arr);
-                            }}></input></td>
+                            }}/></TableCell>
 
-                        </tr>
-                        <tr>
-                            <td>Luxury suite</td>
-                            <td>5000</td>
-                            <td><input type="number" min = "0" id='a41' onChange={(e) =>{
+                        </TableRow>
+                        <TableRow>
+                            <TableCell>Luxury suite</TableCell>
+                            <TableCell>5000</TableCell>
+                            <TableCell><TextField size = "small"   variant="outlined" min = "0" id='a41' onChange={(e) =>{
                                 var arr = [...room];
                                 arr[9] = e.target.value;
-                                setroom(arr);
+                                seTableRowoom(arr);
                                 updatecost(arr);
-                            }}></input></td>
-                            <td>5000</td>
-                            <td><input type="number" min = "0" id='a42' onChange={(e) =>{
+                            }}/></TableCell>
+                            <TableCell>5000</TableCell>
+                            <TableCell><TextField size = "small"   variant="outlined" min = "0" id='a42' onChange={(e) =>{
                                 var arr = [...room];
                                 arr[10] = e.target.value;
-                                setroom(arr);
+                                seTableRowoom(arr);
                                 updatecost(arr);
-                            }}></input></td>
-                            <td>2500</td>
-                            <td><input type="number" min = "0" id='a43' onChange={(e) =>{
+                            }}/></TableCell>
+                            <TableCell>2500</TableCell>
+                            <TableCell><TextField size = "small"   variant="outlined" min = "0" id='a43' onChange={(e) =>{
                                 var arr = [...room];
                                 arr[11] = e.target.value;
-                                setroom(arr);
+                                seTableRowoom(arr);
                                 updatecost(arr);
-                            }}></input></td>
+                            }}/></TableCell>
 
-                        </tr>
-                        <tr>
-                            <td>Grand Suite</td>
-                            <td>6700</td>
-                            <td><input type="number" min = "0" id='a51' onChange={(e) =>{
+                        </TableRow>
+                        <TableRow>
+                            <TableCell>Grand Suite</TableCell>
+                            <TableCell>6700</TableCell>
+                            <TableCell><TextField size = "small"   variant="outlined" min = "0" id='a51' onChange={(e) =>{
                                 var arr = [...room];
                                 arr[12] = e.target.value;
-                                setroom(arr);
+                                seTableRowoom(arr);
                                 updatecost(arr);
-                            }}></input></td>
-                            <td>6700</td>
-                            <td><input type="number" min = "0" id='a52' onChange={(e) =>{
+                            }}/></TableCell>
+                            <TableCell>6700</TableCell>
+                            <TableCell><TextField size = "small"   variant="outlined" min = "0" id='a52' onChange={(e) =>{
                                 var arr = [...room];
                                 arr[13] = e.target.value;
-                                setroom(arr);
+                                seTableRowoom(arr);
                                 updatecost(arr);
-                            }}></input></td>
-                            <td>3350</td>
-                            <td><input type="number" min = "0" id='a53' onChange={(e) =>{
+                            }}/></TableCell>
+                            <TableCell>3350</TableCell>
+                            <TableCell><TextField size = "small"   variant="outlined" min = "0" id='a53' onChange={(e) =>{
                                 var arr = [...room];
                                 arr[14] = e.target.value;
-                                setroom(arr);
+                                seTableRowoom(arr);
                                 updatecost(arr);
-                            }}></input></td>
+                            }}/></TableCell>
 
-                        </tr>
-                        </tbody>
-                    </table>
+                        </TableRow>
+                        </TableBody>
+                    </Table>
                     
+                </TableContainer>
+                </div>
+                <br />
+                <div className='mainc' style = {{padding : '0.3rem 1rem'}}>
+                <p style = {{width : 'fit-content'}}>Total Cost : {costs + costs2}</p>
 
-                </div>}
-
-                <p>Total Cost : {costs + costs2}</p>
-                <button onClick={() => sendpost()}>Save</button>
-            
-                {saved && <Link to="/event-participation" ><button>Continue</button> </Link>}
-                {saved &&  <p>Successfully Saved</p>}
+                </div>
+                </div>
+                <br />
+                
+                <div className='center'>
+                <Stack direction="row" spacing={2} style = {{padding : '1rem'}} align = 'center' divider={<Divider orientation="vertical" flexItem />} component = {Paper}>
+                <Button size="large" variant="contained" >
+                    Save
+                </Button>
+                <Link to="/event-participation"><Button size="large" variant="contained" >
+                    Next
+                </Button></Link>
+                
+                <Link to="/basedat"><Button size="large" variant="contained" >
+                    Edit Previous
+                </Button></Link>
+                
+                </Stack>
                 </div>
         </motion.div>
         

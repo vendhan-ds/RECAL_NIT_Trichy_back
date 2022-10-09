@@ -1,6 +1,20 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import axios from 'axios';
+import {motion} from 'framer-motion'
 import {Link} from 'react-router-dom'
+import {useState, useEffect} from 'react'
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableCell from '@mui/material/TableCell';
+import TableContainer from '@mui/material/TableContainer';
+import TableHead from '@mui/material/TableHead';
+import TableRow from '@mui/material/TableRow';
+import Paper from '@mui/material/Paper';
+import Stack from '@mui/material/Stack';
+import Button from '@mui/material/Button';
+import Divider from '@mui/material/Divider';
+import Checkbox from '@mui/material/Checkbox';
+import { TextField } from '@mui/material';
 
 function Previews() {
     
@@ -11,6 +25,7 @@ function Previews() {
     const [wa1,setw] = useState([0,0,0,0]);
     const [ba1,setb] = useState([0,0,0]);
     const [ga1,setg] = useState([0,0,0]);
+    var data = ['Name', 'Branch' ,'Spouse', 'City' , 'Country' , 'Region' , 'Mobile' , 'Email' , 'T-Shirt Size' ];
 
     var res;
     var got = 0
@@ -56,7 +71,7 @@ function Previews() {
         document.querySelector('#nv2').innerText = res.data[8].count.veg;
         document.querySelector('#v3').innerText = res.data[8].count.nonveg;
         document.querySelector('.cloth').innerText = res.data[10];
-        document.querySelector('.t1').innerText = res.data[11][1].trichy;
+        document.querySelector('.t1').innerText = res.data[11][1].TableRowichy;
         document.querySelector('.t2').innerText = res.data[11][1].phuketKrabi;
         document.querySelector('.t3').innerText = res.data[11][1].mysoreBandipur;
         document.querySelector('.t4').innerText = res.data[11][1].belurHampi;
@@ -69,429 +84,520 @@ function Previews() {
       };
     },[])
 
+    const mystyle = {
+        width : 'fit-content',
+        padding : '1rem',
+      };
+
     return (
         <>
-        <div className='mainc'>
+        <div className='center'>
         <h1>Previews</h1>
-        <table>
-            <tbody>
-                <tr>
-                    <td>Registered</td>
-                    <td>Not interested</td>
-                    <td>I cant say</td>
-                </tr>
-                <tr>
-                    <td>Hotel room required</td>
-                    <td><input type="checkbox" disabled checked="true"></input></td>
+        <div className='center'>
+        <TableContainer component={Paper} style = {mystyle} >
+                <Table sx={{ minWidth: 650 }} aria-label="simple table">
+                    <TableHead>
+                    <TableRow>
+                        <TableCell>Base Data</TableCell>
+                        <TableCell >Details</TableCell>
+                        <TableCell >Change by Alumni</TableCell>
+                    </TableRow>
+                    </TableHead>
+                    <TableBody>
+                    {data.map(dat => (
+                        <TableRow>
+                            <TableCell >{dat}</TableCell>
+                            <TableCell>as per Base Data</TableCell>
+                            <TableCell><TextField size = "small" id="outlined-basic" label={dat} variant="outlined" /></TableCell>
+                        </TableRow>
+                    )
+                    )}
+                    </TableBody>
+                </Table>
+                
 
-                </tr>
-                <tr>
-                <td>participationType(with family)</td>
-                <td><p className='paxtype'></p></td>
-           
-                </tr>
-                <tr>
-                    <td>Alumni-Nos</td>
-                    <td>Spouse - Nos</td>
-                    <td>Family - Nos</td>
-                    <td>Grand Kids - Nos</td>
-                </tr>
-                <tr>
-                    <td><p className='pax1'></p></td>
-                    <td><p className='pax2'></p></td>
-                    <td><p className='pax3'></p></td>
-                    <td><p className='pax4'></p></td>
+                </TableContainer>
+        </div>
+        
+                <br />
 
-                </tr>
-                <tr>
-                    <td>Check IN</td>
-                    <td>Check OUT</td>
-                </tr>
-                <tr>
-                    <td><p className='cin'></p></td>
-                    <td><p className='cout'></p></td>
-                </tr>
-                 </tbody>
-        </table>
-        <table>
-            <thead>
-                <tr>
-                <td>Room type</td>
-                <td>Single Occupancy</td>
-                <td>Cart</td>
-                <td>Double</td>
-                <td>Cart</td>
-                <td>Twin-Share</td>
-                <td>cart</td>
-                </tr>
-            </thead>
-            <tbody>
+        <TableContainer component = {Paper}>
+        <Table>
+            <TableBody>
+                <TableRow>
+                    <TableCell>Registered</TableCell>
+                    <TableCell>Not interested</TableCell>
+                    <TableCell>I cant say</TableCell>
+                    <TableCell></TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell>Hotel room required</TableCell>
+                    <TableCell>Pending</TableCell>
+                    <TableCell></TableCell>
+                    <TableCell></TableCell>
+
+                </TableRow>
+                <TableRow>
+                <TableCell>participationType(with family)</TableCell>
+                <TableCell><p className='paxtype'></p></TableCell>
+                <TableCell></TableCell>
+                <TableCell></TableCell>
+
+                </TableRow>
+                <TableRow>
+                    <TableCell>Alumni-Nos</TableCell>
+                    <TableCell>Spouse - Nos</TableCell>
+                    <TableCell>Family - Nos</TableCell>
+                    <TableCell>Grand Kids - Nos</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><p className='pax1'></p></TableCell>
+                    <TableCell><p className='pax2'></p></TableCell>
+                    <TableCell><p className='pax3'></p></TableCell>
+                    <TableCell><p className='pax4'></p></TableCell>
+
+                </TableRow>
+                <TableRow>
+                    <TableCell>Check IN</TableCell>
+                    <TableCell>Check OUT</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><p className='cin'></p></TableCell>
+                    <TableCell><p className='cout'></p></TableCell>
+                </TableRow>
+                 </TableBody>
+        </Table>
+        </TableContainer>
+        <br />
+        <TableContainer component = {Paper}>
+
+        <Table>
+        
+            <TableHead>
+                <TableRow>
+                <TableCell>Room type</TableCell>
+                <TableCell>Single Occupancy</TableCell>
+                <TableCell>Cart</TableCell>
+                <TableCell>Double</TableCell>
+                <TableCell>Cart</TableCell>
+                <TableCell>Twin-Share</TableCell>
+                <TableCell>cart</TableCell>
+                </TableRow>
+            </TableHead>
+            <TableBody>
                         
-                        <tr>
-                            <td>Standard</td>
-                            <td>2500</td>
-                            <td><input type="number" id='a11' value = {hotel1[0]} ></input></td>
-                            <td>2800</td>
-                            <td><input type="number" id='a12' value = {hotel1[1]}></input></td>
-                            <td>1400</td>
-                            <td><input type="number" id='a13' value = {hotel1[2]}></input></td>
+                        <TableRow>
+                            <TableCell>Standard</TableCell>
+                            <TableCell>2500</TableCell>
+                            <TableCell><TextField id='a11' value = {hotel1[0]} /></TableCell>
+                            <TableCell>2800</TableCell>
+                            <TableCell><TextField id='a12' value = {hotel1[1]}/></TableCell>
+                            <TableCell>1400</TableCell>
+                            <TableCell><TextField id='a13' value = {hotel1[2]}/></TableCell>
 
-                        </tr>
-                        <tr>
-                            <td>Executive</td>
-                            <td>3000</td>
-                            <td><input type="number" id='a21' value = {hotel1[3]}></input></td>
-                            <td>3600</td>
-                            <td><input type="number" id='a22' value = {hotel1[4]}></input></td>
-                            <td>1800</td>
-                            <td><input type="number" id='a23' value = {hotel1[5]}></input></td>
+                        </TableRow>
+                        <TableRow>
+                            <TableCell>Executive</TableCell>
+                            <TableCell>3000</TableCell>
+                            <TableCell><TextField id='a21' value = {hotel1[3]}/></TableCell>
+                            <TableCell>3600</TableCell>
+                            <TableCell><TextField id='a22' value = {hotel1[4]}/></TableCell>
+                            <TableCell>1800</TableCell>
+                            <TableCell><TextField id='a23' value = {hotel1[5]}/></TableCell>
 
-                        </tr>
-                        <tr>
-                            <td>Deluxe</td>
-                            <td>3800</td>
-                            <td><input type="number" id='a31' value = {hotel1[6]}></input></td>
-                            <td>4300</td>
-                            <td><input type="number" id='a32' value = {hotel1[7]}></input></td>
-                            <td>2150</td>
-                            <td><input type="number" id='a33' value = {hotel1[8]}></input></td>
+                        </TableRow>
+                        <TableRow>
+                            <TableCell>Deluxe</TableCell>
+                            <TableCell>3800</TableCell>
+                            <TableCell><TextField id='a31' value = {hotel1[6]}/></TableCell>
+                            <TableCell>4300</TableCell>
+                            <TableCell><TextField id='a32' value = {hotel1[7]}/></TableCell>
+                            <TableCell>2150</TableCell>
+                            <TableCell><TextField id='a33' value = {hotel1[8]}/></TableCell>
 
-                        </tr>
-                        <tr>
-                            <td>Luxury suite</td>
-                            <td>5000</td>
-                            <td><input type="number" id='a41' value = {hotel1[9]}></input></td>
-                            <td>5000</td>
-                            <td><input type="number" id='a42' value = {hotel1[10]} ></input></td>
-                            <td>2500</td>
-                            <td><input type="number" id='a43' value = {hotel1[11]} ></input></td>
+                        </TableRow>
+                        <TableRow>
+                            <TableCell>Luxury suite</TableCell>
+                            <TableCell>5000</TableCell>
+                            <TableCell><TextField id='a41' value = {hotel1[9]}/></TableCell>
+                            <TableCell>5000</TableCell>
+                            <TableCell><TextField id='a42' value = {hotel1[10]} /></TableCell>
+                            <TableCell>2500</TableCell>
+                            <TableCell><TextField id='a43' value = {hotel1[11]} /></TableCell>
 
-                        </tr>
-                        <tr>
-                            <td>Grand Suite</td>
-                            <td>6700</td>
-                            <td><input type="number" id='a51' value = {hotel1[12]} ></input></td>
-                            <td>6700</td>
-                            <td><input type="number" id='a52' value = {hotel1[13]} ></input></td>
-                            <td>3350</td>
-                            <td><input type="number" id='a53' value = {hotel1[14]} ></input></td>
+                        </TableRow>
+                        <TableRow>
+                            <TableCell>Grand Suite</TableCell>
+                            <TableCell>6700</TableCell>
+                            <TableCell><TextField id='a51' value = {hotel1[12]} /></TableCell>
+                            <TableCell>6700</TableCell>
+                            <TableCell><TextField id='a52' value = {hotel1[13]} /></TableCell>
+                            <TableCell>3350</TableCell>
+                            <TableCell><TextField id='a53' value = {hotel1[14]} /></TableCell>
 
-                        </tr>
-                        </tbody>
-                    </table>
+                        </TableRow>
+                        </TableBody>
+                    </Table>
+</TableContainer>
+<br />
+        <TableContainer component = {Paper}>
 
-            <table>
-            <thead>
-                <tr>
-                <td>Room type</td>
-                <td>Single Occupancy</td>
-                <td>Cart</td>
-                <td>Double</td>
-                <td>Cart</td>
-                <td>Twin-Share</td>
-                <td>cart</td>
-                </tr>
-            </thead>
-            <tbody>
+            <Table>
+            
+            <TableHead>
+                <TableRow>
+                <TableCell>Room type</TableCell>
+                <TableCell>Single Occupancy</TableCell>
+                <TableCell>Cart</TableCell>
+                <TableCell>Double</TableCell>
+                <TableCell>Cart</TableCell>
+                <TableCell>Twin-Share</TableCell>
+                <TableCell>cart</TableCell>
+                </TableRow>
+            </TableHead>
+            <TableBody>
                         
-                        <tr>
-                            <td>Standard</td>
-                            <td>2000</td>
-                            <td><input type="number" id='a11' value = {hotel2[0]} ></input></td>
-                            <td>2800</td>
-                            <td><input type="number" id='a12' value = {hotel2[1]}></input></td>
-                            <td>1400</td>
-                            <td><input type="number" id='a13' value = {hotel2[2]}></input></td>
+                        <TableRow>
+                            <TableCell>Standard</TableCell>
+                            <TableCell>2000</TableCell>
+                            <TableCell><TextField id='a11' value = {hotel2[0]} /></TableCell>
+                            <TableCell>2800</TableCell>
+                            <TableCell><TextField id='a12' value = {hotel2[1]}/></TableCell>
+                            <TableCell>1400</TableCell>
+                            <TableCell><TextField id='a13' value = {hotel2[2]}/></TableCell>
 
-                        </tr>
-                        <tr>
-                            <td>Deluxe</td>
-                            <td>3000</td>
-                            <td><input type="number" id='a21' value = {hotel2[3]}></input></td>
-                            <td>3600</td>
-                            <td><input type="number" id='a22' value = {hotel2[4]}></input></td>
-                            <td>1800</td>
-                            <td><input type="number" id='a23' value = {hotel2[5]}></input></td>
+                        </TableRow>
+                        <TableRow>
+                            <TableCell>Deluxe</TableCell>
+                            <TableCell>3000</TableCell>
+                            <TableCell><TextField id='a21' value = {hotel2[3]}/></TableCell>
+                            <TableCell>3600</TableCell>
+                            <TableCell><TextField id='a22' value = {hotel2[4]}/></TableCell>
+                            <TableCell>1800</TableCell>
+                            <TableCell><TextField id='a23' value = {hotel2[5]}/></TableCell>
 
-                        </tr>
-                        <tr>
-                            <td>Family Room</td>
-                            <td>3800</td>
-                            <td><input type="number" id='a31' value = {hotel2[6]}></input></td>
-                            <td>4300</td>
-                            <td><input type="number" id='a32' value = {hotel2[7]}></input></td>
-                            <td>2150</td>
-                            <td><input type="number" id='a33' value = {hotel2[8]}></input></td>
+                        </TableRow>
+                        <TableRow>
+                            <TableCell>Family Room</TableCell>
+                            <TableCell>3800</TableCell>
+                            <TableCell><TextField id='a31' value = {hotel2[6]}/></TableCell>
+                            <TableCell>4300</TableCell>
+                            <TableCell><TextField id='a32' value = {hotel2[7]}/></TableCell>
+                            <TableCell>2150</TableCell>
+                            <TableCell><TextField id='a33' value = {hotel2[8]}/></TableCell>
 
-                        </tr>
-                        <tr>
-                            <td>Suite</td>
-                            <td>5000</td>
-                            <td><input type="number" id='a41' value = {hotel2[9]}></input></td>
-                            <td>5000</td>
-                            <td><input type="number" id='a42' value = {hotel2[10]} ></input></td>
-                            <td>2500</td>
-                            <td><input type="number" id='a43' value = {hotel2[11]} ></input></td>
+                        </TableRow>
+                        <TableRow>
+                            <TableCell>Suite</TableCell>
+                            <TableCell>5000</TableCell>
+                            <TableCell><TextField id='a41' value = {hotel2[9]}/></TableCell>
+                            <TableCell>5000</TableCell>
+                            <TableCell><TextField id='a42' value = {hotel2[10]} /></TableCell>
+                            <TableCell>2500</TableCell>
+                            <TableCell><TextField id='a43' value = {hotel2[11]} /></TableCell>
 
-                        </tr>
-                        <tr>
-                            <td>Additional Member</td>
-                            <td>6700</td>
-                            <td><input type="number" id='a51' value = {hotel2[12]} ></input></td>
-                            <td>6700</td>
-                            <td><input type="number" id='a52' value = {hotel2[13]} ></input></td>
-                            <td>3350</td>
-                            <td><input type="number" id='a53' value = {hotel2[14]} ></input></td>
+                        </TableRow>
+                        <TableRow>
+                            <TableCell>Additional Member</TableCell>
+                            <TableCell>6700</TableCell>
+                            <TableCell><TextField id='a51' value = {hotel2[12]} /></TableCell>
+                            <TableCell>6700</TableCell>
+                            <TableCell><TextField id='a52' value = {hotel2[13]} /></TableCell>
+                            <TableCell>3350</TableCell>
+                            <TableCell><TextField id='a53' value = {hotel2[14]} /></TableCell>
 
-                        </tr>
-                        </tbody>
-                    </table>
+                        </TableRow>
+                        </TableBody>
+                    </Table>
+                    </TableContainer>
+                    <TableContainer component = {Paper}>
 
-                    <table>
-                        <tbody>
-                            <tr>
-                                <td>Event Participation</td>
-                            </tr>
-                            <tr><td>No. of Participants for Event at Hotel
-</td>   
-<td>Veg</td>
-                    <td><p id='v1'></p></td>
-                    <td>Non-Veg</td>
-                    <td><p id='nv1'></p></td>
-                    </tr>
-                    <tr><td>No. of Participants for Event at Campus
+                    <Table>
+                        <TableBody>
+                            <TableRow>
+                                <TableCell>Event Participation</TableCell>
+                            </TableRow>
+                            <TableRow><TableCell>No. of Participants for Event at Hotel
+</TableCell>   
+<TableCell>Veg</TableCell>
+                    <TableCell><p id='v1'></p></TableCell>
+                    <TableCell>Non-Veg</TableCell>
+                    <TableCell><p id='nv1'></p></TableCell>
+                    </TableRow>
+                    <TableRow><TableCell>No. of Participants for Event at Campus
 
 
 
-</td>
-                    <td><p id='v3'></p></td>
-                    </tr>
-                    <tr><td>No. of Participants for Event at Hotel
-</td>   
-<td>Veg</td>
-                    <td><p id='v2'></p></td>
-                    <td>Non-Veg</td>
-                    <td><p id='nv2'></p></td>
-                    </tr>
-                        </tbody>
-                    </table>
+</TableCell>
+                    <TableCell><p id='v3'></p></TableCell>
+                    </TableRow>
+                    <TableRow><TableCell>No. of Participants for Event at Hotel
+</TableCell>   
+<TableCell>Veg</TableCell>
+                    <TableCell><p id='v2'></p></TableCell>
+                    <TableCell>Non-Veg</TableCell>
+                    <TableCell><p id='nv2'></p></TableCell>
+                    </TableRow>
+                        </TableBody>
+                    </Table>
+                    </TableContainer>
+
                     <p className='cloth'></p>
-                    <table>
-                <thead>
-                    <tr>
-                        <td>Description and size</td>
-                        <td>Suprima Cotton @ Rs.1,200</td>
-                        <td>Sweat-wicking @ Rs.600</td>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>Mens Polo T-Shirt with Collar</td>
-                        <td>Qty</td>
-                        <td>Qty</td>
-                    </tr>
-                    <tr>
-                        <td>S(38)</td>
-                        <td><input type="number" id='m1'  value = {m1a[0]}></input></td>
-                        <td><input type="number" id='m12' value = {m2a[0]}></input></td>
-                    </tr>
-                    <tr>
-                        <td>M(40)</td>
-                        <td><input type="number" id='m2' value = {m1a[1]}></input></td>
-                        <td><input type="number" id='m22' value = {m2a[1]}></input></td>
-                    </tr>
-                    <tr>
-                        <td>L(42)</td>
-                        <td><input type="number" id='m3' value = {m1a[2]}></input></td>
-                        <td><input type="number" id='m32' value = {m2a[2]}></input></td>
-                    </tr>
-                    <tr>
-                        <td>XL(44)</td>
-                        <td><input type="number" id='m4' value = {m1a[3]}></input></td>
-                        <td><input type="number" id='m42' value = {m2a[3]}></input></td>
-                    </tr>
-                    <tr>
-                        <td>XXL(46)</td>
-                        <td><input type="number" id='m5' value = {m1a[4]}></input></td>
-                        <td><input type="number" id='m52' value = {m2a[4]}></input></td>
-                    </tr>
-                    <tr>
-                        <td>XXL(48)</td>
-                        <td><input type="number" id='m6' value = {m1a[5]}></input></td>
-                        <td><input type="number" id='m62' value = {m2a[5]}></input></td>
-                    </tr>
-                    <tr>
-                        <td>Total Mens T-Shirt</td>
-                        {/* <td>{totalmen1}</td>
-                        <td>{totalmen2}</td> */}
+                    <TableContainer component = {Paper}>
 
-                    </tr>
-                    <tr>
-                        <td>Womens Round Neck T-shirt</td>
-                        <td>Qty</td>
-                        <td>Qty</td>
-                    </tr>
-                    <tr>
-                        <td>S</td>
-                        <td><input type="number" id='w1'  value = {wa1[0]}></input></td>
-                        <td><input type="number" id='w12'></input></td>
-                    </tr>
-                    <tr>
-                        <td>M</td>
-                        <td><input type="number" id='w2' value = {wa1[1]}></input></td>
-                        <td><input type="number" id='w22'></input></td>
-                    </tr>
-                    <tr>
-                        <td>L</td>
-                        <td><input type="number" id='w3' value = {wa1[2]}></input></td>
-                        <td><input type="number" id='w32'></input></td>
-                    </tr>
-                    <tr>
-                        <td>XL</td>
-                        <td><input type="number" id='w4' value = {wa1[3]}></input></td>
-                        <td><input type="number" id='w42'></input></td>
-                    </tr>
-                    <tr>
-                        <td>Total Womens T-Shirt</td>
-                        {/* <td>{totalwomen1}</td>
-                        <td>{totalwomen2}</td> */}
-                    </tr>
-                    <tr>
-                        <td>Children(Girls) Round Neck T-shirt</td>
-                        <td>Qty</td>
-                        <td>Qty</td>
-                    </tr>
-                    <tr>
-                        <td>5-8 Years</td>
-                        <td><input type="number" id='g1' value = {ga1[0]}></input></td>
-                    </tr>
-                    <tr>
-                        <td>9-12 Years</td>
-                        <td><input type="number" id='g2' value = {ga1[1]}></input></td>
-                    </tr>
-                    <tr>
-                        <td>13-15 Years</td>
-                        <td><input type="number" id='g3' value = {ga1[2]}></input></td>
-                    </tr>
-                    <tr>
-                        <td>Total Girls T-Shirt</td>
-                        {/* <td>{totalgirl}</td> */}
-                    </tr>
-                    <tr>
-                        <td>Children(Boys) Round Neck T-shirt</td>
-                        <td>Qty</td>
-                        <td>Qty</td>
-                    </tr>
-                    <tr>
-                        <td>5-8 Years</td>
-                        <td><input type="number" id='b1' value = {ba1[0]}></input></td>
-                    </tr>
-                    <tr>
-                        <td>9-12 Years</td>
-                        <td><input type="number" id='b2' value = {ba1[1]}></input></td>
-                    </tr>
-                    <tr>
-                        <td>13-15 Years</td>
-                        <td><input type="number" id='b3' value = {ba1[2]}></input></td>
-                    </tr>
-                    <tr>
-                        <td>Total Girls T-Shirt</td>
-                    
-                    </tr>
-                </tbody>
-            </table>
-            <table>
-                <thead>
-                    <tr>
-                        <td>Tour Name</td>
-                        <td>26th JAN</td>
-                        <td>26th JAN DEP</td>
-                    </tr>
-                    <tr>
-                        <td>Trichy Local</td>
-                        <td className='t1'>no of participation</td>
-                        <td>no of participation</td>
+                    <Table>
+                <TableHead>
+                    <TableRow>
+                        <TableCell>Description and size</TableCell>
+                        <TableCell>Suprima Cotton @ Rs.1,200</TableCell>
+                        <TableCell>Sweat-wicking @ Rs.600</TableCell>
+                    </TableRow>
+                </TableHead>
+                <TableBody>
+                    <TableRow>
+                        <TableCell>Mens Polo T-Shirt with Collar</TableCell>
+                        <TableCell>Qty</TableCell>
+                        <TableCell>Qty</TableCell>
+                    </TableRow>
+                    <TableRow>
+                        <TableCell>S(38)</TableCell>
+                        <TableCell><TextField id='m1'  value = {m1a[0]}/></TableCell>
+                        <TableCell><TextField id='m12' value = {m2a[0]}/></TableCell>
+                    </TableRow>
+                    <TableRow>
+                        <TableCell>M(40)</TableCell>
+                        <TableCell><TextField id='m2' value = {m1a[1]}/></TableCell>
+                        <TableCell><TextField id='m22' value = {m2a[1]}/></TableCell>
+                    </TableRow>
+                    <TableRow>
+                        <TableCell>L(42)</TableCell>
+                        <TableCell><TextField id='m3' value = {m1a[2]}/></TableCell>
+                        <TableCell><TextField id='m32' value = {m2a[2]}/></TableCell>
+                    </TableRow>
+                    <TableRow>
+                        <TableCell>XL(44)</TableCell>
+                        <TableCell><TextField id='m4' value = {m1a[3]}/></TableCell>
+                        <TableCell><TextField id='m42' value = {m2a[3]}/></TableCell>
+                    </TableRow>
+                    <TableRow>
+                        <TableCell>XXL(46)</TableCell>
+                        <TableCell><TextField id='m5' value = {m1a[4]}/></TableCell>
+                        <TableCell><TextField id='m52' value = {m2a[4]}/></TableCell>
+                    </TableRow>
+                    <TableRow>
+                        <TableCell>XXL(48)</TableCell>
+                        <TableCell><TextField id='m6' value = {m1a[5]}/></TableCell>
+                        <TableCell><TextField id='m62' value = {m2a[5]}/></TableCell>
+                    </TableRow>
+                    <TableRow>
+                        <TableCell>Total Mens T-Shirt</TableCell>
+                        <TableCell>{m1a[6]}</TableCell>
+                        <TableCell>{m2a[6]}</TableCell>
 
-                    </tr>
-                    <tr>
-                        <td>Phuket-Krabi Tour</td>
-                        <td className='t2'>no of participation</td>
-                        <td>no of participation</td>
+                    </TableRow>
+                    <TableRow>
+                        <TableCell>Womens Round Neck T-shirt</TableCell>
+                        <TableCell>Qty</TableCell>
+                        <TableCell>Qty</TableCell>
+                    </TableRow>
+                    <TableRow>
+                        <TableCell>S</TableCell>
+                        <TableCell><TextField id='w1'  value = {wa1[0]}/></TableCell>
+                        <TableCell><TextField id='w12'/></TableCell>
+                    </TableRow>
+                    <TableRow>
+                        <TableCell>M</TableCell>
+                        <TableCell><TextField id='w2' value = {wa1[1]}/></TableCell>
+                        <TableCell><TextField id='w22'/></TableCell>
+                    </TableRow>
+                    <TableRow>
+                        <TableCell>L</TableCell>
+                        <TableCell><TextField id='w3' value = {wa1[2]}/></TableCell>
+                        <TableCell><TextField id='w32'/></TableCell>
+                    </TableRow>
+                    <TableRow>
+                        <TableCell>XL</TableCell>
+                        <TableCell><TextField id='w4' value = {wa1[3]}/></TableCell>
+                        <TableCell><TextField id='w42'/></TableCell>
+                    </TableRow>
+                    <TableRow>
+                        <TableCell>Total Womens T-Shirt</TableCell>
+                        <TableCell>{wa1[4]}</TableCell>
+                    </TableRow>
+                    <TableRow>
+                        <TableCell>Children(Girls) Round Neck T-shirt</TableCell>
+                        <TableCell>Qty</TableCell>
+                        <TableCell>Qty</TableCell>
+                    </TableRow>
+                    <TableRow>
+                        <TableCell>5-8 Years</TableCell>
+                        <TableCell><TextField id='g1' value = {ga1[0]}/></TableCell>
+                    </TableRow>
+                    <TableRow>
+                        <TableCell>9-12 Years</TableCell>
+                        <TableCell><TextField id='g2' value = {ga1[1]}/></TableCell>
+                    </TableRow>
+                    <TableRow>
+                        <TableCell>13-15 Years</TableCell>
+                        <TableCell><TextField id='g3' value = {ga1[2]}/></TableCell>
+                    </TableRow>
+                    <TableRow>
+                        <TableCell>Total Girls T-Shirt</TableCell>
+                        <TableCell>{ga1[3]}</TableCell>
+                    </TableRow>
+                    <TableRow>
+                        <TableCell>Children(Boys) Round Neck T-shirt</TableCell>
+                        <TableCell>Qty</TableCell>
+                        <TableCell>Qty</TableCell>
+                    </TableRow>
+                    <TableRow>
+                        <TableCell>5-8 Years</TableCell>
+                        <TableCell><TextField id='b1' value = {ba1[0]}/></TableCell>
+                    </TableRow>
+                    <TableRow>
+                        <TableCell>9-12 Years</TableCell>
+                        <TableCell><TextField id='b2' value = {ba1[1]}/></TableCell>
+                    </TableRow>
+                    <TableRow>
+                        <TableCell>13-15 Years</TableCell>
+                        <TableCell><TextField id='b3' value = {ba1[2]}/></TableCell>
+                    </TableRow>
+                    <TableRow>
+                        <TableCell>Total Boys T-Shirt</TableCell>
+                        <TableCell>{ba1[3]}</TableCell>
+                    </TableRow>
+                </TableBody>
+            </Table>
+            </TableContainer>
+            <br />
+            <TableContainer component = {Paper}>
 
-                    </tr>
-                    <tr>
-                        <td>Mysore Tour</td>
-                        <td className='t3'>no of participation</td>
-                        <td>no of participation</td>
+            <Table>
+                <TableHead>
+                    <TableRow>
+                        <TableCell>Tour Name</TableCell>
+                        <TableCell>26th JAN</TableCell>
+                        <TableCell>26th JAN DEP</TableCell>
+                    </TableRow>
+                    <TableRow>
+                        <TableCell>TableRowichy Local</TableCell>
+                        <TableCell className='t1'>no of participation</TableCell>
+                        <TableCell>no of participation</TableCell>
 
-                    </tr>
-                    <tr>
-                        <td>Belur-Hampi Tour</td>
-                        <td className='t4'>no of participation</td>
-                        <td>no of participation</td>
+                    </TableRow>
+                    <TableRow>
+                        <TableCell>Phuket-Krabi Tour</TableCell>
+                        <TableCell className='t2'>no of participation</TableCell>
+                        <TableCell>no of participation</TableCell>
 
-                    </tr>
-                </thead>
-            </table>
+                    </TableRow>
+                    <TableRow>
+                        <TableCell>Mysore Tour</TableCell>
+                        <TableCell className='t3'>no of participation</TableCell>
+                        <TableCell>no of participation</TableCell>
 
+                    </TableRow>
+                    <TableRow>
+                        <TableCell>Belur-Hampi Tour</TableCell>
+                        <TableCell className='t4'>no of participation</TableCell>
+                        <TableCell>no of participation</TableCell>
+
+                    </TableRow>
+                </TableHead>
+            </Table>
+            </TableContainer>
                 </div>
+            <br />
+            <div className='center'>
+            <TableContainer component = {Paper}>
 
-            <div className='mainc'>
-                <table>
-                    <thead>
-                        <tr>
-                            <td><h1>Costs payable</h1></td>
-                            <td><h1>Total Due</h1></td>
-                            <td><h1>Payable Now</h1></td>
-                        </tr>
+                <Table>
+                    <TableHead>
+                        <TableRow>
+                            <TableCell><h1>Costs payable</h1></TableCell>
+                            <TableCell><h1>Total Due</h1></TableCell>
+                            <TableCell><h1>Payable Now</h1></TableCell>
+                        </TableRow>
 
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>Participation Fee</td>
-                            <td>Pending</td>
-                            <td>Full amount</td>
-                        </tr>
-                        <tr>
-                            <td>Hotel Room</td>
-                            <td>Pending</td>
-                            <td>50%</td>
-                        </tr>
-                        <tr>
-                            <td>Dinner for event</td>
-                            <td>Pending</td>
-                            <td>Full amount</td>
-                        </tr>
-                        <tr>
-                            <td>T-Shirt</td>
-                            <td>Pending</td>
-                            <td>Full amount</td>
-                        </tr>
-                        <tr>
-                            <td>Trichy Local Tour</td>
-                            <td>Pending</td>
-                            <td>Sep 23</td>
-                        </tr>
-                        <tr>
-                            <td>Phuket-Krabi Tour</td>
-                            <td>Pending</td>
-                            <td>Sep 23</td>
-                        </tr>
-                        <tr>
-                            <td>Mysore Tour</td>
-                            <td>Pending</td>
-                            <td>Sep 23</td>
-                        </tr>
-                        <tr>
-                            <td>Belur-Hampi Tour</td>
-                            <td>Pending</td>
-                            <td>Sep 23</td>
-                        </tr>
-                    </tbody>
-                </table>
+                    </TableHead>
+                    <TableBody>
+                        <TableRow>
+                            <TableCell>Participation Fee</TableCell>
+                            <TableCell>Pending</TableCell>
+                            <TableCell>Full amount</TableCell>
+                        </TableRow>
+                        <TableRow>
+                            <TableCell>Hotel Room</TableCell>
+                            <TableCell>Pending</TableCell>
+                            <TableCell>50%</TableCell>
+                        </TableRow>
+                        <TableRow>
+                            <TableCell>Dinner for event</TableCell>
+                            <TableCell>Pending</TableCell>
+                            <TableCell>Full amount</TableCell>
+                        </TableRow>
+                        <TableRow>
+                            <TableCell>T-Shirt</TableCell>
+                            <TableCell>Pending</TableCell>
+                            <TableCell>Full amount</TableCell>
+                        </TableRow>
+                        <TableRow>
+                            <TableCell>TableRowichy Local Tour</TableCell>
+                            <TableCell>Pending</TableCell>
+                            <TableCell>Sep 23</TableCell>
+                        </TableRow>
+                        <TableRow>
+                            <TableCell>Phuket-Krabi Tour</TableCell>
+                            <TableCell>Pending</TableCell>
+                            <TableCell>Sep 23</TableCell>
+                        </TableRow>
+                        <TableRow>
+                            <TableCell>Mysore Tour</TableCell>
+                            <TableCell>Pending</TableCell>
+                            <TableCell>Sep 23</TableCell>
+                        </TableRow>
+                        <TableRow>
+                            <TableCell>Belur-Hampi Tour</TableCell>
+                            <TableCell>Pending</TableCell>
+                            <TableCell>Sep 23</TableCell>
+                        </TableRow>
+                    </TableBody>
+                </Table>
+                </TableContainer>
             </div>    
+            <br />
+            <div className='center'>
+            <h3>EDIT CONTENT</h3>
+            <Stack direction="row" spacing={2} style = {{padding : '1rem'}} align = 'center' divider={<Divider orientation="vertical" flexItem />} component = {Paper}>
+                    
+            <Link to="/basedat"><Button size="large" variant="contained" >
+                    Base Data
+                </Button></Link>
+                <Link to="/accomodation"><Button size="large" variant="contained" >
+                    Accomodation
+                </Button></Link>
+                
+                <Link to="/event-participation"><Button size="large" variant="contained" >
+                    Event Participation
+                </Button></Link>
 
-            <div className='mainc'>
+                <Link to="/tshirt"><Button size="large" variant="contained" >
+                    Tshirts
+                </Button></Link>
+
+                <Link to="/tours"><Button size="large" variant="contained" >
+                    Tours
+                </Button></Link>
+                
+                </Stack>
+</div>
+            <div>
+            <br />
+            <Button size="large" variant="contained" color = 'warning'>
+                    Submit Registration
+                </Button>
+            </div>
+            {/* <div className='center'>
             <h1>Edit Content</h1>
             <Link to="/" ><button className='eventbut'>BaseData</button> </Link>
             <Link to="/accomodation" ><button className='eventbut'>Accomodation</button> </Link>
@@ -499,7 +605,7 @@ function Previews() {
             <Link to="/tshirt" ><button className='eventbut'>Tshirt</button> </Link>
             <Link to="/tours" ><button className='eventbut'>Tours</button> </Link>
 
-            </div>
+            </div> */}
         </>
     );
 }

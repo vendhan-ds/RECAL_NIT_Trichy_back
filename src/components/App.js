@@ -21,6 +21,12 @@ import ReportRegistered from './reports/ReportRegistered';
 import ReportSummary from './reports/ReportSummary';
 import ReportTotalcost from './reports/ReportTotalcost';
 import ReportTshirt from './reports/ReportTshirt';
+import Sign from './pages/Sign';
+import Basedat from './pages/Basedata';
+import Quit from './pages/quit';
+import Feedback from './pages/Feedback';
+import Navbar from './Navbar'
+
 
 const App = () => {
     const location = useLocation();
@@ -30,6 +36,10 @@ const App = () => {
             <AnimatePresence>
             <Routes location={location} key = {location.pathname}>
                 <Route path='' element={<Home />} />
+                <Route path='signin' element={<Sign />} />
+                <Route path='quit' element={<Quit />} />
+                <Route path='feedback' element={<Feedback />} />
+                <Route path='basedat' element={<Basedat />} />
                 <Route path='login' element={<Login />} />
                 <Route path='accomodation' element={<Accomodation />} />
                 <Route path='event-participation' element={<EventParticipation />} />
