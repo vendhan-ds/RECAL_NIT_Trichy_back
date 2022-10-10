@@ -51,8 +51,14 @@ const mongoose = require('mongoose');
       type: [String],
       enum: ['singleOccupancy', 'doubleOccupancy', 'twinShare']
     },*/
-    checkInDate: Date,
-    checkOutDate: Date,
+    Dates : {
+      cout1 : Boolean,
+      cout2 : Boolean,
+      cout3 : Boolean,
+      cin1 : Boolean,
+      cin2 : Boolean,
+      cin3 : Boolean
+    },
     hotel: {
       breezeResidency: {
         type: [roomOneSchema]

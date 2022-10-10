@@ -12,11 +12,12 @@ import Stack from '@mui/material/Stack';
 import Divider from '@mui/material/Divider';
 import {motion} from 'framer-motion'
 import {Link} from 'react-router-dom'
+import axios from 'axios'
 
 
 export default function Basedat(){
 
-    var data = ['Name', 'Branch' ,'Spouse', 'City' , 'Country' , 'Region' , 'Mobile' , 'Email' , 'T-Shirt Size' ];
+    var data = ['Name', 'Branch' ,'Spouse', 'City' , 'Country' , 'Region' , 'Mobile' , 'Email' , 'T-Shirt_Size' ];
     const mystyle = {
         width : 'fit-content',
         padding : '1rem',
@@ -32,6 +33,16 @@ export default function Basedat(){
         }
 
     }
+
+    function sendpost(){
+        var post = [];
+        for(var i of data){
+            post.push(document.querySelector('#' + i).value);
+        }
+        axios.post('http://localhost:8080/api/registrationData' , post).then((res) => console.log(res.data));
+
+    }
+
     return(
         <>
         <motion.div className='center' variants={variants1} exit={{x:'100vw'}} initial ={{opacity:0}} animate="anim" >
@@ -49,7 +60,7 @@ export default function Basedat(){
                         <TableRow>
                             <TableCell >{dat}</TableCell>
                             <TableCell>as per Base Data</TableCell>
-                            <TableCell><TextField size = "small" id="outlined-basic" label={dat} variant="outlined" /></TableCell>
+                            <TableCell><TextField size = "small" id={dat} label={dat} variant="outlined" /></TableCell>
                         </TableRow>
                     )
                     )}
@@ -81,7 +92,7 @@ export default function Basedat(){
                 <br />
                 <div className='center'>
                 <Stack direction="row" spacing={2} style = {{padding : '1rem'}} align = 'center' divider={<Divider orientation="vertical" flexItem />} component = {Paper}>
-                <Button size="large" variant="contained" >
+                <Button size="large" variant="contained" onClick={() => sendpost()} >
                     Save
                 </Button>
                 <Link to="/accomodation"><Button size="large" variant="contained" >

@@ -39,6 +39,12 @@ const tshirtSchema = new mongoose.Schema({
           mSize: Number,
           lSize: Number,
           xlSize: Number
+        },
+        sweatWickingFabric: {
+          sSize: Number,
+          mSize: Number,
+          lSize: Number,
+          xlSize: Number,
         }
       },
       grandKids: {

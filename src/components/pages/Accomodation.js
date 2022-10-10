@@ -73,9 +73,12 @@ function Accomodation() {
         var f = document.querySelector('#family').value;
         var g = document.querySelector('#grandkids').value;
         }
-        var data = {'participationType' : fam, 'hotelRoom' : rreq, 'checkInDate' : cin, 'checkOuTableCellate' : cout ,'alumni' : a ,'spouse' : s,'familyMembers' : f,'grandKids' : g,'hotel1' : room , 'hotel2' : room2 ,'totalcost' : costs + costs2};
+
+        var dates = [document.querySelector('#cout1').checked,document.querySelector('#cout2').checked,document.querySelector('#cout3').checked,document.querySelector('#cin1').checked,document.querySelector('#cin2').checked,document.querySelector('#cin3').checked]
+
+        var data = {'participationType' : fam, 'hotelRoom' : rreq, 'dates' : dates ,'alumni' : a ,'spouse' : s,'familyMembers' : f,'grandKids' : g,'hotel1' : room , 'hotel2' : room2 ,'totalcost' : costs + costs2};
         axios.post('http://localhost:8080/api/accomodationSave',data).then((res) => console.log(res.data));
-        sets(TableRowue);
+        sets(true);
         
     }
 
@@ -200,18 +203,18 @@ function Accomodation() {
             <TableRow>
             <TableCell><label>Early Check-in</label></TableCell>
             <TableCell>23rd Jan (12 Noon)</TableCell>
-            <TableCell><Checkbox  onChange={(e) => setcout(e.target.value)}/></TableCell>
+            <TableCell><Checkbox id = "cout1"/></TableCell>
 
             </TableRow>
             <TableRow>
             <TableCell><label>Standard Check-in</label></TableCell>
             <TableCell>24th Jan (12 Noon)</TableCell>           
-             <TableCell><Checkbox  onChange={(e) => setcout(e.target.value)}/></TableCell>
+             <TableCell><Checkbox id = "cout2"/></TableCell>
             </TableRow>
             <TableRow>
             <TableCell><label>Late Check-in</label></TableCell>
             <TableCell>25th Jan (12 Noon)</TableCell>            
-            <TableCell><Checkbox  onChange={(e) => setcout(e.target.value)}/></TableCell>
+            <TableCell><Checkbox id = "cout3"/></TableCell>
             </TableRow>
             <TableRow>
                 <TableCell><h3>Please Select Check-out Date</h3></TableCell>
@@ -219,17 +222,17 @@ function Accomodation() {
             <TableRow>
             <TableCell><label>Early Check-out</label></TableCell>
             <TableCell>25th Jan (12 Noon)</TableCell>            
-            <TableCell><Checkbox  onChange={(e) => setcout(e.target.value)}/></TableCell>
+            <TableCell><Checkbox id = "cin1"/></TableCell>
             </TableRow>
             <TableRow>
             <TableCell><label>Standard Check-out</label></TableCell>
             <TableCell>26th Jan (12 Noon)</TableCell>          
-              <TableCell><Checkbox  onChange={(e) => setcout(e.target.value)}/></TableCell>
+              <TableCell><Checkbox id = "cin2"/></TableCell>
             </TableRow>
             <TableRow>
             <TableCell><label>Extended Stay</label></TableCell>
             <TableCell>27th Jan (12 Noon)</TableCell>           
-             <TableCell><Checkbox  onChange={(e) => setcout(e.target.value)}/></TableCell>
+             <TableCell><Checkbox id = "cin3"/></TableCell>
             </TableRow>
             
             
@@ -563,7 +566,7 @@ function Accomodation() {
                 
                 <div className='center'>
                 <Stack direction="row" spacing={2} style = {{padding : '1rem'}} align = 'center' divider={<Divider orientation="vertical" flexItem />} component = {Paper}>
-                <Button size="large" variant="contained" >
+                <Button size="large" variant="contained" onClick={() => sendpost()}>
                     Save
                 </Button>
                 <Link to="/event-participation"><Button size="large" variant="contained" >

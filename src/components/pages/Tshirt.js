@@ -14,7 +14,6 @@ import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
 import Divider from '@mui/material/Divider';
 import Checkbox from '@mui/material/Checkbox';
-import { func } from 'prop-types';
 import { TextField } from '@mui/material';
 
 function Tshirt() {
@@ -324,7 +323,7 @@ Design - Round Neck
         <br />
         <div className='center'>
                 <Stack direction="row" spacing={2} style = {{padding : '1rem'}} align = 'center' divider={<Divider orientation="vertical" flexItem />} component = {Paper}>
-                <Button size="large" variant="contained" >
+                <Button size="large" variant="contained" onClick={() => sendpost()} >
                     Save
                 </Button>
                 <Link to="/tours"><Button size="large" variant="contained" >

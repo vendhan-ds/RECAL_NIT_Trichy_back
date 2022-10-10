@@ -39,7 +39,6 @@ function EventParticipation() {
         var a4 = document.querySelector('#a4').checked;
         var a5 = document.querySelector('#a5').checked;
         var a6 = document.querySelector('#a6').checked;
-        var a7 = document.querySelector('#a7').checked;
         var a8 = document.querySelector('#a8').checked;
 
         var v1 = document.querySelector('#v1').value;
@@ -64,12 +63,12 @@ function EventParticipation() {
             v3 = 0;
         }
         
-        var arr = [a1,a2,a3,a4,a5,a6,a7,a8];
+        var arr = [a1,a2,a3,a4,a5,a6,a8];
         console.log(arr);
         var data = {'conditions' : arr , 'd1v' : v1, 'd1nv' : nv1 , 'd2c' : v3 , 'd3v' : v2 , 'd3nv' : nv2};
         console.log(data);
         axios.post('http://localhost:8080/api/eventsSave' , data).then((res) => console.log(res.data));
-        sets(TableRowue);
+        sets(true);
     }
 
     const variants1 = {
@@ -237,7 +236,7 @@ I agree to pay the Lumpsum Participation Fee of Rs.4,500 towards this for Myself
         <br />
         <div className='center'>
                 <Stack direction="row" spacing={2} style = {{padding : '1rem'}} align = 'center' divider={<Divider orientation="vertical" flexItem />} component = {Paper}>
-                <Button size="large" variant="contained" >
+                <Button size="large" variant="contained" onClick={() => sendpost()}>
                     Save
                 </Button>
                 <Link to="/tshirt"><Button size="large" variant="contained" >

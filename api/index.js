@@ -5,6 +5,7 @@ import Registration from '../app/models/Registration';
 import Tour from '../app/models/Tour';
 import Tshirt from '../app/models/Tshirt';
 import Users from '../app/models/Users';
+import FeedBack from '../app/models/FeedBack';
 
 const router = express.Router();
 
@@ -437,6 +438,7 @@ router.get("/summary",async(req,res)=>{
 router.post('/accomodationSave', async(req,res)=>{
     try{var currentUser
         const data=req.body;
+        console.log(data);
         //console.log("req body "+JSON.stringify(req.session.passport.user));
         var id=req.session.passport.user
         await Users.findById(id,function(err,docs){
@@ -479,8 +481,14 @@ router.post('/accomodationSave', async(req,res)=>{
                 grandKids:data.grandKids
             },
             participationType:data.participationType,
-            checkInDate:data.checkInDate,
-            checkOutDate:data.checkOutDate,
+            Dates : {
+                cout1 : data.dates[0],
+                cout2 : data.dates[1],
+                cout3 : data.dates[2],
+                cin1 : data.dates[3],
+                cin2 : data.dates[4],
+                cin3 : data.dates[5],
+            },
             hotel:{
                 breezeResidency:hotel11/*[
                     {roomType:'standard',
@@ -561,21 +569,38 @@ router.post('/eventsSave',async(req,res)=>{
 
 router.post("/registrationData",async(req,res)=>{
     try{
-        const data=req.body;console.log(data);
+
+        var currentUser;
+        console.log(req.session);
+        var id=req.session.passport.user;
+        await Users.findById(id,function(err,docs){
+            if(err){console.log(err)}
+            else{console.log(docs.username)
+                currentUser=docs.username;
+            }
+        }).clone();
+        const data=req.body;
+        console.log(data);
         const newReg=new Registration({
-            username: String,
-    name: String,
-    branch: String,
-    spouse: String,
-    city: String,
-    country: String,
-    region: String,
-    mobile: String,
-    email: String,
-    tshirt: String
+            username: currentUser,
+    name: data[0],
+    branch: data[1],
+    spouse: data[2],
+    city: data[3],
+    country: data[4],
+    region: data[5],
+    mobile: data[6],
+    email: data[7],
+    tshirt: data[8]
         })
+
+    await newReg.save();
+    res.send("success")
+
     }catch(e){
         console.log(e.message);
+        res.send("failure")
+
     }
 })
 
@@ -585,6 +610,7 @@ router.post("/ToursSave",async(req,res)=>{
         //interest=data.need?True:False;
         var currentUser
         const data=req.body;
+        console.log(data);
         //console.log("req body "+JSON.stringify(req.session.passport.user));
         var id=req.session.passport.user
         await Users.findById(id,function(err,docs){
@@ -611,11 +637,39 @@ router.post("/ToursSave",async(req,res)=>{
     }
 })
 
+
+router.post("/FeedSave",async(req,res)=>{
+    try{let interest;
+        var currentUser
+        const data=req.body;
+        console.log(data);
+        //console.log("req body "+JSON.stringify(req.session.passport.user));
+        var id=req.session.passport.user
+        await Users.findById(id,function(err,docs){
+            if(err){console.log(err)}
+            else{console.log(docs.username)
+                currentUser=docs.username;
+            }
+        }).clone();
+        const newFeed= new FeedBack({
+            username:currentUser,
+            Rating : data.rat,
+            Comment : data.com,
+        })
+        await newFeed.save();
+        console.log("saved Feed successfully")
+        res.send("success")
+    }catch(e){
+        console.log(e.message);
+    }
+})
+
 router.post("/tshirtSave",async(req,res)=>{
     try{
         //const data=req.body;
         var currentUser
         const data=req.body;
+        console.log(data);
         //console.log("req body "+JSON.stringify(req.session.passport.user));
         var id=req.session.passport.user
         await Users.findById(id,function(err,docs){

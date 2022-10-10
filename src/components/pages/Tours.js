@@ -151,7 +151,7 @@ function Tours() {
         <br />
         <div className='center'>
                 <Stack direction="row" spacing={2} style = {{padding : '1rem'}} align = 'center' divider={<Divider orientation="vertical" flexItem />} component = {Paper}>
-                <Button size="large" variant="contained" >
+                <Button size="large" variant="contained" onClick={() => sendpost()} >
                     Save
                 </Button>
                 <Link to="/feedback"><Button size="large" variant="contained" >
