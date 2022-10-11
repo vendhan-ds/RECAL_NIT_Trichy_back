@@ -31,7 +31,9 @@ router.get("/previewData",async(req,res)=>{
         }).clone();
     //var currentUser="TestUser1";//req.body.username;
     //console.log("h1")
-    var particitype,inpax,chkin,chkout,htl1,htl2,eventpart,member,foodmembers,tourop,options,quantity;
+    var particitype,inpax,chkin,chkout,htl1,htl2,eventpart,member,foodmembers,tourop,options,quantity,dates;
+    chkin = 0;
+    chkout = 0;
     try{//console.log("h1")
     
         await Accomodation.findOne({username:currentUser},function(err,foundUser){
@@ -45,8 +47,7 @@ router.get("/previewData",async(req,res)=>{
                     console.log("hlo4")
                      particitype=foundUser.participationType;
                      inpax=foundUser.pax;
-                     chkin=foundUser.checkInDate;
-                     chkout=foundUser.checkOutDate;
+                     dates=foundUser.Dates;
                      htl1=foundUser.hotel11;
                      htl2=foundUser.hotel22;
     
@@ -105,7 +106,7 @@ router.get("/previewData",async(req,res)=>{
                          options=[foundUser.menOption, foundUser.womenOption, foundUser.grandKidsOption]
                          quantity=foundUser.quantity
                           console.log('sssssss');
-                          var previewData=[currentUser,particitype,inpax,chkin,chkout,htl1,htl2,eventpart,member,foodmembers,options, quantity,tourop,regdat];
+                          var previewData=[currentUser,particitype,inpax,chkin,chkout,htl1,htl2,eventpart,member,foodmembers,options, quantity,tourop,regdat,dates];
                           console.log(previewData);
                           res.send(previewData)
                     }
