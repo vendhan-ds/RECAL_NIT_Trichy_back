@@ -37,10 +37,28 @@ function Tours() {
             var data = {'need' : 0 , 'tour' : [0,0,0,0]};
         }
         axios.post('http://localhost:8080/api/ToursSave' , data).then((res) => console.log(res.data));
-        sets(TableRowue);
+        sets(true);
 
 
     }
+
+    function prepop(){
+        axios.get('http://localhost:8080/api/previewData').then(
+            (res) => {
+                res = res.data;
+                console.log(res);
+                var arr = res[12][1];
+                document.querySelector('#c1').value = arr.trichy;
+                document.querySelector('#c2').value = arr.phuketKrabi;
+                document.querySelector('#c3').value = arr.mysoreBandipur;
+                document.querySelector('#c4').value = arr.belurHampi;
+                
+
+            });
+
+    }
+
+    prepop();
 
     const variants1 = {
         anim : {
@@ -62,7 +80,7 @@ function Tours() {
         <Checkbox onChange={(e) => setn(e.target.checked)}/>
         <br />
         <br />
-        {tour && <motion.div initial ={{opacity : 0}} animate = {{opacity : 1}} className='rdetails'>
+        <motion.div initial ={{opacity : 0}} animate = {{opacity : 1}} className='rdetails'>
         <TableContainer component = {Paper} style = {mystyle}>
 
         <Table>
@@ -138,7 +156,7 @@ function Tours() {
             </TableBody>
         </Table>
         </TableContainer>
-        </motion.div>}
+        </motion.div>
 {/*            
         </div>
         <div className=' c1but'>

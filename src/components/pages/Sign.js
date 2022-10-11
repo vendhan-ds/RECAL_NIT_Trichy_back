@@ -29,11 +29,20 @@ function sendPost(){
         return;
     }
     var data = {'username' :  username, 'password' : password };
-    axios.post('http://localhost:8080/login' , data).then((res) => console.log("test" + res.data));
-    sets(true);
+    axios.post('http://localhost:8080/login' , data).then((res) => {
 
-    window.location.href = "/basedat";
-}
+    console.log("test" + res.data)});
+    sets(true);
+    axios.post('http://localhost:8080/api/logincheck' , data).then((res) => {
+      console.log(res);
+      if(res){
+        window.location.href = "/basedat";
+      }
+      else{
+        console.log("not logged in");
+      }
+  });
+ }
   return(
     <motion.div className='container' initial = {{opacity : 0}} animate = {{opacity : 1}} exit = {{opacity : 0}}>
     <div className='logos'>

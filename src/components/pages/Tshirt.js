@@ -25,7 +25,46 @@ function Tshirt() {
       };
     const [need,setn] = useState(false);
     const [saved,sets] = useState(false);
+    function prepop(){
+        axios.get('http://localhost:8080/api/previewData',data).then(
+            (res) => {
+                res = res.data;
+                res1 = res[10];
+                document.querySelector('#c3').checked = res1[0].supimaCotton;
+                document.querySelector('#c2').checked = res1[0].sweatWickingFabric;
+                document.querySelector('#c4').checked = res1[1].supimaCotton;
+                document.querySelector('#c5').checked = res1[1].sweatWickingFabric;
+                document.querySelector('#c1').checked = 'a';
+                document.querySelector('#m1').value = 'a';
+                document.querySelector('#m2').value = 'a';
+                document.querySelector('#m3').value = 'a';
+                document.querySelector('#m4').value = 'a';
+                document.querySelector('#m5').value = 'a';
+                document.querySelector('#m6').value = 'a';
+                document.querySelector('#m12').value = 'a';
+                document.querySelector('#m22').value = 'a';
+                document.querySelector('#m32').value = 'a';
+                document.querySelector('#m42').value = 'a';
+                document.querySelector('#m52').value = 'a';
+                document.querySelector('#m62').value = 'a';
+                document.querySelector('#w1').value = 'a';
+                document.querySelector('#w2').value = 'a';
+                document.querySelector('#w3').value = 'a';
+                document.querySelector('#w4').value = 'a';
+                document.querySelector('#w12').value = 'a';
+                document.querySelector('#w22').value = 'a';
+                document.querySelector('#w32').value = 'a';
+                document.querySelector('#w42').value = 'a';
+                document.querySelector('#g1').value = 'a';
+                document.querySelector('#g2').value = 'a';
+                document.querySelector('#g3').value = 'a';
+                document.querySelector('#b1').value = 'a';
+                document.querySelector('#b2').value = 'a';
+                document.querySelector('#b3').value = 'a';
 
+            });
+
+    }
     function sendpost(){
         sets(false);
         if(need){
@@ -46,6 +85,8 @@ function Tshirt() {
         axios.post('http://localhost:8080/api/tshirtSave' , data).then((res) => console.log(res.data));
         sets(true);
     }
+
+
 
     function updateno(){
         var men1 = [document.querySelector('#m1').value,document.querySelector('#m2').value,document.querySelector('#m3').value,document.querySelector('#m4').value,document.querySelector('#m5').value,document.querySelector('#m6').value];

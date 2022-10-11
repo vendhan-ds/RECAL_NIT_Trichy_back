@@ -43,6 +43,18 @@ export default function Basedat(){
 
     }
 
+    function prepop(){
+        axios.post('http://localhost:8080/api/previewData',data).then(
+            (res) => {
+                res = res.data;
+                for(var i of data){
+                    document.querySelector('#' + i).value = "a";
+                }
+
+            });
+
+    };
+
     return(
         <>
         <motion.div className='center' variants={variants1} exit={{x:'100vw'}} initial ={{opacity:0}} animate="anim" >

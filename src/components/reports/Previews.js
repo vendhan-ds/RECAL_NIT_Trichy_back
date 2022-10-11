@@ -75,8 +75,12 @@ function Previews() {
         document.querySelector('.t2').innerText = res.data[11][1].phuketKrabi;
         document.querySelector('.t3').innerText = res.data[11][1].mysoreBandipur;
         document.querySelector('.t4').innerText = res.data[11][1].belurHampi;
-
-        
+        var datt = ['Name', 'Branch' ,'Spouse', 'City' , 'Country' , 'Region' , 'Mobile' , 'Email' , 'T-Shirt_Size' ];
+        var datt2 = res.data[12];
+        console.log(datt2);
+        for(var i in datt){
+            document.querySelector('#' + datt[i]).value = datt2[i];
+        };
 
     });
     return () => {
@@ -108,7 +112,7 @@ function Previews() {
                         <TableRow>
                             <TableCell >{dat}</TableCell>
                             <TableCell>as per Base Data</TableCell>
-                            <TableCell><TextField size = "small" id="outlined-basic" label={dat} variant="outlined" /></TableCell>
+                            <TableCell><TextField size = "small" id={dat} label={dat} variant="outlined" /></TableCell>
                         </TableRow>
                     )
                     )}

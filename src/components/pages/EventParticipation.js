@@ -71,6 +71,28 @@ function EventParticipation() {
         sets(true);
     }
 
+    function prepop(){
+        axios.post('http://localhost:8080/api/previewData',data).then(
+            (res) => {
+                res = res.data;
+                var a1 = document.querySelector('#a1').checked = true;
+                var a2 = document.querySelector('#a2').checked = true;
+                var a3 = document.querySelector('#a3').checked = true;
+                var a4 = document.querySelector('#a4').checked = true;
+                var a5 = document.querySelector('#a5').checked = true;
+                var a6 = document.querySelector('#a6').checked = true;
+                var a8 = document.querySelector('#a8').checked = true;
+
+                var v1 = document.querySelector('#v1').value = true;
+                var nv1 = document.querySelector('#nv1').value = true;
+                var v2 = document.querySelector('#v2').value = true;
+                var nv2 = document.querySelector('#nv2').value = true;
+                var v3 = document.querySelector('#v3').value = true;
+
+            });
+
+    }
+
     const variants1 = {
         anim : {
             opacity : 1,
@@ -191,8 +213,8 @@ function EventParticipation() {
             </TableHead>
                     <TableBody>
                     
-                    <TableRow><TableCell>"I will join for the Evening Event at the Hotel
-I agree to pay the Lumpsum Participation Fee of Rs.4,500 towards this for Myself & Family"
+                    <TableRow><TableCell>I will join for the Evening Event at the Hotel
+I agree to pay the Lumpsum Participation Fee of Rs.4,500 towards this for Myself & Family
 
 
 

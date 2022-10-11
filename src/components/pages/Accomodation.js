@@ -24,14 +24,14 @@ import Checkbox from '@mui/material/Checkbox';
 function Accomodation() {
 
     const [fam,setfam] = useState("single");
-    const [rreq,seTableRowreq] = useState("noTableRowequired");
-    const [roomt,seTableRowoomt] = useState(null);
+    const [rreq,setroom] = useState("not required");
+    const [roomt,setroomt] = useState(null);
     const [cin,setcin] = useState(null);
     const [cout,setcout] = useState(null);
     const [hotel,sethotel] = useState(null);
-    const [room,seTableRowoom] = useState([0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]);
+    const [room,setrooms] = useState([0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]);
     const [costs,setcost] = useState(0)
-    const [room2,seTableRowoom2] = useState([0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]);
+    const [room2,setrooms2] = useState([0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]);
     const [costs2,setcost2] = useState(0)
     const [saved,sets] = useState(false);
     
@@ -56,8 +56,36 @@ function Accomodation() {
         console.log(cost);
         setcost(cost);
     }
-// change the pricess
+
+    function prepop(){
+        axios.post('http://localhost:8080/api/previewData',data).then(
+            (res) => {
+                res = res.data;
+                setfam();
+                setroom();
+                setrooms();
+                setrooms2();
+                setcost();
+                setcost2();
+                var a = document.querySelector('#alumni').value = 'a';
+                var s = document.querySelector('#spouse').value = 'a';
+                var f = document.querySelector('#family').value = 'a';
+                var g = document.querySelector('#grandkids').value = 'a'; 
+                document.querySelector('#cout1').checked = true;;
+                document.querySelector('#cout2').checked = true;
+                document.querySelector('#cout3').checked = true;
+                document.querySelector('#cin1').checked = true;
+                document.querySelector('#cin2').checked = true;
+                document.querySelector('#cin3').checked = true;
+
+            });
+
+    }
+
     function sendpost(){
+
+
+
         sets(false);
 
         console.log('ss');
@@ -174,7 +202,7 @@ function Accomodation() {
 
 <InputLabel id="label">Hotel Room</InputLabel>
 
-<Select className='exselect' onChange={(e) => seTableRowreq(e.target.value)} label="Age" labelId="label" >
+<Select className='exselect' onChange={(e) => setroom(e.target.value)} label="Age" labelId="label" >
     <MenuItem value="not required" >not required</MenuItem>
     <MenuItem value="required" >required</MenuItem>
 </Select>
@@ -281,21 +309,21 @@ function Accomodation() {
                             <TableCell><TextField size = "small"   variant="outlined" min = "0" id='a11'onChange={(e) =>{
                                 var arr = [...room2];
                                 arr[0] = e.target.value;
-                                seTableRowoom2(arr);
+                                setrooms2(arr);
                                 updatecost2(arr);
                             }} /></TableCell>
                             <TableCell>2000</TableCell>
                             <TableCell><TextField size = "small" variant="outlined" min = "0" id='a12' onChange={(e) =>{
                                 var arr = [...room2];
                                 arr[1] = e.target.value;
-                                seTableRowoom2(arr);
+                                setrooms2(arr);
                                 updatecost2(arr);
                             }}/></TableCell>
                             <TableCell>1000</TableCell>
                             <TableCell><TextField size = "small"   variant="outlined" min = "0" id='a13' onChange={(e) =>{
                                 var arr = [...room2];
                                 arr[2] = e.target.value;
-                                seTableRowoom2(arr);
+                                setrooms2(arr);
                                 updatecost2(arr);
                             }}/></TableCell>
 
@@ -306,21 +334,21 @@ function Accomodation() {
                             <TableCell><TextField size = "small"   variant="outlined" min = "0" id='a21' onChange={(e) =>{
                                 var arr = [...room2];
                                 arr[3] = e.target.value;
-                                seTableRowoom2(arr);
+                                setrooms2(arr);
                                 updatecost2(arr);
                             }}/></TableCell>
                             <TableCell>2500</TableCell>
                             <TableCell><TextField size = "small"   variant="outlined" min = "0" id='a22' onChange={(e) =>{
                                 var arr = [...room2];
                                 arr[4] = e.target.value;
-                                seTableRowoom2(arr);
+                                setrooms2(arr);
                                 updatecost2(arr);
                             }}/></TableCell>
                             <TableCell>1250</TableCell>
                             <TableCell><TextField size = "small"   variant="outlined" min = "0" id='a23' onChange={(e) =>{
                                 var arr = [...room2];
                                 arr[5] = e.target.value;
-                                seTableRowoom2(arr);
+                                setrooms2(arr);
                                 updatecost2(arr);
                             }}/></TableCell>
 
@@ -331,21 +359,21 @@ function Accomodation() {
                             <TableCell><TextField size = "small"   variant="outlined" min = "0" id='a31' onChange={(e) =>{
                                 var arr = [...room2];
                                 arr[6] = e.target.value;
-                                seTableRowoom2(arr);
+                                setrooms2(arr);
                                 updatecost2(arr);
                             }}/></TableCell>
                             <TableCell>3700</TableCell>
                             <TableCell><TextField size = "small"   variant="outlined" min = "0" id='a32' onChange={(e) =>{
                                 var arr = [...room2];
                                 arr[7] = e.target.value;
-                                seTableRowoom2(arr);
+                                setrooms2(arr);
                                 updatecost2(arr);
                             }}/></TableCell>
                             <TableCell>1850</TableCell>
                             <TableCell><TextField size = "small"   variant="outlined" min = "0" id='a33' onChange={(e) =>{
                                 var arr = [...room2];
                                 arr[8] = e.target.value;
-                                seTableRowoom2(arr);
+                                setrooms2(arr);
                                 updatecost2(arr);
                             }}/></TableCell>
 
@@ -356,21 +384,21 @@ function Accomodation() {
                             <TableCell><TextField size = "small"   variant="outlined" min = "0" id='a41' onChange={(e) =>{
                                 var arr = [...room2];
                                 arr[9] = e.target.value;
-                                seTableRowoom2(arr);
+                                setrooms2(arr);
                                 updatecost2(arr);
                             }}/></TableCell>
                             <TableCell>4500</TableCell>
                             <TableCell><TextField size = "small"   variant="outlined" min = "0" id='a42' onChange={(e) =>{
                                 var arr = [...room2];
                                 arr[10] = e.target.value;
-                                seTableRowoom2(arr);
+                                setrooms2(arr);
                                 updatecost2(arr);
                             }}/></TableCell>
                             <TableCell>2250</TableCell>
                             <TableCell><TextField size = "small"   variant="outlined" min = "0" id='a43' onChange={(e) =>{
                                 var arr = [...room2];
                                 arr[11] = e.target.value;
-                                seTableRowoom2(arr);
+                                setrooms2(arr);
                                 updatecost2(arr);
                             }}/></TableCell>
 
@@ -381,21 +409,21 @@ function Accomodation() {
                             <TableCell><TextField size = "small"   variant="outlined" min = "0" id='a51' onChange={(e) =>{
                                 var arr = [...room2];
                                 arr[12] = e.target.value;
-                                seTableRowoom2(arr);
+                                setrooms2(arr);
                                 updatecost2(arr);
                             }}/></TableCell>
                             <TableCell>350</TableCell>
                             <TableCell><TextField size = "small"   variant="outlined" min = "0" id='a52' onChange={(e) =>{
                                 var arr = [...room2];
                                 arr[13] = e.target.value;
-                                seTableRowoom2(arr);
+                                setrooms2(arr);
                                 updatecost2(arr);
                             }}/></TableCell>
                             <TableCell>350</TableCell>
                             <TableCell><TextField size = "small"   variant="outlined" min = "0" id='a53' onChange={(e) =>{
                                 var arr = [...room2];
                                 arr[14] = e.target.value;
-                                seTableRowoom2(arr);
+                                setrooms2(arr);
                                 updatecost2(arr);
                             }}/></TableCell>
 
@@ -432,21 +460,21 @@ function Accomodation() {
                             <TableCell><TextField size = "small"   variant="outlined" min = "0" id='a11'onChange={(e) =>{
                                 var arr = [...room];
                                 arr[0] = e.target.value;
-                                seTableRowoom(arr);
+                                setrooms(arr);
                                 updatecost(arr);
                             }} /></TableCell>
                             <TableCell>2800</TableCell>
                             <TableCell><TextField size = "small"   variant="outlined" min = "0" id='a12' onChange={(e) =>{
                                 var arr = [...room];
                                 arr[1] = e.target.value;
-                                seTableRowoom(arr);
+                                setrooms(arr);
                                 updatecost(arr);
                             }}/></TableCell>
                             <TableCell>1400</TableCell>
                             <TableCell><TextField size = "small"   variant="outlined" min = "0" id='a13' onChange={(e) =>{
                                 var arr = [...room];
                                 arr[2] = e.target.value;
-                                seTableRowoom(arr);
+                                setrooms(arr);
                                 updatecost(arr);
                             }}/></TableCell>
 
@@ -457,21 +485,21 @@ function Accomodation() {
                             <TableCell><TextField size = "small"   variant="outlined" min = "0" id='a21' onChange={(e) =>{
                                 var arr = [...room];
                                 arr[3] = e.target.value;
-                                seTableRowoom(arr);
+                                setrooms(arr);
                                 updatecost(arr);
                             }}/></TableCell>
                             <TableCell>3600</TableCell>
                             <TableCell><TextField size = "small"   variant="outlined" min = "0" id='a22' onChange={(e) =>{
                                 var arr = [...room];
                                 arr[4] = e.target.value;
-                                seTableRowoom(arr);
+                                setrooms(arr);
                                 updatecost(arr);
                             }}/></TableCell>
                             <TableCell>1800</TableCell>
                             <TableCell><TextField size = "small"   variant="outlined" min = "0" id='a23' onChange={(e) =>{
                                 var arr = [...room];
                                 arr[5] = e.target.value;
-                                seTableRowoom(arr);
+                                setrooms(arr);
                                 updatecost(arr);
                             }}/></TableCell>
 
@@ -482,21 +510,21 @@ function Accomodation() {
                             <TableCell><TextField size = "small"   variant="outlined" min = "0" id='a31' onChange={(e) =>{
                                 var arr = [...room];
                                 arr[6] = e.target.value;
-                                seTableRowoom(arr);
+                                setrooms(arr);
                                 updatecost(arr);
                             }}/></TableCell>
                             <TableCell>4300</TableCell>
                             <TableCell><TextField size = "small"   variant="outlined" min = "0" id='a32' onChange={(e) =>{
                                 var arr = [...room];
                                 arr[7] = e.target.value;
-                                seTableRowoom(arr);
+                                setrooms(arr);
                                 updatecost(arr);
                             }}/></TableCell>
                             <TableCell>2150</TableCell>
                             <TableCell><TextField size = "small"   variant="outlined" min = "0" id='a33' onChange={(e) =>{
                                 var arr = [...room];
                                 arr[8] = e.target.value;
-                                seTableRowoom(arr);
+                                setrooms(arr);
                                 updatecost(arr);
                             }}/></TableCell>
 
@@ -507,21 +535,21 @@ function Accomodation() {
                             <TableCell><TextField size = "small"   variant="outlined" min = "0" id='a41' onChange={(e) =>{
                                 var arr = [...room];
                                 arr[9] = e.target.value;
-                                seTableRowoom(arr);
+                                setrooms(arr);
                                 updatecost(arr);
                             }}/></TableCell>
                             <TableCell>5000</TableCell>
                             <TableCell><TextField size = "small"   variant="outlined" min = "0" id='a42' onChange={(e) =>{
                                 var arr = [...room];
                                 arr[10] = e.target.value;
-                                seTableRowoom(arr);
+                                setrooms(arr);
                                 updatecost(arr);
                             }}/></TableCell>
                             <TableCell>2500</TableCell>
                             <TableCell><TextField size = "small"   variant="outlined" min = "0" id='a43' onChange={(e) =>{
                                 var arr = [...room];
                                 arr[11] = e.target.value;
-                                seTableRowoom(arr);
+                                setrooms(arr);
                                 updatecost(arr);
                             }}/></TableCell>
 
@@ -532,21 +560,21 @@ function Accomodation() {
                             <TableCell><TextField size = "small"   variant="outlined" min = "0" id='a51' onChange={(e) =>{
                                 var arr = [...room];
                                 arr[12] = e.target.value;
-                                seTableRowoom(arr);
+                                setrooms(arr);
                                 updatecost(arr);
                             }}/></TableCell>
                             <TableCell>6700</TableCell>
                             <TableCell><TextField size = "small"   variant="outlined" min = "0" id='a52' onChange={(e) =>{
                                 var arr = [...room];
                                 arr[13] = e.target.value;
-                                seTableRowoom(arr);
+                                setrooms(arr);
                                 updatecost(arr);
                             }}/></TableCell>
                             <TableCell>3350</TableCell>
                             <TableCell><TextField size = "small"   variant="outlined" min = "0" id='a53' onChange={(e) =>{
                                 var arr = [...room];
                                 arr[14] = e.target.value;
-                                seTableRowoom(arr);
+                                setrooms(arr);
                                 updatecost(arr);
                             }}/></TableCell>
 

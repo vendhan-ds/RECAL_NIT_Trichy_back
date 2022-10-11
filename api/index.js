@@ -53,6 +53,21 @@ router.get("/previewData",async(req,res)=>{
                 }
             }
         }).clone();
+        var regdat = []
+        await Registration.findOne({username:currentUser},function(err,foundUser){
+            if(err){
+                console.log("error")
+            }else{
+                //console.log(String(foundUser));
+                //console.log('ttrtt');
+
+                if(foundUser){
+                    console.log("hlo4")
+                     regdat =  [foundUser.username,foundUser.name,foundUser.branch,foundUser.spouse,foundUser.city,foundUser.country,foundUser.region,foundUser.mobile,foundUser.email,foundUser.tshirt];
+    
+                }
+            }
+        }).clone();
         await Event.findOne({username:currentUser},function(err,foundUser){
             if(err){
                 console.log("error")
@@ -90,7 +105,7 @@ router.get("/previewData",async(req,res)=>{
                          options=[foundUser.menOption, foundUser.womenOption, foundUser.grandKidsOption]
                          quantity=foundUser.quantity
                           console.log('sssssss');
-                          var previewData=[currentUser,particitype,inpax,chkin,chkout,htl1,htl2,eventpart,member,foodmembers,options, quantity,tourop];
+                          var previewData=[currentUser,particitype,inpax,chkin,chkout,htl1,htl2,eventpart,member,foodmembers,options, quantity,tourop,regdat];
                           console.log(previewData);
                           res.send(previewData)
                     }
@@ -663,6 +678,30 @@ router.post("/FeedSave",async(req,res)=>{
         console.log(e.message);
     }
 })
+
+router.post("/logincheck",async(req,res)=>{
+    try{let interest;
+        var currentUser
+        console.log('sss');
+        //console.log("req body "+JSON.stringify(req.session.passport.user));
+        var id=req.session.passport.user
+        await Users.findById(id,function(err,docs){
+            if(err){console.log(err)}
+            else{console.log(docs.username)
+                currentUser=docs.username;
+            }
+        }).clone();
+        res.send(true);
+        console.log(currentUser);
+        console.log("success")
+    }catch(e){
+        res.send(false);
+        console.log("fail")
+
+    }
+})
+
+
 
 router.post("/tshirtSave",async(req,res)=>{
     try{
