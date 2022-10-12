@@ -17,7 +17,7 @@ import Checkbox from '@mui/material/Checkbox';
 import { TextField } from '@mui/material';
 
 function Tshirt() {
-
+    
 
     const mystyle = {
         width : 'fit-content',
@@ -26,45 +26,49 @@ function Tshirt() {
     const [need,setn] = useState(false);
     const [saved,sets] = useState(false);
     function prepop(){
-        axios.get('http://localhost:8080/api/previewData',data).then(
+        axios.get('http://localhost:8080/api/previewData').then(
             (res) => {
                 res = res.data;
-                res1 = res[10];
+                var res1 = res[10];
+                var res2 = res[11];
+                console.log(res2);
                 document.querySelector('#c3').checked = res1[0].supimaCotton;
                 document.querySelector('#c2').checked = res1[0].sweatWickingFabric;
                 document.querySelector('#c4').checked = res1[1].supimaCotton;
                 document.querySelector('#c5').checked = res1[1].sweatWickingFabric;
-                document.querySelector('#c1').checked = 'a';
-                document.querySelector('#m1').value = 'a';
-                document.querySelector('#m2').value = 'a';
-                document.querySelector('#m3').value = 'a';
-                document.querySelector('#m4').value = 'a';
-                document.querySelector('#m5').value = 'a';
-                document.querySelector('#m6').value = 'a';
-                document.querySelector('#m12').value = 'a';
-                document.querySelector('#m22').value = 'a';
-                document.querySelector('#m32').value = 'a';
-                document.querySelector('#m42').value = 'a';
-                document.querySelector('#m52').value = 'a';
-                document.querySelector('#m62').value = 'a';
-                document.querySelector('#w1').value = 'a';
-                document.querySelector('#w2').value = 'a';
-                document.querySelector('#w3').value = 'a';
-                document.querySelector('#w4').value = 'a';
-                document.querySelector('#w12').value = 'a';
-                document.querySelector('#w22').value = 'a';
-                document.querySelector('#w32').value = 'a';
-                document.querySelector('#w42').value = 'a';
-                document.querySelector('#g1').value = 'a';
-                document.querySelector('#g2').value = 'a';
-                document.querySelector('#g3').value = 'a';
-                document.querySelector('#b1').value = 'a';
-                document.querySelector('#b2').value = 'a';
-                document.querySelector('#b3').value = 'a';
-
+                document.querySelector('#c1').checked = true;
+                document.querySelector('#m1').value = res2.menQuantity.supimaCotton.lSize;
+                document.querySelector('#m2').value = res2.menQuantity.supimaCotton.mSize;
+                document.querySelector('#m3').value = res2.menQuantity.supimaCotton.sSize;
+                document.querySelector('#m4').value = res2.menQuantity.supimaCotton.xlSize;
+                document.querySelector('#m5').value = res2.menQuantity.supimaCotton.xxlSize;
+                document.querySelector('#m6').value = res2.menQuantity.supimaCotton.xxxlSize;
+                document.querySelector('#m12').value = res2.menQuantity.sweatWickingFabric.lSize;
+                document.querySelector('#m22').value = res2.menQuantity.sweatWickingFabric.mSize;
+                document.querySelector('#m32').value = res2.menQuantity.sweatWickingFabric.sSize;
+                document.querySelector('#m42').value = res2.menQuantity.sweatWickingFabric.xlSize;
+                document.querySelector('#m52').value = res2.menQuantity.sweatWickingFabric.xxlSize;
+                document.querySelector('#m62').value = res2.menQuantity.sweatWickingFabric.xxxlSize;
+                document.querySelector('#w1').value = res2.womenQuantity.supimaCotton.sSize;
+                document.querySelector('#w2').value = res2.womenQuantity.supimaCotton.mSize;
+                document.querySelector('#w3').value = res2.womenQuantity.supimaCotton.lSize;
+                document.querySelector('#w4').value = res2.womenQuantity.supimaCotton.xlSize;
+                document.querySelector('#w12').value = res2.womenQuantity.sweatWickingFabric.sSize;
+                document.querySelector('#w22').value = res2.womenQuantity.sweatWickingFabric.mSize;
+                document.querySelector('#w32').value = res2.womenQuantity.sweatWickingFabric.lSize;
+                document.querySelector('#w42').value = res2.womenQuantity.sweatWickingFabric.xlSize;
+                document.querySelector('#g1').value = res2.grandKids.girls.category1;
+                document.querySelector('#g2').value = res2.grandKids.girls.category2;
+                document.querySelector('#g3').value = res2.grandKids.girls.category3;
+                document.querySelector('#b1').value = res2.grandKids.boys.category1;
+                document.querySelector('#b2').value = res2.grandKids.boys.category2;
+                document.querySelector('#b3').value = res2.grandKids.boys.category3;
             });
 
     }
+
+    prepop();
+
     function sendpost(){
         sets(false);
         if(need){
@@ -155,7 +159,7 @@ function Tshirt() {
         <div className='center'>
             <label >I am Interested in T-Shirt : </label>
             <Checkbox onChange={(e) => setn(e.target.checked)}/>
-        {need && <motion.div initial ={{opacity : 0}} animate = {{opacity : 1}} className='rdetails'>
+        <motion.div initial ={{opacity : 0}} animate = {{opacity : 1}} className='rdetails'>
         <TableContainer component = {Paper} style = {mystyle}>
 
             <Table>
@@ -198,13 +202,13 @@ Design - Round Neck
             </Table>
             </TableContainer>
         </motion.div>
-        }
+        
         
         <br />
         </div>
 
         <div className='center'>
-        {need && <motion.div initial ={{opacity : 0}} whileInView={{ opacity: 1 }} TableRowansition ={{duration : 2}} className='rdetails'>
+        {need && <motion.div initial ={{opacity : 0}} whileInView={{ opacity: 1 }} transition ={{duration : 2}} className='rdetails'>
         <TableContainer component = {Paper} style = {mystyle}>
 
             <Table>

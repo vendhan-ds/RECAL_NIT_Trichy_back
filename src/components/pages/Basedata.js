@@ -44,16 +44,19 @@ export default function Basedat(){
     }
 
     function prepop(){
-        axios.post('http://localhost:8080/api/previewData',data).then(
+        axios.get('http://localhost:8080/api/previewData').then(
             (res) => {
-                res = res.data;
-                for(var i of data){
-                    document.querySelector('#' + i).value = "a";
+                res = res.data[13];
+                console.log(res);
+                for(var i in data){
+                    document.querySelector('#' + data[i]).value = res[i];
                 }
 
             });
 
     };
+
+    prepop();
 
     return(
         <>

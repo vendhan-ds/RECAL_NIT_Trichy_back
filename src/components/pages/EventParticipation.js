@@ -72,26 +72,31 @@ function EventParticipation() {
     }
 
     function prepop(){
-        axios.post('http://localhost:8080/api/previewData',data).then(
+        axios.get('http://localhost:8080/api/previewData').then(
             (res) => {
                 res = res.data;
-                var a1 = document.querySelector('#a1').checked = true;
-                var a2 = document.querySelector('#a2').checked = true;
-                var a3 = document.querySelector('#a3').checked = true;
-                var a4 = document.querySelector('#a4').checked = true;
-                var a5 = document.querySelector('#a5').checked = true;
-                var a6 = document.querySelector('#a6').checked = true;
-                var a8 = document.querySelector('#a8').checked = true;
+                console.log(res);
+                var res1 = res[7];
+                var res2 = res[8];
+                var res3 = res[9];
+                document.querySelector('#a1').checked = res1.cond1;
+                document.querySelector('#a2').checked = res1.cond2;
+                document.querySelector('#a3').checked = res1.cond3;
+                document.querySelector('#a4').checked = res2.cond1;
+                document.querySelector('#a5').checked = res2.cond2;
+                document.querySelector('#a6').checked = res3.cond1;
+                document.querySelector('#a8').checked = res3.cond2;
 
-                var v1 = document.querySelector('#v1').value = true;
-                var nv1 = document.querySelector('#nv1').value = true;
-                var v2 = document.querySelector('#v2').value = true;
-                var nv2 = document.querySelector('#nv2').value = true;
-                var v3 = document.querySelector('#v3').value = true;
+                document.querySelector('#v1').value = res1.count.veg;
+                document.querySelector('#nv1').value = res1.count.nonveg;
+                document.querySelector('#v2').value = res2.count;
+                document.querySelector('#nv2').value = res3.count.veg;
+                document.querySelector('#v3').value = res3.count.nonveg;
 
             });
 
     }
+    prepop();
 
     const variants1 = {
         anim : {
