@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import axios from 'axios';
 import {motion} from 'framer-motion'
 import {Link} from 'react-router-dom'
@@ -71,7 +71,7 @@ function EventParticipation() {
         sets(true);
     }
 
-    function prepop(){
+    useEffect(() => {
         axios.get('http://localhost:8080/api/previewData').then(
             (res) => {
                 res = res.data;
@@ -79,13 +79,20 @@ function EventParticipation() {
                 var res1 = res[7];
                 var res2 = res[8];
                 var res3 = res[9];
-                document.querySelector('#a1').checked = res1.cond1;
-                document.querySelector('#a2').checked = res1.cond2;
-                document.querySelector('#a3').checked = res1.cond3;
-                document.querySelector('#a4').checked = res2.cond1;
-                document.querySelector('#a5').checked = res2.cond2;
-                document.querySelector('#a6').checked = res3.cond1;
-                document.querySelector('#a8').checked = res3.cond2;
+                // document.querySelector('#a1').checked = res1.cond1;
+                // document.querySelector('#a2').checked = res1.cond2;
+                // document.querySelector('#a3').checked = res1.cond3;
+                // document.querySelector('#a4').checked = res2.cond1;
+                // document.querySelector('#a5').checked = res2.cond2;
+                // document.querySelector('#a6').checked = res3.cond1;
+                // document.querySelector('#a8').checked = res3.cond2;
+                setisliked1(res1.cond1);
+                setisliked2(res1.cond2);
+                setisliked3(res1.cond3);
+                setisliked4(res2.cond1);
+                setisliked5(res2.cond2);
+                setisliked6(res3.cond1);
+                setisliked7(res3.cond2);
 
                 document.querySelector('#v1').value = res1.count.veg;
                 document.querySelector('#nv1').value = res1.count.nonveg;
@@ -94,9 +101,11 @@ function EventParticipation() {
                 document.querySelector('#v3').value = res3.count.nonveg;
 
             });
+    }, [])
+       
 
-    }
-    prepop();
+    
+    
 
     const variants1 = {
         anim : {
@@ -108,6 +117,40 @@ function EventParticipation() {
         }
 
     }
+
+    
+    const [isliked1, setisliked1] = useState(false);
+    const handleCheckbox1 = () => {
+        setisliked1(!isliked1);
+      };
+
+    const [isliked2, setisliked2] = useState(false);
+    const handleCheckbox2 = () => {
+        setisliked2(!isliked2);
+      };
+      const [isliked3, setisliked3] = useState(false);
+      const handleCheckbox3 = () => {
+          setisliked3(!isliked3);
+        };
+    
+    const [isliked4, setisliked4] = useState(false);
+    const handleCheckbox4 = () => {
+        setisliked4(!isliked4);
+      };
+
+    const [isliked5, setisliked5] = useState(false);
+    const handleCheckbox5 = () => {
+        setisliked5(!isliked5);
+      };
+    const [isliked6, setisliked6] = useState(false);
+    const handleCheckbox6 = () => {
+        setisliked6(!isliked6);
+      };
+
+    const [isliked7, setisliked7] = useState(false);
+    const handleCheckbox7 = () => {
+        setisliked7(!isliked7);
+    };
 
     return (
         <motion.div initial ={{opacity:0}} variants={variants1} animate="anim" exit={{opacity:0}} className = "outerc" transition={{delay : 0.2 , duration  :0.5}}> 
@@ -130,21 +173,21 @@ function EventParticipation() {
             </TableHead>
                 <TableBody>
                     <TableRow><TableCell>I will join the evening event at the Hotel</TableCell>
-                    <TableCell><Checkbox min="0" id='a1'/></TableCell>
+                    <TableCell><Checkbox min="0" id='a1' checked={isliked1} onChange={handleCheckbox1} /></TableCell>
                     <TableCell></TableCell>
                     <TableCell><IconButton color="primary" aria-label="add to shopping cart"><AddShoppingCartIcon /></IconButton></TableCell>
                         <TableCell></TableCell>
                     </TableRow>
                     <TableRow>
                         <TableCell>I agree to pay the Lumpsum Participation Fee of Rs.4,500 towards this for Myself & Family</TableCell>
-                        <TableCell><Checkbox min="0" id='a2'/></TableCell>
+                        <TableCell><Checkbox min="0" id='a2' checked={isliked2} onChange={handleCheckbox2} /></TableCell>
                         <TableCell></TableCell>
                         <TableCell><IconButton color="primary" aria-label="add to shopping cart"><AddShoppingCartIcon /></IconButton></TableCell>
                         <TableCell></TableCell>
                     </TableRow>
                     <TableRow>
                         <TableCell>I agree to pay Rs.750 per Head for Veg-Dinner & Rs.850 per Head for Non-Veg Dinner for the Participants (including Family). I also understand there is no Charge for Grand Children</TableCell>
-<TableCell><Checkbox min="0" id='a3'/></TableCell>
+<TableCell><Checkbox min="0" id='a3' checked={isliked3} onChange={handleCheckbox3} /></TableCell>
 <TableCell></TableCell>
 <TableCell><IconButton color="primary" aria-label="add to shopping cart"><AddShoppingCartIcon /></IconButton></TableCell>
                         <TableCell></TableCell>
@@ -177,7 +220,7 @@ function EventParticipation() {
                 <TableBody>
                     <TableRow><TableCell>I will join for the Event at the Campus
 </TableCell>
-                    <TableCell><Checkbox min="0" id='a4'/></TableCell>
+                    <TableCell><Checkbox min="0" id='a4' checked={isliked4} onChange={handleCheckbox4} /></TableCell>
                     <TableCell><IconButton color="primary" aria-label="add to shopping cart"><AddShoppingCartIcon /></IconButton></TableCell>
                         <TableCell></TableCell>
                     </TableRow>
@@ -185,7 +228,7 @@ function EventParticipation() {
                         <TableCell>I agree to pay the Lumpsum Participation Fee of Rs.1,600 towards this for Myself & Family. I understand there is no charge for the Lunch at Campus
 
 </TableCell>
-<TableCell><Checkbox min="0" id='a5'/></TableCell>
+<TableCell><Checkbox min="0" id='a5' checked={isliked5} onChange={handleCheckbox5} /></TableCell>
 <TableCell><IconButton color="primary" aria-label="add to shopping cart"><AddShoppingCartIcon /></IconButton></TableCell>
                         <TableCell></TableCell>
                     </TableRow>
@@ -225,7 +268,7 @@ I agree to pay the Lumpsum Participation Fee of Rs.4,500 towards this for Myself
 
 
 </TableCell>
-                    <TableCell><Checkbox min="0" id='a6'/></TableCell>
+                    <TableCell><Checkbox min="0" id='a6' checked={isliked6} onChange={handleCheckbox6}/></TableCell>
 
                     <TableCell></TableCell>
                     <TableCell><IconButton color="primary" aria-label="add to shopping cart"><AddShoppingCartIcon /></IconButton></TableCell>
@@ -235,7 +278,7 @@ I agree to pay the Lumpsum Participation Fee of Rs.4,500 towards this for Myself
 
 
 </TableCell>
-                    <TableCell><Checkbox min="0" id='a8'/></TableCell>
+                    <TableCell><Checkbox min="0" id='a8' checked={isliked7} onChange={handleCheckbox7}/></TableCell>
                     <TableCell></TableCell>
                     <TableCell><IconButton color="primary" aria-label="add to shopping cart"><AddShoppingCartIcon /></IconButton></TableCell>
                         <TableCell></TableCell>

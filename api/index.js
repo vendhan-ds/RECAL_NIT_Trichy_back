@@ -611,22 +611,23 @@ router.post('/eventsSave',async(req,res)=>{
         };
         var data2=new Event(newEve);
         var set;
-        Event.exists({username:currentUser}, function (err, doc) {
+        Event.exists({username:currentUser},async function (err, doc) {
             if (err){
                 console.log(err)
             }else{
                 set=doc;
                 console.log("Result :", doc) // false
+                if(!set){await data2.save();
+                    console.log("saved event successfully2");
+                    res.send("saved")}
+            else{
+                await Event.findOneAndUpdate({username:currentUser }, newEve);
+                console.log("updated event successfully")
+                res.send("updated")
+            }
             }
         });
-        if(!set){await data2.save();
-                console.log("saved event successfully2");
-                res.send("saved")}
-        else{
-            await Event.findOneAndUpdate({username:currentUser }, {newEve});
-            console.log("updated event successfully")
-            res.send("updated")
-        }
+        
         /* await newEve.save();
         console.log("saved events successfully")
         res.send("success") */
@@ -650,7 +651,7 @@ router.post("/registrationData",async(req,res)=>{
             }
         }).clone();
         const data=req.body;
-        console.log(data);
+        console.log('sssss' + data);
         const newReg={
     name: data[0],
     branch: data[1],

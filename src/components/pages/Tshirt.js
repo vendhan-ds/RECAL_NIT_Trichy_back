@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import axios from 'axios';
 import {motion} from 'framer-motion'
 import {Link} from 'react-router-dom'
@@ -25,13 +25,19 @@ function Tshirt() {
       };
     const [need,setn] = useState(false);
     const [saved,sets] = useState(false);
-    function prepop(){
+    useEffect(() => {
         axios.get('http://localhost:8080/api/previewData').then(
             (res) => {
+                console.log(res);
                 res = res.data;
                 var res1 = res[10];
                 var res2 = res[11];
-                console.log(res2);
+                console.log('sdsdsd' + res1);
+                // setisliked1();
+                // setisliked2();
+                // setisliked3();
+                // setisliked4();
+                // setisliked5();
                 document.querySelector('#c3').checked = res1[0].supimaCotton;
                 document.querySelector('#c2').checked = res1[0].sweatWickingFabric;
                 document.querySelector('#c4').checked = res1[1].supimaCotton;
@@ -64,10 +70,34 @@ function Tshirt() {
                 document.querySelector('#b2').value = res2.grandKids.boys.category2;
                 document.querySelector('#b3').value = res2.grandKids.boys.category3;
             });
+    },[]);
+        
 
-    }
+    
 
-    prepop();
+    const [isliked1, setisliked1] = useState(false);
+    const handleCheckbox1 = () => {
+        setisliked1(!isliked1);
+      };
+
+    const [isliked2, setisliked2] = useState(false);
+    const handleCheckbox2 = () => {
+        setisliked2(!isliked2);
+      };
+      const [isliked3, setisliked3] = useState(false);
+      const handleCheckbox3 = () => {
+          setisliked3(!isliked3);
+        };
+    
+    const [isliked4, setisliked4] = useState(false);
+    const handleCheckbox4 = () => {
+        setisliked4(!isliked4);
+      };
+
+    const [isliked5, setisliked5] = useState(false);
+    const handleCheckbox5 = () => {
+        setisliked5(!isliked5);
+      };
 
     function sendpost(){
         sets(false);
