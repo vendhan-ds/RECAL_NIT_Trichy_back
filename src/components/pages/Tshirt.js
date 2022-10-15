@@ -33,16 +33,12 @@ function Tshirt() {
                 var res1 = res[10];
                 var res2 = res[11];
                 console.log('sdsdsd' + res1);
-                // setisliked1();
-                // setisliked2();
-                // setisliked3();
-                // setisliked4();
-                // setisliked5();
-                document.querySelector('#c3').checked = res1[0].supimaCotton;
-                document.querySelector('#c2').checked = res1[0].sweatWickingFabric;
-                document.querySelector('#c4').checked = res1[1].supimaCotton;
-                document.querySelector('#c5').checked = res1[1].sweatWickingFabric;
-                document.querySelector('#c1').checked = true;
+                setisliked1(res1[0].supimaCotton);
+                setisliked2(res1[0].sweatWickingFabric);
+                setisliked3(res1[1].supimaCotton);
+                setisliked4( res1[1].sweatWickingFabric);
+                setisliked5(res1[2].supimaCotton);
+                
                 document.querySelector('#m1').value = res2.menQuantity.supimaCotton.lSize;
                 document.querySelector('#m2').value = res2.menQuantity.supimaCotton.mSize;
                 document.querySelector('#m3').value = res2.menQuantity.supimaCotton.sSize;
@@ -102,7 +98,7 @@ function Tshirt() {
     function sendpost(){
         sets(false);
         if(need){
-        var c = [document.querySelector('#c1').checked,document.querySelector('#c2').checked,document.querySelector('#c3').checked,document.querySelector('#c4').checked,document.querySelector('#c5').checked];
+        var c = [true,isliked1,isliked2,isliked3,isliked4,isliked5]; //change interested
         console.log(c);
         var men1 = [document.querySelector('#m1').value,document.querySelector('#m2').value,document.querySelector('#m3').value,document.querySelector('#m4').value,document.querySelector('#m5').value,document.querySelector('#m6').value];
         var men2 = [document.querySelector('#m12').value,document.querySelector('#m22').value,document.querySelector('#m32').value,document.querySelector('#m42').value,document.querySelector('#m52').value,document.querySelector('#m62').value];
@@ -200,33 +196,33 @@ function Tshirt() {
                         <TableCell>T-Shirt (Dark Brick Red - Supima Cotton)
 Design - Polo with Collar
 </TableCell>
-                    <TableCell><Checkbox id='c1'/></TableCell>
+                    <TableCell><Checkbox id='c1'checked={isliked1} onChange={handleCheckbox1} /></TableCell>
                     </TableRow>
                     <TableRow>
                         <TableCell>T-Shirt (Navy Blue - Sweat-wicking Fabric)
 Design - Round Neck for Walking & Exercise
 </TableCell>
-                    <TableCell><Checkbox id='c2'/></TableCell>
+                    <TableCell><Checkbox id='c2' checked={isliked2} onChange={handleCheckbox2}/></TableCell>
                     </TableRow>
                     <h1>T-shirt for Women</h1>
                     <TableRow>
                         <TableCell>T-Shirt Navy Blue - Sweat-wicking Fabric)
 Design - Round Neck for Walking & Exercise
 </TableCell>
-                    <TableCell><Checkbox id='c3'/></TableCell>
+                    <TableCell><Checkbox id='c3' checked={isliked3} onChange={handleCheckbox3}/></TableCell>
                     </TableRow>
                     <TableRow>
                         <TableCell>T-Shirt (Royal Blue - Sweat-wicking Fabric)
 Design - Round Neck for Walking & Exercise)
 </TableCell>
-                    <TableCell><Checkbox id='c4'/></TableCell>
+                    <TableCell><Checkbox id='c4' checked={isliked4} onChange={handleCheckbox4}/></TableCell>
                     </TableRow>
                     <h1>T-Shirt for GrandChildren</h1>
                     <TableRow>
                         <TableCell>T-Shirt (Maroon - Supima Cotton)
 Design - Round Neck
 </TableCell>
-                    <TableCell><Checkbox id='c5'/></TableCell>
+                    <TableCell><Checkbox id='c5' checked={isliked5} onChange={handleCheckbox5}/></TableCell>
                     </TableRow>
                 </TableBody>
             </Table>
@@ -238,7 +234,7 @@ Design - Round Neck
         </div>
 
         <div className='center'>
-        {need && <motion.div initial ={{opacity : 0}} whileInView={{ opacity: 1 }} transition ={{duration : 2}} className='rdetails'>
+        <motion.div initial ={{opacity : 0}} whileInView={{ opacity: 1 }} transition ={{duration : 2}} className='rdetails'>
         <TableContainer component = {Paper} style = {mystyle}>
 
             <Table>
@@ -383,7 +379,7 @@ Design - Round Neck
                 </TableBody>
             </Table>
             </TableContainer>
-            </motion.div>}
+            </motion.div>
 
         {!need && <p>No Tshirts Selected</p>}
         {/* </div>

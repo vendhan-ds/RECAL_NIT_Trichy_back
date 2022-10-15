@@ -22,7 +22,8 @@ router.get("/previewData",async(req,res)=>{
     var currentUser
         const data=req.body;
         //console.log("req body "+JSON.stringify(req.session.passport.user));
-        var id=req.session.passport.user
+        var id=req.session.passport.user;
+        console.log(id);
         await Users.findById(id,function(err,docs){
             if(err){console.log(err)}
             else{console.log(docs.username)
@@ -110,7 +111,7 @@ router.get("/previewData",async(req,res)=>{
                     }
                 }
             }).clone();
-        var previewData;
+        var previewData = null;
         await Tshirt.findOne({username:currentUser},
             function(err,foundUser){
                 if(err){
@@ -124,6 +125,7 @@ router.get("/previewData",async(req,res)=>{
                           console.log('sssssss');
                           previewData=[currentUser,particitype,inpax,chkin,chkout,htl1,htl2,eventpart,member,foodmembers,options, quantity,tourop,regdat,dates];
                           console.log(previewData);
+                          res.send(previewData);
                           
                     }
                 }
@@ -133,8 +135,12 @@ router.get("/previewData",async(req,res)=>{
         console.log('sssssss');
         console.log(previewData);
         res.send(previewData)*/
-        previewData=[currentUser,particitype,inpax,chkin,chkout,htl1,htl2,eventpart,member,foodmembers,options, quantity,tourop,regdat,dates];
-        res.send(previewData)
+        if(previewData == null){
+        previewDatas=[currentUser,particitype,inpax,chkin,chkout,htl1,htl2,eventpart,member,foodmembers,options, quantity,tourop,regdat,dates];
+        }
+        console.log('dsdsdsds' + previewData);
+        res.send(previewDatas);
+
     }
     catch(e){
         console.log(e.message)
@@ -504,6 +510,41 @@ router.post('/accomodationSave', async(req,res)=>{
         })
         const hotel22=temp2.filter(function(rooms){return rooms.count>0;})
 
+        const newAcc1={
+            typeOfRoom:'singleOccupancy',
+            username:currentUser,
+            pax:{
+                alumini:data.alumni,
+                spouse:data.spouse,
+                familyMembers:data.familyMembers,
+                grandKids:data.grandKids
+            },
+            participationType:data.participationType,
+            Dates : {
+                cout1 : data.dates[0],
+                cout2 : data.dates[1],
+                cout3 : data.dates[2],
+                cin1 : data.dates[3],
+                cin2 : data.dates[4],
+                cin3 : data.dates[5],
+            },
+            hotel:{
+                breezeResidency:hotel11/*[
+                    {roomType:'standard',
+                    roomOccupancy:'singleOccupancy'},{roomType:'standard',
+                    roomOccupancy:'singleOccupancy'}
+                    
+                ]*/,
+                hotelTamilNadu:hotel22/*{
+                    roomType:'standard',
+                    roomOccupancy:'singleOccupancy'
+                }*/
+            },
+
+                hotel11:h1,
+                hotel22:h2
+            
+        };
         const newAcc={
             typeOfRoom:'singleOccupancy',
             username:currentUser,
@@ -539,25 +580,26 @@ router.post('/accomodationSave', async(req,res)=>{
                 hotel22:h2
             
         };
-        var data2= new Accomodation(newAcc);
+        var data2= new Accomodation(newAcc1);
 
         var set=0
-        Accomodation.exists({username:currentUser}, function (err, doc) {
+        Accomodation.exists({username:currentUser},async function (err, doc) {
             if (err){
                 console.log(err)
             }else{
                 set=doc;
                 console.log("Result :", doc) // false
+                if(!set){await data2.save();
+                    console.log("saved accomodation successfully2");
+                    res.send("saved")}
+            else{
+                await Accomodation.findOneAndUpdate({username:currentUser }, newAcc);
+                console.log("updated accomodation successfully")
+                res.send("updated")
+            }
             }
         });
-        if(!set){await data2.save();
-                console.log("saved accomodation successfully2");
-                res.send("saved")}
-        else{
-            await Accomodation.findOneAndUpdate({username:currentUser }, {newAcc});
-            console.log("updated accomodation successfully")
-            res.send("updated")
-        }
+        
         /* await newAcc.save();
         console.log("saved accomodation successfully")
         res.send("success")
@@ -584,6 +626,31 @@ router.post('/eventsSave',async(req,res)=>{
             }
         }).clone();
         const newEve= {
+            Date1:{
+                cond1:data.conditions[0],
+                cond2:data.conditions[1],
+                cond3:data.conditions[2],
+                count:{
+                    veg:parseInt(data.d1v),
+                    nonveg:parseInt(data.d1nv)
+                }
+            },
+            Date2:{
+                cond1:data.conditions[3],
+                cond2:data.conditions[4],
+                count:parseInt(data.d2c)
+            },
+            Date3:{
+                cond1:data.conditions[5],
+                cond2:data.conditions[6],
+                cond3:data.conditions[7],
+                count:{
+                    veg:parseInt(data.d3v),
+                    nonveg:parseInt(data.d3nv)
+                }
+            }
+        };
+        const newEve1= {
             username:currentUser,
             Date1:{
                 cond1:data.conditions[0],
@@ -609,7 +676,7 @@ router.post('/eventsSave',async(req,res)=>{
                 }
             }
         };
-        var data2=new Event(newEve);
+        var data2=new Event(newEve1);
         var set;
         Event.exists({username:currentUser},async function (err, doc) {
             if (err){
@@ -652,6 +719,18 @@ router.post("/registrationData",async(req,res)=>{
         }).clone();
         const data=req.body;
         console.log('sssss' + data);
+        const newReg1={
+            username : currentUser,
+            name: data[0],
+            branch: data[1],
+            spouse: data[2],
+            city: data[3],
+            country: data[4],
+            region: data[5],
+            mobile: data[6],
+            email: data[7],
+            tshirt: data[8]
+                }
         const newReg={
     name: data[0],
     branch: data[1],
@@ -663,7 +742,7 @@ router.post("/registrationData",async(req,res)=>{
     email: data[7],
     tshirt: data[8]
         }
-        var data2=new Registration(newReg);
+        var data2=new Registration(newReg1);
         var set;
         Registration.exists({username:currentUser}, async function (err, doc) {
             console.log(doc);
@@ -711,7 +790,6 @@ router.post("/ToursSave",async(req,res)=>{
             }
         }).clone();
         const newTour= {
-            username:currentUser,
             inInterested:data.need,//interest,
             paxCount:{
                 trichy:data.tour[0],
@@ -720,24 +798,35 @@ router.post("/ToursSave",async(req,res)=>{
                 belurHampi:data.tour[3]
             }
         }
-        var data2=new Tour(newTour);
+        const newTour1= {
+            username : currentUser,
+            inInterested:data.need,//interest,
+            paxCount:{
+                trichy:data.tour[0],
+                phuketKrabi:data.tour[1],
+                mysoreBandipur:data.tour[2],
+                belurHampi:data.tour[3]
+            }
+        }
+        var data2=new Tour(newTour1);
         var set;
-        Tour.exists({username:currentUser}, function (err, doc) {
+        Tour.exists({username:currentUser},async function (err, doc) {
             if (err){
                 console.log(err)
             }else{
                 set=doc;
                 console.log("Result :", doc) // false
+                if(!set){await data2.save();
+                    console.log("saved tours successfully2");
+                    res.send("saved")}
+                else{
+                    await Tour.findOneAndUpdate({username:currentUser }, newTour);
+                    console.log("updated tours successfully")
+                    res.send("updated")
+                }
             }
         });
-        if(!set){await data2.save();
-                console.log("saved tours successfully2");
-                res.send("saved")}
-        else{
-            await Tour.findOneAndUpdate({username:currentUser }, {newTour});
-            console.log("updated tours successfully")
-            res.send("updated")
-        }
+        
         /* await newTour.save();
         console.log("saved tour successfully")
         res.send("success") */
@@ -854,8 +943,8 @@ router.post("/tshirtSave",async(req,res)=>{
             else return elem;
         });
         console.log(data);
-        const newTshirt={
-            username:currentUser,
+        const newTshirt1={
+            username : currentUser,
             isInterested:data.c[0],
             menOption:{
                 supimaCotton:data.c[1],
@@ -864,6 +953,9 @@ router.post("/tshirtSave",async(req,res)=>{
             womenOption:{
                 supimaCotton:data.c[3],
                 sweatWickingFabric:data.c[4]
+            },
+            grandKidsOption:{
+                supimaCotton:data.c[5],
             },
             quantity:{
                 menQuantity:{
@@ -913,24 +1005,86 @@ router.post("/tshirtSave",async(req,res)=>{
         }
 
         }
-        var data2=new Tshirt(newTshirt);
+        const newTshirt={
+            isInterested:data.c[0],
+            menOption:{
+                supimaCotton:data.c[1],
+                sweatWickingFabric:data.c[2]
+            },
+            womenOption:{
+                supimaCotton:data.c[3],
+                sweatWickingFabric:data.c[4]
+            },
+            grandKidsOption:{
+                supimaCotton:data.c[5],
+            },
+            quantity:{
+                menQuantity:{
+                    supimaCotton:{
+                        sSize:parseInt(data.men1[0]),
+                        mSize:parseInt(data.men1[1]),
+                        lSize:parseInt(data.men1[2]),
+                        xlSize:parseInt(data.men1[3]),
+                        xxlSize:parseInt(data.men1[4]),
+                        xxxlSize:parseInt(data.men1[5]),   
+                    },
+                    sweatWickingFabric:{
+                         sSize:parseInt(data.men2[0]),
+                        mSize:parseInt(data.men2[1]),
+                        lSize:parseInt(data.men2[2]),
+                        xlSize:parseInt(data.men2[3]),
+                        xxlSize:parseInt(data.men2[4]),
+                        xxxlSize:parseInt(data.men2[5]),   
+                    }
+                },
+                womenQuantity:{supimaCotton:{
+                        sSize:parseInt(data.women1[0]),
+                        mSize:parseInt(data.women1[1]),
+                        lSize:parseInt(data.women1[2]),
+                        xlSize:parseInt(data.women1[3]),
+                           
+                    },
+                    sweatWickingFabric:{
+                         sSize:parseInt(data.women2[0]),
+                        mSize:parseInt(data.women2[1]),
+                        lSize:parseInt(data.women2[2]),
+                        xlSize:parseInt(data.women2[3]),    
+                    }
+            },
+            grandKids:{
+                girls:{
+                    category1:data.girls1[0],
+                    category2:data.girls1[1],
+                    category3:data.girls1[2],
+                },
+                boys:{
+                    category1:data.boys1[0],
+                    category2:data.boys1[1],
+                    category3:data.boys1[2],
+                }
+            }
+        }
+
+        }
+        var data2=new Tshirt(newTshirt1);
         var set;
-        Tshirt.exists({username:currentUser}, function (err, doc) {
+        Tshirt.exists({username:currentUser},async function (err, doc) {
             if (err){
                 console.log(err)
             }else{
                 set=doc;
                 console.log("Result :", doc) // false
+                if(!set){await data2.save();
+                    console.log("saved tshirt successfully2");
+                    res.send("saved")}
+                else{
+                    await Tshirt.findOneAndUpdate({username:currentUser }, newTshirt);
+                    console.log("updated shirt successfully")
+                    res.send("updated")
+                }
             }
         });
-        if(!set){await data2.save();
-                console.log("saved tshirt successfully2");
-                res.send("saved")}
-        else{
-            await Tshirt.findOneAndUpdate({username:currentUser }, {newTshirt});
-            console.log("updated shirt successfully")
-            res.send("updated")
-        }
+        
         /* await newTshirt.save();
         console.log("saved tshirt successfully")
         res.send("success") */

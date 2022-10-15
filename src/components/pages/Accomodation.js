@@ -79,16 +79,24 @@ function Accomodation() {
                 // setrooms2(arr);
                 // setcost();
                 // setcost2();
-                var a = document.querySelector('#alumni').value = 1;
-                var s = document.querySelector('#spouse').value = res[2].spouse;
-                var f = document.querySelector('#family').value = res[2].familyMembers;
-                var g = document.querySelector('#grandkids').value = res[2].grandKids; 
-                document.querySelector('#cout1').checked = res[14].cout1;
-                document.querySelector('#cout2').checked = res[14].cout2;
-                document.querySelector('#cout3').checked = res[14].count3;
-                document.querySelector('#cin1').checked = res[14].cin1;
-                document.querySelector('#cin2').checked = res[14].cin2;
-                document.querySelector('#cin3').checked = res[14].cin3;
+
+                setisliked1(res[14].cout1);
+                setisliked2(res[14].cout2);
+                setisliked3(res[14].cout3);
+                setisliked4(res[14].cin1);
+                setisliked5(res[14].cin2);
+                setisliked6(res[14].cin3);
+
+                document.querySelector('#alumni').value = 1;
+                document.querySelector('#spouse').value = res[2].spouse;
+                document.querySelector('#family').value = res[2].familyMembers;
+                document.querySelector('#grandkids').value = res[2].grandKids; 
+                // document.querySelector('#cout1').checked = 
+                // document.querySelector('#cout2').checked = 
+                // document.querySelector('#cout3').checked = 
+                // document.querySelector('#cin1').checked = 
+                // document.querySelector('#cin2').checked = 
+                // document.querySelector('#cin3').checked = 
 
             });
 
@@ -112,7 +120,7 @@ function Accomodation() {
         console.log([a,s,f,g]);
         
 
-        var dates = [document.querySelector('#cout1').checked,document.querySelector('#cout2').checked,document.querySelector('#cout3').checked,document.querySelector('#cin1').checked,document.querySelector('#cin2').checked,document.querySelector('#cin3').checked]
+        var dates = [isliked1,isliked2,isliked3,isliked4,isliked5,isliked6];
 
         var data = {'participationType' : fam, 'hotelRoom' : rreq, 'dates' : dates ,'alumni' : a ,'spouse' : s,'familyMembers' : f,'grandKids' : g,'hotel1' : room , 'hotel2' : room2 ,'totalcost' : costs + costs2};
         axios.post('http://localhost:8080/api/accomodationSave',data).then((res) => console.log(res.data));
@@ -142,6 +150,35 @@ function Accomodation() {
         }
 
     }
+
+    const [isliked1, setisliked1] = useState(false);
+    const handleCheckbox1 = () => {
+        setisliked1(!isliked1);
+      };
+
+    const [isliked2, setisliked2] = useState(false);
+    const handleCheckbox2 = () => {
+        setisliked2(!isliked2);
+      };
+      const [isliked3, setisliked3] = useState(false);
+      const handleCheckbox3 = () => {
+          setisliked3(!isliked3);
+        };
+    
+    const [isliked4, setisliked4] = useState(false);
+    const handleCheckbox4 = () => {
+        setisliked4(!isliked4);
+      };
+
+    const [isliked5, setisliked5] = useState(false);
+    const handleCheckbox5 = () => {
+        setisliked5(!isliked5);
+      };
+    const [isliked6, setisliked6] = useState(false);
+    const handleCheckbox6 = () => {
+        setisliked6(!isliked6);
+      };
+
     return (
         <motion.div variants={variants1} exit={{x:'-100vw'}} initial ={{x:'-100vw'}} animate="anim" className = "outerc" transition={{duration : 0.3}}>
          
@@ -238,18 +275,18 @@ function Accomodation() {
             <TableRow>
             <TableCell><label>Early Check-in</label></TableCell>
             <TableCell>23rd Jan (12 Noon)</TableCell>
-            <TableCell><Checkbox id = "cout1"/></TableCell>
+            <TableCell><Checkbox id = "cout1" checked={isliked1} onChange={handleCheckbox1}/></TableCell>
 
             </TableRow>
             <TableRow>
             <TableCell><label>Standard Check-in</label></TableCell>
             <TableCell>24th Jan (12 Noon)</TableCell>           
-             <TableCell><Checkbox id = "cout2"/></TableCell>
+             <TableCell><Checkbox id = "cout2" checked={isliked2} onChange={handleCheckbox2}/></TableCell>
             </TableRow>
             <TableRow>
             <TableCell><label>Late Check-in</label></TableCell>
             <TableCell>25th Jan (12 Noon)</TableCell>            
-            <TableCell><Checkbox id = "cout3"/></TableCell>
+            <TableCell><Checkbox id = "cout3" checked={isliked3} onChange={handleCheckbox3}/></TableCell>
             </TableRow>
             <TableRow>
                 <TableCell><h3>Please Select Check-out Date</h3></TableCell>
@@ -257,17 +294,17 @@ function Accomodation() {
             <TableRow>
             <TableCell><label>Early Check-out</label></TableCell>
             <TableCell>25th Jan (12 Noon)</TableCell>            
-            <TableCell><Checkbox id = "cin1"/></TableCell>
+            <TableCell><Checkbox id = "cin1" checked={isliked4} onChange={handleCheckbox4}/></TableCell>
             </TableRow>
             <TableRow>
             <TableCell><label>Standard Check-out</label></TableCell>
             <TableCell>26th Jan (12 Noon)</TableCell>          
-              <TableCell><Checkbox id = "cin2"/></TableCell>
+              <TableCell><Checkbox id = "cin2" checked={isliked5} onChange={handleCheckbox5}/></TableCell>
             </TableRow>
             <TableRow>
             <TableCell><label>Extended Stay</label></TableCell>
             <TableCell>27th Jan (12 Noon)</TableCell>           
-             <TableCell><Checkbox id = "cin3"/></TableCell>
+             <TableCell><Checkbox id = "cin3" checked={isliked6} onChange={handleCheckbox6}/></TableCell>
             </TableRow>
             
             
