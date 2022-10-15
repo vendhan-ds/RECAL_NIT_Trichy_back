@@ -66,7 +66,7 @@ function Accomodation() {
             });
     },[]);
 
-    function prepop(){
+    useEffect(() => {
         axios.get('http://localhost:8080/api/previewData').then(
             (res) => {
                 res = res.data;
@@ -92,9 +92,9 @@ function Accomodation() {
 
             });
 
-    }
+    },[]);
+        
 
-    prepop();
 
     function sendpost(){
 
@@ -103,18 +103,14 @@ function Accomodation() {
         sets(false);
 
         console.log('ss');
-        if(fam == 'single'){
-            var a = 0;
-            var s = 0;
-            var f = 0;
-            var g = 0;
-        }
-        else{
+        
+        
         var a = document.querySelector('#alumni').value;
         var s = document.querySelector('#spouse').value;
         var f = document.querySelector('#family').value;
         var g = document.querySelector('#grandkids').value;
-        }
+        console.log([a,s,f,g]);
+        
 
         var dates = [document.querySelector('#cout1').checked,document.querySelector('#cout2').checked,document.querySelector('#cout3').checked,document.querySelector('#cin1').checked,document.querySelector('#cin2').checked,document.querySelector('#cin3').checked]
 

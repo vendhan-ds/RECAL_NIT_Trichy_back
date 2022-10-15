@@ -32,30 +32,44 @@ router.get("/previewData",async(req,res)=>{
     //var currentUser="TestUser1";//req.body.username;
     //console.log("h1")
     var particitype,inpax,chkin,chkout,htl1,htl2,eventpart,member,foodmembers,tourop,options,quantity,dates;
+    particitype = null;
+    inpax = {'familyMembers' : 0 , 'grandKids' : 0, 'spouse' : 0};
+    htl1 = null;
+    htl2 = null;
+    eventpart = null;
+    member = null;
+    foodmembers = null;
+    tourop = null;
+    options = null;
+    quantity = null;
+    dates = null;
     chkin = 0;
     chkout = 0;
-    try{//console.log("h1")
-    
+    try{
+        
         await Accomodation.findOne({username:currentUser},function(err,foundUser){
+            console.log(foundUser);
             if(err){
-                console.log("error")
+                console.log("error");
             }else{
                 //console.log(String(foundUser));
                 //console.log('ttrtt');
 
                 if(foundUser){
-                    console.log("hlo4")
+                     console.log("hlo5");
                      particitype=foundUser.participationType;
                      inpax=foundUser.pax;
                      dates=foundUser.Dates;
                      htl1=foundUser.hotel11;
                      htl2=foundUser.hotel22;
+                     console.log(particitype);
     
                 }
             }
         }).clone();
         var regdat = []
         await Registration.findOne({username:currentUser},function(err,foundUser){
+            console.log(foundUser);
             if(err){
                 console.log("error")
             }else{
@@ -64,8 +78,8 @@ router.get("/previewData",async(req,res)=>{
 
                 if(foundUser){
                     console.log("hlo4")
-                     regdat =  [foundUser.username,foundUser.name,foundUser.branch,foundUser.spouse,foundUser.city,foundUser.country,foundUser.region,foundUser.mobile,foundUser.email,foundUser.tshirt];
-    
+                    regdat =  [foundUser.username,foundUser.name,foundUser.branch,foundUser.spouse,foundUser.city,foundUser.country,foundUser.region,foundUser.mobile,foundUser.email,foundUser.tshirt];
+                    console.log(regdat);
                 }
             }
         }).clone();
@@ -96,6 +110,7 @@ router.get("/previewData",async(req,res)=>{
                     }
                 }
             }).clone();
+        var previewData;
         await Tshirt.findOne({username:currentUser},
             function(err,foundUser){
                 if(err){
@@ -103,12 +118,13 @@ router.get("/previewData",async(req,res)=>{
                 }else{
                     //console.log(String(foundUser));
                     if(foundUser){
+                        console.log("endddd");
                          options=[foundUser.menOption, foundUser.womenOption, foundUser.grandKidsOption]
                          quantity=foundUser.quantity
                           console.log('sssssss');
-                          var previewData=[currentUser,particitype,inpax,chkin,chkout,htl1,htl2,eventpart,member,foodmembers,options, quantity,tourop,regdat,dates];
+                          previewData=[currentUser,particitype,inpax,chkin,chkout,htl1,htl2,eventpart,member,foodmembers,options, quantity,tourop,regdat,dates];
                           console.log(previewData);
-                          res.send(previewData)
+                          
                     }
                 }
             }).clone();
@@ -117,7 +133,8 @@ router.get("/previewData",async(req,res)=>{
         console.log('sssssss');
         console.log(previewData);
         res.send(previewData)*/
-
+        previewData=[currentUser,particitype,inpax,chkin,chkout,htl1,htl2,eventpart,member,foodmembers,options, quantity,tourop,regdat,dates];
+        res.send(previewData)
     }
     catch(e){
         console.log(e.message)
@@ -487,7 +504,7 @@ router.post('/accomodationSave', async(req,res)=>{
         })
         const hotel22=temp2.filter(function(rooms){return rooms.count>0;})
 
-        const newAcc= new Accomodation({
+        const newAcc={
             typeOfRoom:'singleOccupancy',
             username:currentUser,
             pax:{
@@ -521,11 +538,30 @@ router.post('/accomodationSave', async(req,res)=>{
                 hotel11:h1,
                 hotel22:h2
             
+        };
+        var data2= new Accomodation(newAcc);
+
+        var set=0
+        Accomodation.exists({username:currentUser}, function (err, doc) {
+            if (err){
+                console.log(err)
+            }else{
+                set=doc;
+                console.log("Result :", doc) // false
+            }
         });
-        await newAcc.save();
+        if(!set){await data2.save();
+                console.log("saved accomodation successfully2");
+                res.send("saved")}
+        else{
+            await Accomodation.findOneAndUpdate({username:currentUser }, {newAcc});
+            console.log("updated accomodation successfully")
+            res.send("updated")
+        }
+        /* await newAcc.save();
         console.log("saved accomodation successfully")
         res.send("success")
-        console.log("nope")
+        console.log("nope") */
     
     }
     catch(e){
@@ -547,7 +583,7 @@ router.post('/eventsSave',async(req,res)=>{
                 currentUser=docs.username;
             }
         }).clone();
-        const newEve= new Event({
+        const newEve= {
             username:currentUser,
             Date1:{
                 cond1:data.conditions[0],
@@ -572,10 +608,28 @@ router.post('/eventsSave',async(req,res)=>{
                     nonveg:parseInt(data.d3nv)
                 }
             }
+        };
+        var data2=new Event(newEve);
+        var set;
+        Event.exists({username:currentUser}, function (err, doc) {
+            if (err){
+                console.log(err)
+            }else{
+                set=doc;
+                console.log("Result :", doc) // false
+            }
         });
-        await newEve.save();
+        if(!set){await data2.save();
+                console.log("saved event successfully2");
+                res.send("saved")}
+        else{
+            await Event.findOneAndUpdate({username:currentUser }, {newEve});
+            console.log("updated event successfully")
+            res.send("updated")
+        }
+        /* await newEve.save();
         console.log("saved events successfully")
-        res.send("success")
+        res.send("success") */
     }
     catch(e){
         console.log(e.message)
@@ -583,7 +637,7 @@ router.post('/eventsSave',async(req,res)=>{
     }
 })
 
-router.post("/registrationData",async(req,res)=>{
+router.post("/registrationData",async(req,res)=>{ 
     try{
 
         var currentUser;
@@ -597,8 +651,7 @@ router.post("/registrationData",async(req,res)=>{
         }).clone();
         const data=req.body;
         console.log(data);
-        const newReg=new Registration({
-            username: currentUser,
+        const newReg={
     name: data[0],
     branch: data[1],
     spouse: data[2],
@@ -608,10 +661,31 @@ router.post("/registrationData",async(req,res)=>{
     mobile: data[6],
     email: data[7],
     tshirt: data[8]
-        })
-
-    await newReg.save();
-    res.send("success")
+        }
+        var data2=new Registration(newReg);
+        var set;
+        Registration.exists({username:currentUser}, async function (err, doc) {
+            console.log(doc);
+            if (err){
+                console.log(err)
+            }else{
+                set=doc;
+                console.log("Result :", doc) // false
+                console.log(set);
+                console.log(newReg);
+                if(!set){await data2.save(); //Put this insied the exists, set becomes null outside for some reason.
+                        console.log("saved basedata successfully2");
+                        res.send("saved")}
+                else{
+                    await Registration.findOneAndUpdate({username:currentUser }, newReg);//now curly brackets
+                    console.log("updated basedata successfully")
+                    res.send("updated")
+        }    
+            }
+        });
+        
+    /* await newReg.save();
+    res.send("success") */
 
     }catch(e){
         console.log(e.message);
@@ -635,7 +709,7 @@ router.post("/ToursSave",async(req,res)=>{
                 currentUser=docs.username;
             }
         }).clone();
-        const newTour= new Tour({
+        const newTour= {
             username:currentUser,
             inInterested:data.need,//interest,
             paxCount:{
@@ -644,10 +718,28 @@ router.post("/ToursSave",async(req,res)=>{
                 mysoreBandipur:data.tour[2],
                 belurHampi:data.tour[3]
             }
-        })
-        await newTour.save();
+        }
+        var data2=new Tour(newTour);
+        var set;
+        Tour.exists({username:currentUser}, function (err, doc) {
+            if (err){
+                console.log(err)
+            }else{
+                set=doc;
+                console.log("Result :", doc) // false
+            }
+        });
+        if(!set){await data2.save();
+                console.log("saved tours successfully2");
+                res.send("saved")}
+        else{
+            await Tour.findOneAndUpdate({username:currentUser }, {newTour});
+            console.log("updated tours successfully")
+            res.send("updated")
+        }
+        /* await newTour.save();
         console.log("saved tour successfully")
-        res.send("success")
+        res.send("success") */
     }catch(e){
         console.log(e.message);
     }
@@ -667,14 +759,32 @@ router.post("/FeedSave",async(req,res)=>{
                 currentUser=docs.username;
             }
         }).clone();
-        const newFeed= new FeedBack({
+        const newFeed= {
             username:currentUser,
             Rating : data.rat,
             Comment : data.com,
-        })
-        await newFeed.save();
+        }
+        var data2=new FeedBack(newFeed);
+        var set;
+        FeedBack.exists({username:currentUser}, function (err, doc) {
+            if (err){
+                console.log(err)
+            }else{
+                set=doc;
+                console.log("Result :", doc) // false
+            }
+        });
+        if(!set){await data2.save();
+                console.log("saved feedback successfully2");
+                res.send("saved")}
+        else{
+            await FeedBack.findOneAndUpdate({username:currentUser }, {newFeed});
+            console.log("updated feedback successfully")
+            res.send("updated")
+        }
+        /* await newFeed.save();
         console.log("saved Feed successfully")
-        res.send("success")
+        res.send("success") */
     }catch(e){
         console.log(e.message);
     }
@@ -743,7 +853,7 @@ router.post("/tshirtSave",async(req,res)=>{
             else return elem;
         });
         console.log(data);
-        const newTshirt=new Tshirt({
+        const newTshirt={
             username:currentUser,
             isInterested:data.c[0],
             menOption:{
@@ -801,14 +911,34 @@ router.post("/tshirtSave",async(req,res)=>{
             }
         }
 
-        })
-        await newTshirt.save();
+        }
+        var data2=new Tshirt(newTshirt);
+        var set;
+        Tshirt.exists({username:currentUser}, function (err, doc) {
+            if (err){
+                console.log(err)
+            }else{
+                set=doc;
+                console.log("Result :", doc) // false
+            }
+        });
+        if(!set){await data2.save();
+                console.log("saved tshirt successfully2");
+                res.send("saved")}
+        else{
+            await Tshirt.findOneAndUpdate({username:currentUser }, {newTshirt});
+            console.log("updated shirt successfully")
+            res.send("updated")
+        }
+        /* await newTshirt.save();
         console.log("saved tshirt successfully")
-        res.send("success")
+        res.send("success") */
     }catch(e){
         console.log(e.message);
     }
 })
+
+
 
 
 
