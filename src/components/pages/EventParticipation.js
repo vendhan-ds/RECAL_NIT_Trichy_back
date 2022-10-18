@@ -93,7 +93,7 @@ function EventParticipation() {
                 setisliked5(res2.cond2);
                 setisliked6(res3.cond1);
                 setisliked7(res3.cond2);
-
+                
                 document.querySelector('#v1').value = res1.count.veg;
                 document.querySelector('#nv1').value = res1.count.nonveg;
                 document.querySelector('#v2').value = res2.count;
@@ -194,8 +194,8 @@ function EventParticipation() {
                     </TableRow>
                     <TableRow>
                     <TableCell>No. of Participants for Event at Hotel</TableCell>   
-                    <TableCell><TextField size = "small"  variant="outlined" min="0" id='v1' label="Veg" /></TableCell>
-                    <TableCell><TextField size = "small"  variant="outlined" min="0" id='nv1' label = "Non Veg"/></TableCell> 
+                    <TableCell><TextField size = "small"  variant="outlined" min="0" id='v1' placeholder="Veg" /></TableCell>
+                    <TableCell><TextField size = "small"  variant="outlined" min="0" id='nv1' placeholder = "Non Veg"/></TableCell> 
                     </TableRow>
                     
                 </TableBody>
@@ -285,8 +285,8 @@ I agree to pay the Lumpsum Participation Fee of Rs.4,500 towards this for Myself
                     </TableRow>
                     <TableRow><TableCell>No. of Participants for Event at Hotel
 </TableCell>   
-                    <TableCell><TextField size = "small"  variant="outlined" min="0" id='v2' label="Veg" /></TableCell>
-                    <TableCell><TextField size = "small"  variant="outlined" min="0" id='nv2' label = "Non Veg"/></TableCell> 
+                    <TableCell><TextField size = "small"  variant="outlined" min="0" id='v2' placeholder="Veg" /></TableCell>
+                    <TableCell><TextField size = "small"  variant="outlined" min="0" id='nv2' placeholder= "Non Veg"/></TableCell> 
                     </TableRow>
                     
                 </TableBody>

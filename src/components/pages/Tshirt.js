@@ -65,6 +65,7 @@ function Tshirt() {
                 document.querySelector('#b1').value = res2.grandKids.boys.category1;
                 document.querySelector('#b2').value = res2.grandKids.boys.category2;
                 document.querySelector('#b3').value = res2.grandKids.boys.category3;
+                updateno();
             });
     },[]);
         

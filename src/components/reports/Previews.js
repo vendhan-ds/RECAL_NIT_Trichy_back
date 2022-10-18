@@ -25,7 +25,7 @@ function Previews() {
     const [wa1,setw] = useState([0,0,0,0]);
     const [ba1,setb] = useState([0,0,0]);
     const [ga1,setg] = useState([0,0,0]);
-    var data = ['Name', 'Branch' ,'Spouse', 'City' , 'Country' , 'Region' , 'Mobile' , 'Email' , 'T-Shirt Size' ];
+    var data = ['Name', 'Branch' ,'Spouse', 'City' , 'Country' , 'Region' , 'Mobile' , 'Email' , 'T-Shirt_Size' ];
 
     var res;
     var got = 0
@@ -75,6 +75,14 @@ function Previews() {
         document.querySelector('.t2').innerText = res.data[11][1].phuketKrabi;
         document.querySelector('.t3').innerText = res.data[11][1].mysoreBandipur;
         document.querySelector('.t4').innerText = res.data[11][1].belurHampi;
+        document.querySelector('.cin1').innerText = res.data[13].cin1;
+        document.querySelector('.cin2').innerText = res.data[13].cin2;
+        document.querySelector('.cin3').innerText = res.data[13].cin3;
+        document.querySelector('.cout1').innerText = res.data[13].cout1;
+        document.querySelector('.cout2').innerText = res.data[13].cout2;
+        document.querySelector('.cout3').innerText = res.data[13].cout3;
+
+
         var datt = ['Name', 'Branch' ,'Spouse', 'City' , 'Country' , 'Region' , 'Mobile' , 'Email' , 'T-Shirt_Size' ];
         var datt2 = res.data[12];
         console.log(datt2);
@@ -112,7 +120,7 @@ function Previews() {
                         <TableRow>
                             <TableCell >{dat}</TableCell>
                             <TableCell>as per Base Data</TableCell>
-                            <TableCell><TextField size = "small" id={dat} label={dat} variant="outlined" /></TableCell>
+                            <TableCell><TextField size = "small" id={dat} variant="outlined" /></TableCell>
                         </TableRow>
                     )
                     )}
@@ -162,8 +170,26 @@ function Previews() {
 
                 </TableRow>
                 <TableRow>
-                    <TableCell>Check IN</TableCell>
-                    <TableCell>Check OUT</TableCell>
+                    <TableCell>Early Check-in(23rd Jan)</TableCell>
+                    <TableCell>Standard Check-in(24th Jan)</TableCell>
+                    <TableCell>Late Check-in(25th Jan)</TableCell>
+
+                </TableRow>
+                <TableRow>
+                    <TableCell><p className='cin1'></p></TableCell>
+                    <TableCell><p className='cin2'></p></TableCell>
+                    <TableCell><p className='cin3'></p></TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell>Early Check-out(25th Jan)</TableCell>
+                    <TableCell>Standard Check-out(26th Jan)</TableCell>
+                    <TableCell>Extended Stay(27th Jan)</TableCell>
+
+                </TableRow>
+                <TableRow>
+                    <TableCell><p className='cout1'></p></TableCell>
+                    <TableCell><p className='cout2'></p></TableCell>
+                    <TableCell><p className='cout3'></p></TableCell>
                 </TableRow>
                 <TableRow>
                     <TableCell><p className='cin'></p></TableCell>

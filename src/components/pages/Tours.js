@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import axios from 'axios';
 import {motion} from 'framer-motion'
 import {Link} from 'react-router-dom'
@@ -42,23 +42,25 @@ function Tours() {
 
     }
 
-    function prepop(){
-        axios.get('http://localhost:8080/api/previewData').then(
-            (res) => {
-                res = res.data;
-                console.log(res);
-                var arr = res[12][1];
-                document.querySelector('#c1').value = arr.trichy;
-                document.querySelector('#c2').value = arr.phuketKrabi;
-                document.querySelector('#c3').value = arr.mysoreBandipur;
-                document.querySelector('#c4').value = arr.belurHampi;
-                
+    const [toursa,sett] = useState([0,0,0,0]);
 
-            });
+    useEffect(()=>{
+            axios.get('http://localhost:8080/api/previewData').then(
+                (res) => {
+                    res = res.data;
+                    console.log(res);
+                    var arr = res[12][1];
+                    // document.querySelector('#c1').value = arr.trichy;
+                    // document.querySelector('#c2').value = arr.phuketKrabi;
+                    // document.querySelector('#c3').value = arr.mysoreBandipur;
+                    // document.querySelector('#c4').value = arr.belurHampi;
+                    console.log("hello");
+                    sett([arr.trichy,arr.phuketKrabi,arr.mysoreBandipur,arr.belurHampi]);
+                });
+    
+        
+    },[]);
 
-    }
-
-    prepop();
 
     const variants1 = {
         anim : {
@@ -147,10 +149,10 @@ function Tours() {
             </TableRow>
             <TableRow>
                 <TableCell>Enter No. of Pax in Tour</TableCell>
-                <TableCell><TextField id = "c1"/></TableCell>
-                <TableCell><TextField id = "c2"/></TableCell>
-                <TableCell><TextField id = "c3"/></TableCell>
-                <TableCell><TextField id = "c4"/></TableCell>
+                <TableCell><TextField id = "c1" value = {toursa[0]} /></TableCell>
+                <TableCell><TextField id = "c2" value = {toursa[1]} /></TableCell>
+                <TableCell><TextField id = "c3" value = {toursa[2]} /></TableCell>
+                <TableCell><TextField id = "c4" value = {toursa[3]} /></TableCell>
 
             </TableRow>
             </TableBody>
