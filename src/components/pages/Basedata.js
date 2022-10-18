@@ -53,14 +53,21 @@ export default function Basedat(){
                 }
 
             });
-
+        axios.get("http://localhost:8080/api/userpaid").then((res)=>{
+            if(res.data == true){
+                document.querySelector('.pay').innerText = "Paid";
+            }
+            else{
+                document.querySelector('.pay').innerText = "NOT Paid";
+            }
+        })
     };
 
     prepop();
 
     return(
         <>
-        <motion.div className='center' variants={variants1} exit={{x:'100vw'}} initial ={{opacity:0}} animate="anim" >
+        <motion.div className='center' variants={variants1} exit={{opacity:0}} initial ={{opacity:0}} animate="anim" >
             <TableContainer component={Paper} style = {mystyle} >
                 <Table sx={{ minWidth: 650 }} aria-label="simple table">
                     <TableHead>
@@ -79,6 +86,10 @@ export default function Basedat(){
                         </TableRow>
                     )
                     )}
+                    <TableRow>
+                        <TableCell>Payment Status</TableCell>
+                        <TableCell className='pay'>Not paid</TableCell>
+                    </TableRow>
                     </TableBody>
                 </Table>
                 

@@ -6,6 +6,7 @@ import Tour from '../app/models/Tour';
 import Tshirt from '../app/models/Tshirt';
 import Users from '../app/models/Users';
 import FeedBack from '../app/models/FeedBack';
+import Payment from '../app/models/Payment';
 
 const router = express.Router();
 
@@ -79,7 +80,7 @@ router.get("/previewData",async(req,res)=>{
 
                 if(foundUser){
                     console.log("hlo4")
-                    regdat =  [foundUser.username,foundUser.name,foundUser.branch,foundUser.spouse,foundUser.city,foundUser.country,foundUser.region,foundUser.mobile,foundUser.email,foundUser.tshirt];
+                    regdat =  [foundUser.name,foundUser.branch,foundUser.spouse,foundUser.city,foundUser.country,foundUser.region,foundUser.mobile,foundUser.email,foundUser.tshirt];
                     console.log(regdat);
                 }
             }
@@ -123,23 +124,34 @@ router.get("/previewData",async(req,res)=>{
                          options=[foundUser.menOption, foundUser.womenOption, foundUser.grandKidsOption]
                          quantity=foundUser.quantity
                           console.log('sssssss');
-                          previewData=[currentUser,particitype,inpax,chkin,chkout,htl1,htl2,eventpart,member,foodmembers,options, quantity,tourop,regdat,dates];
-                          console.log(previewData);
-                          res.send(previewData);
+                          
                           
                     }
                 }
             }).clone();
+        await Users.findOne({username:currentUser}, function(err,foundUser){
+            if(err){
+                console.log(err);
+            }
+            else{
+                if(foundUser){
+                    previewData=[currentUser,particitype,inpax,chkin,chkout,htl1,htl2,eventpart,member,foodmembers,options, quantity,tourop,regdat,dates];
+                    console.log(previewData);
+                    res.send(previewData);
+                }
+            }
+        }).clone();
         /*console.log('sssssss');    
         var previewData=[particitype,inpax,chkin,chkout,htl1,htl2,eventpart,member,foodmembers,options, quantity,tourop]
         console.log('sssssss');
         console.log(previewData);
         res.send(previewData)*/
-        if(previewData == null){
-        previewDatas=[currentUser,particitype,inpax,chkin,chkout,htl1,htl2,eventpart,member,foodmembers,options, quantity,tourop,regdat,dates];
-        }
-        console.log('dsdsdsds' + previewData);
-        res.send(previewDatas);
+        
+        var previewDatas=[currentUser,particitype,inpax,chkin,chkout,htl1,htl2,eventpart,member,foodmembers,options, quantity,tourop,regdat,dates];
+        console.log('dsdsdsds' + previewDatas);
+        // res.send(previewDatas);
+    
+        
 
     }
     catch(e){
@@ -730,7 +742,7 @@ router.post("/registrationData",async(req,res)=>{
             mobile: data[6],
             email: data[7],
             tshirt: data[8]
-                }
+                };
         const newReg={
     name: data[0],
     branch: data[1],
@@ -741,7 +753,7 @@ router.post("/registrationData",async(req,res)=>{
     mobile: data[6],
     email: data[7],
     tshirt: data[8]
-        }
+        };
         var data2=new Registration(newReg1);
         var set;
         Registration.exists({username:currentUser}, async function (err, doc) {
@@ -752,6 +764,7 @@ router.post("/registrationData",async(req,res)=>{
                 set=doc;
                 console.log("Result :", doc) // false
                 console.log(set);
+                console.log('sdsdsd');
                 console.log(newReg);
                 if(!set){await data2.save(); //Put this insied the exists, set becomes null outside for some reason.
                         console.log("saved basedata successfully2");
@@ -771,6 +784,97 @@ router.post("/registrationData",async(req,res)=>{
         console.log(e.message);
         res.send("failure")
 
+    }
+})
+
+
+router.post("/PaymentSave", async(req,res)=>{
+    try{
+        const data = req.body;
+        console.log(data);
+        const payment = {
+            username : 'main',
+            PaymentStatus : data,
+        }
+
+        var data2 = new Payment(payment);
+        Payment.exists({username:"main"},async function (err, doc) {
+            if (err){
+                console.log(err)
+            }else{
+                var set=doc;
+                console.log("Result :", doc) // false
+                if(!set){await data2.save();
+                    console.log("saved tours successfully2");
+                    res.send("saved")}
+                else{
+                    await Payment.findOneAndUpdate({username:"main" }, payment);
+                    console.log("updated tours successfully")
+                    res.send("updated")
+                }
+            }
+        });
+    }
+    catch(e){
+        console.log(e);
+    }
+})
+
+router.get("/userpaid", async(req,res)=>{
+    try{
+        var currentUser
+        var id=req.session.passport.user
+        await Users.findById(id,function(err,docs){
+            if(err){console.log(err)}
+            else{console.log(docs.username)
+                currentUser=docs.username;
+            }
+        }).clone();
+        await Payment.findOne({username:"main"}, function(err,foundUser){
+            console.log('kakaka');
+            if(err){
+                console.log(err);
+            }
+            else{
+                if(foundUser){
+                    console.log('sdsdsdsd');
+                    var data = foundUser.PaymentStatus;
+                    console.log(data);
+                    var ex = false;
+                    if(data.includes(currentUser)){
+                        ex = true;
+                    }
+                    res.send(ex);
+                }
+            }
+        }).clone();
+    }
+    catch{
+        console.log("error");
+        res.send("failure");
+    }
+})
+
+router.get("/listpayment" , async(req,res)=>{
+    try{
+        await Payment.findOne({username:"main"}, function(err,foundUser){
+            console.log('kakaka');
+            if(err){
+                console.log(err);
+            }
+            else{
+                if(foundUser){
+                    console.log('sdsdsdsd');
+                    var data = foundUser.PaymentStatus;
+                    console.log(data);
+                    res.send(data);
+                }
+            }
+        }).clone();
+    }
+    catch{
+        console.log('error');
+        res.send('failure');
     }
 })
 

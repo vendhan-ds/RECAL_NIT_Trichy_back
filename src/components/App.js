@@ -26,6 +26,7 @@ import Basedat from './pages/Basedata';
 import Quit from './pages/quit';
 import Feedback from './pages/Feedback';
 import Navbar from './Navbar'
+import Payment from './pages/Payment';
 
 
 const App = () => {
@@ -41,6 +42,8 @@ const App = () => {
                 <Route path='feedback' element={<Feedback />} />
                 <Route path='basedat' element={<Basedat />} />
                 <Route path='login' element={<Login />} />
+                <Route path='payment' element={<Payment />} />
+
                 <Route path='accomodation' element={<Accomodation />} />
                 <Route path='event-participation' element={<EventParticipation />} />
                 <Route path='tshirt' element={<Tshirt />} />
