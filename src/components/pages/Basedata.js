@@ -49,7 +49,8 @@ export default function Basedat(){
                 res = res.data[13];
                 console.log(res);
                 for(var i in data){
-                    if(res[i] == 'undefined'){
+                    console.log(res[i]);
+                    if(res[i] == undefined){
                     document.querySelector('#' + data[i]).value = "";
                     }
                     else{

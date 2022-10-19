@@ -49,7 +49,12 @@ export default function Feedback(){
             <br />
             <Button size="large" variant="contained" onClick={() => sendpost()}  >
                     Submit
-                </Button>
+            </Button>
+            <br />
+            <br />
+            <Link to="/previews"><Button size="large" variant="contained" >
+                    Go to Previews
+            </Button></Link>
         </motion.div>
     )
 }

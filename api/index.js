@@ -820,6 +820,33 @@ router.post("/PaymentSave", async(req,res)=>{
     }
 })
 
+router.get("/isadmin" , async(req,res) => {
+    try{
+        var currentUser;
+        var id=req.session.passport.user
+        await Users.findById(id,function(err,docs){
+            if(err){console.log(err)}
+            else{console.log(docs.username)
+                currentUser=docs.username;
+            }
+        }).clone();
+        await Users.findOne({username:currentUser}, function(err,foundUser){
+            if(err){
+                console.log(err);
+            }
+            else{
+                if(foundUser){
+                    res.send(foundUser.isAdmin);
+                }
+            }
+        }).clone();
+
+    }
+    catch{
+        res.send("failure");
+    }
+})
+
 router.get("/userpaid", async(req,res)=>{
     try{
         var currentUser

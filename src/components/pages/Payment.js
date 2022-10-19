@@ -16,7 +16,19 @@ import Button from '@mui/material/Button';
 
 export default function Payment(){
     const [dat,setdata] = useState([]);
+    const [acc,setacc] = useState(false);
     useEffect(() => {
+
+        axios.get("http://localhost:8080/api/isadmin").then((res) =>{
+          console.log(res);
+          if(res.data == false){
+            window.location.href = "/basedat";
+          }
+          else{
+            setacc(true);
+          }
+        })
+
         axios.get("http://localhost:8080/api/registrationList").then((res) => {
             var arr = [];
             for(var i of res.data){
@@ -64,7 +76,7 @@ export default function Payment(){
         <div>
 
         <h1>Payment Status</h1>
-        <Box
+        {acc && <Box
   display="flex"
   justifyContent="center"
   alignItems="center"
@@ -92,17 +104,19 @@ export default function Payment(){
         );
       })}
     </List>
-    </Box>
+    </Box>}
     <br />
     <br />
-    <div className='center'>
+    {acc && <div className='center'>
 
     <Stack direction="row" spacing={2} style = {{padding : '1rem'}} align = 'center' divider={<Divider orientation="vertical" flexItem />} component = {Paper}>
                 <Button size="large" variant="contained" onClick={() => sendpost()} >
                     Save
                 </Button>
     </Stack>
-    </div>
+    </div>}
+
+    {!acc && <h1>Only admin allowed to view this page</h1>}
     </div>
     )
 }

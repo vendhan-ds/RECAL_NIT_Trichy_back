@@ -43,18 +43,18 @@ function Tours() {
     }
 
     const [toursa,sett] = useState([0,0,0,0]);
-
+    
     useEffect(()=>{
             axios.get('http://localhost:8080/api/previewData').then(
                 (res) => {
                     res = res.data;
                     console.log(res);
                     var arr = res[12][1];
-                    // document.querySelector('#c1').value = arr.trichy;
-                    // document.querySelector('#c2').value = arr.phuketKrabi;
-                    // document.querySelector('#c3').value = arr.mysoreBandipur;
-                    // document.querySelector('#c4').value = arr.belurHampi;
-                    console.log("hello");
+                    document.querySelector('#c1').value = arr.trichy;
+                    document.querySelector('#c2').value = arr.phuketKrabi;
+                    document.querySelector('#c3').value = arr.mysoreBandipur;
+                    document.querySelector('#c4').value = arr.belurHampi;
+                    console.log(arr);
                     sett([arr.trichy,arr.phuketKrabi,arr.mysoreBandipur,arr.belurHampi]);
                 });
     
@@ -83,7 +83,7 @@ function Tours() {
         <br />
         <br />
         <motion.div initial ={{opacity : 0}} animate = {{opacity : 1}} className='rdetails'>
-        <TableContainer component = {Paper} style = {mystyle}>
+         <TableContainer component = {Paper} style = {mystyle}>
 
         <Table>
             <TableHead>
@@ -149,10 +149,26 @@ function Tours() {
             </TableRow>
             <TableRow>
                 <TableCell>Enter No. of Pax in Tour</TableCell>
-                <TableCell><TextField id = "c1" value = {toursa[0]} /></TableCell>
-                <TableCell><TextField id = "c2" value = {toursa[1]} /></TableCell>
-                <TableCell><TextField id = "c3" value = {toursa[2]} /></TableCell>
-                <TableCell><TextField id = "c4" value = {toursa[3]} /></TableCell>
+                <TableCell><TextField id = "c1" value = {toursa[0]} onChange = {(e) => {
+                    var arr = [...toursa];
+                    arr[0] = e.target.value;
+                    sett(arr);
+                }} /></TableCell>
+                <TableCell><TextField id = "c2" value = {toursa[1]} onChange = {(e) => {
+                    var arr = [...toursa];
+                    arr[1] = e.target.value;
+                    sett(arr);
+                }}/></TableCell>
+                <TableCell><TextField id = "c3" value = {toursa[2]} onChange = {(e) => {
+                    var arr = [...toursa];
+                    arr[2] = e.target.value;
+                    sett(arr);
+                }}/></TableCell>
+                <TableCell><TextField id = "c4" value = {toursa[3]} onChange = {(e) => {
+                    var arr = [...toursa];
+                    arr[3] = e.target.value;
+                    sett(arr);
+                }}/></TableCell>
 
             </TableRow>
             </TableBody>

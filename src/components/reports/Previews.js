@@ -34,6 +34,14 @@ function Previews() {
         res.data.shift();
         console.log(res);
         
+        var datt = ['Name', 'Branch' ,'Spouse', 'City' , 'Country' , 'Region' , 'Mobile' , 'Email' , 'T-Shirt_Size' ];
+        var datt2 = res.data[12];
+        console.log('sdsdsd');
+        console.log(datt2);
+        for(var i in datt){
+            document.querySelector('#' + datt[i]).value = datt2[i];
+        };
+
         var a1 = res.data[5];
         a1 = [...a1];
         seth2(a1);
@@ -83,12 +91,7 @@ function Previews() {
         document.querySelector('.cout3').innerText = res.data[13].cout3;
 
 
-        var datt = ['Name', 'Branch' ,'Spouse', 'City' , 'Country' , 'Region' , 'Mobile' , 'Email' , 'T-Shirt_Size' ];
-        var datt2 = res.data[12];
-        console.log(datt2);
-        for(var i in datt){
-            document.querySelector('#' + datt[i]).value = datt2[i];
-        };
+        
 
     });
     return () => {
