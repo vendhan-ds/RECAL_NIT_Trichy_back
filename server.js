@@ -45,6 +45,9 @@ server.use(
     secret: "texy",
     resave: false,
     saveUninitialized: true,
+    cookie: {
+      expires: 600000,
+    },
   })
 );
 
@@ -60,6 +63,7 @@ server.get(['/',
 '/tshirt',
 '/tours',
 '/previews',
+'/report',
 '/report/registered',
 '/report/summary',
 '/report/tshirt',
