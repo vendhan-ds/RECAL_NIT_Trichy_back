@@ -1,0 +1,200 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;1,900&display=swap');
+
+body{
+  background-image: radial-gradient( circle 400px at 6.8% 8.3%,  rgba(255,244,169,1) 0%, rgba(255,244,234,1) 100.2% );
+
+    font-family: 'Montserrat', sans-serif;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  font-weight: 900;
+  text-align: center;
+}
+
+.logo{
+  width: 10rem;
+  margin-left: auto;
+  margin-right: auto;
+}
+.logos{
+  text-align: center;
+}
+
+.center{
+  width: fit-content;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.mainc2{
+  padding: 2rem;
+}
+.weltext{
+  width: fit-content;
+  margin-left: auto;
+  margin-right: auto;
+  font-weight: 900;
+  margin-top: 5rem;
+  font-size: 2.5rem;
+  margin-bottom: 3rem;
+  background: -webkit-linear-gradient(90deg,black,rgb(70,70,70) 33%,rgb(100,100,100));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;}
+
+
+
+.button-24 {
+  background: #5BB318;
+  width: 100%;
+  border: 1px solid #5BB318;
+  border-radius: 6px;
+  box-shadow: rgba(0, 0, 0, 0.1) 1px 2px 4px;
+  box-sizing: border-box;
+  color: #FFFFFF;
+  cursor: pointer;
+  display: inline-block;
+  font-family: nunito,roboto,proxima-nova,"proxima nova",sans-serif;
+  font-size: 16px;
+  font-weight: 800;
+  line-height: 16px;
+  min-height: 40px;
+  outline: 0;
+  padding: 12px 14px;
+  text-align: center;
+  text-rendering: geometricprecision;
+  text-transform: none;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  vertical-align: middle;
+}
+
+.button-24:hover,
+.button-24:active {
+  background-color: initial;
+  background-position: 0 0;
+  color: #5BB318;
+}
+
+.button-24:active {
+  opacity: .5;
+}
+
+.mainc{
+    width: fit-content;
+    padding: 2rem;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: left;
+    box-shadow: 0 4px 8px 5px rgba(0, 0, 0, 0.4), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    background-color: white;
+    border-radius: 1rem;
+    transition: 0.5s;
+}
+
+.mainc:hover{
+  box-shadow: 0 8px 16px 8px rgba(0, 0, 0, 0.4), 0 6px 20px 0 rgba(0, 0, 0, 0.5);
+}
+
+span{
+   background: -webkit-linear-gradient(90deg,black,rgb(40,40,40) 33%,rgb(100,100,100));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-weight: 900;
+}
+
+input{
+  margin-top: 0.2rem;
+  display: block;
+  width: 25rem;
+  padding: 0.7rem;
+  border: solid gray 1px;
+}
+
+input:focus{
+  outline: solid 1px black;
+}
+
+table{
+    margin-left: auto;
+    margin-right: auto;
+}
+
+td{
+    text-align: left;
+    padding: 0.3rem 1rem;
+}
+
+.centerv{
+  margin-top: 10%;
+  font-size: 1.7rem;
+  text-align: center;
+}
+
+.centerv2{
+  margin-top: 10%;
+  font-size: 1.7rem;
+  text-align: center;
+  background-color: rgba(255,255,255,0.6);
+}
+
+.quitimg{
+  width: 100%;
+  height: 100%;
+}
+
+.leftscreen{
+  height: 100%;
+  width: 50%;
+  left: 0;
+  top: 0;
+  position: absolute;
+  background-color: #FBAB7E;
+  background-image: linear-gradient(62deg, #FBAB7E 0%, #F7CE68 100%);
+
+  
+}
+
+a{
+  text-decoration: none;
+}
+
+.rightscreen{
+  background-color: white;
+  height: 100%;
+  width: 50%;
+  right: 0;
+  top: 0;
+  position: absolute;
+  background-color: #FBAB7E;
+  background-image: linear-gradient(62deg, #FBAB7E 0%, #F7CE68 100%);
+}
+
+.navbar{
+  height: 5rem;
+  background-color: blue;
+  text-align: left;
+}
+
+
+
+
+
+
+.centerv h1{
+  background: -webkit-linear-gradient(90deg, #8f6B29, #FDE08D, #DF9F28);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.centerv2 h1{
+  background: -webkit-linear-gradient(90deg,black,rgb(40,40,40) 33%,rgb(100,100,100));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.screenbut{
+  width: 7rem;
+  position: absolute;
+  bottom: 1rem;
+  right:1rem;
+}
