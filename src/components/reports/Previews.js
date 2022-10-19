@@ -29,6 +29,57 @@ function Previews() {
 
     var res;
     var got = 0
+
+    function updateno(){
+        var men1 = [document.querySelector('#m1').value,document.querySelector('#m2').value,document.querySelector('#m3').value,document.querySelector('#m4').value,document.querySelector('#m5').value,document.querySelector('#m6').value];
+        var men2 = [document.querySelector('#m12').value,document.querySelector('#m22').value,document.querySelector('#m32').value,document.querySelector('#m42').value,document.querySelector('#m52').value,document.querySelector('#m62').value];
+        var women1 = [document.querySelector('#w1').value,document.querySelector('#w2').value,document.querySelector('#w3').value,document.querySelector('#w4').value];
+        var women2 = [document.querySelector('#w12').value,document.querySelector('#w22').value,document.querySelector('#w32').value,document.querySelector('#w42').value];
+        var girls1 = [document.querySelector('#g1').value,document.querySelector('#g2').value,document.querySelector('#g3').value];
+        var boys1 = [document.querySelector('#b1').value,document.querySelector('#b2').value,document.querySelector('#b3').value];
+        var sm1,sm2,sw1,sw2,sg,sb;
+        sm1=sm2=sw1=sw2=sg=sb=0;
+        for(var i of men1){
+            if(i != ''){
+                sm1 += parseInt(i);
+            }
+        }
+        for(var i of men2){
+            if(i != ''){
+                sm2 += parseInt(i);
+            }
+        }
+        for(var i of women1){
+            if(i != ''){
+                sw1 += parseInt(i);
+            }
+        }
+        for(var i of women2){
+            if(i != ''){
+                sw2 += parseInt(i);
+            }
+        }
+        for(var i of girls1){
+            if(i != ''){
+                sg += parseInt(i);
+            }
+        }
+        for(var i of boys1){
+            if(i != ''){
+                sb += parseInt(i);
+            }
+        }
+        document.querySelector('.rm1').innerText = sm1;
+        document.querySelector('.rm2').innerText = sm2;
+        document.querySelector('.rw1').innerText = sw1;
+        document.querySelector('.rw2').innerText = sw2;
+        document.querySelector('.rg').innerText = sg;
+        document.querySelector('.rb').innerText = sb;
+
+
+
+    }
+
     useEffect(() => {
         res = axios.get('http://localhost:8080/api/previewData').then((res) => {
         res.data.shift();
@@ -90,7 +141,7 @@ function Previews() {
         document.querySelector('.cout2').innerText = res.data[13].cout2;
         document.querySelector('.cout3').innerText = res.data[13].cout3;
 
-
+        updateno();
         
 
     });
@@ -109,6 +160,7 @@ function Previews() {
         <div className='center'>
         <h1>Previews</h1>
         <div className='center'>
+        <h2>Base Data</h2>
         <TableContainer component={Paper} style = {mystyle} >
                 <Table sx={{ minWidth: 650 }} aria-label="simple table">
                     <TableHead>
@@ -135,7 +187,7 @@ function Previews() {
         </div>
         
                 <br />
-
+        <h1>Accomodation</h1>
         <TableContainer component = {Paper}>
         <Table>
             <TableBody>
@@ -202,8 +254,9 @@ function Previews() {
         </Table>
         </TableContainer>
         <br />
+        <h2>Hotel Tamilnadu</h2>
         <TableContainer component = {Paper}>
-
+            
         <Table>
         
             <TableHead>
@@ -273,6 +326,7 @@ function Previews() {
                     </Table>
 </TableContainer>
 <br />
+        <h2>Breeze Residency</h2>
         <TableContainer component = {Paper}>
 
             <Table>
@@ -343,6 +397,7 @@ function Previews() {
                         </TableBody>
                     </Table>
                     </TableContainer>
+                    <h1>Event participation</h1>
                     <TableContainer component = {Paper}>
 
                     <Table>
@@ -376,6 +431,7 @@ function Previews() {
                     </TableContainer>
 
                     <p className='cloth'></p>
+                    <h1>T-Shirt</h1>
                     <TableContainer component = {Paper}>
 
                     <Table>
@@ -424,8 +480,8 @@ function Previews() {
                     </TableRow>
                     <TableRow>
                         <TableCell>Total Mens T-Shirt</TableCell>
-                        <TableCell>{m1a[6]}</TableCell>
-                        <TableCell>{m2a[6]}</TableCell>
+                        <TableCell><p className='rm1'></p></TableCell>
+                        <TableCell><p className='rm2'></p></TableCell>
 
                     </TableRow>
                     <TableRow>
@@ -455,7 +511,8 @@ function Previews() {
                     </TableRow>
                     <TableRow>
                         <TableCell>Total Womens T-Shirt</TableCell>
-                        <TableCell>{wa1[4]}</TableCell>
+                        <TableCell><p className='rw1'></p></TableCell>
+                        <TableCell><p className='rw2'></p></TableCell>
                     </TableRow>
                     <TableRow>
                         <TableCell>Children(Girls) Round Neck T-shirt</TableCell>
@@ -476,7 +533,7 @@ function Previews() {
                     </TableRow>
                     <TableRow>
                         <TableCell>Total Girls T-Shirt</TableCell>
-                        <TableCell>{ga1[3]}</TableCell>
+                        <TableCell><p className='rg'></p></TableCell>
                     </TableRow>
                     <TableRow>
                         <TableCell>Children(Boys) Round Neck T-shirt</TableCell>
@@ -497,12 +554,13 @@ function Previews() {
                     </TableRow>
                     <TableRow>
                         <TableCell>Total Boys T-Shirt</TableCell>
-                        <TableCell>{ba1[3]}</TableCell>
+                        <TableCell><p className='rb'></p></TableCell>
                     </TableRow>
                 </TableBody>
             </Table>
             </TableContainer>
             <br />
+            <h1>Tours</h1>
             <TableContainer component = {Paper}>
 
             <Table>

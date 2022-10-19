@@ -15,7 +15,12 @@ function Home() {
         }
 
     }
-    
+
+    setTimeout(() => {
+        document.querySelector(".leftscreen").style.display = "none";
+        document.querySelector(".rightscreen").style.display = "none";
+
+    }, 2800);
 
     return (
         <motion.div variants={variants1} exit={{opacity : 0}} initial ={{opacity:0}} animate="anim" style={{width : '70%'}} className = 'center'>

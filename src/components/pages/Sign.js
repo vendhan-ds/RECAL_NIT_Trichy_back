@@ -6,6 +6,7 @@ import {Link} from 'react-router-dom'
 import TextField from '@mui/material/TextField';
 import { useState } from 'react'
 import axios from 'axios'
+import { func } from 'prop-types'
 
 export default function Sign(){
   const variants1 = {
@@ -22,6 +23,8 @@ const [saved,sets] = useState(false);
 
 function sendPost(){
   sets(false);
+  document.querySelector(".button-24").style.backgroundColor = 'white';
+
     console.log("sendPost");
     var username = document.querySelector('#username').value;
     var password = document.querySelector('#password').value;
@@ -42,7 +45,15 @@ function sendPost(){
         console.log("not logged in");
       }
   });
+  document.querySelector(".button-24").style.backgroundColor = 'green';
+
  }
+
+  document.addEventListener("keypress" , (e) => {
+    if(e.key == "Enter"){
+      document.querySelector(".button-24").click();
+    }
+  })
   return(
     <motion.div className='container' initial = {{opacity : 0}} animate = {{opacity : 1}} exit = {{opacity : 0}}>
     <div className='logos'>
