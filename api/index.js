@@ -7,8 +7,26 @@ import Tshirt from '../app/models/Tshirt';
 import Users from '../app/models/Users';
 import FeedBack from '../app/models/FeedBack';
 import Payment from '../app/models/Payment';
+import {default as pdfTemplate} from './template';
+import {create} from 'html-pdf'
 
 const router = express.Router();
+
+router.post('/create-pdf', async (req, res) => {
+    console.log(req.body)
+    await create(pdfTemplate(req.body), {}).toFile('result.pdf', (err) => {
+        if(err) {
+            console.log("not done")
+            res.send(Promise.reject());
+        }
+        console.log("done")
+        res.send(Promise.resolve());
+    });
+});
+
+router.get('/fetch-pdf', (req, res) => {
+    res.sendFile(`${__dirname}/result.pdf`)
+})
 
 router.get('/', (req, res) => {
     res.send({ data: ['hello world'] });
@@ -171,7 +189,10 @@ router.get('/registered',async(req,res)=>{
         console.log(err);
     }else{//console.log(docs);
         docs.forEach(function(doc){
-            list.push({username:doc.username,pax:doc.pax})
+            list.push({username:doc.username,spouse:doc.pax.spouse,
+            family:doc.pax.familyMembers,
+            grandKids:doc.pax.grandKids,
+            total:doc.pax.spouse+doc.pax.familyMembers+doc.pax.grandKids+1})
             console.log(list);
             
         })
@@ -477,9 +498,8 @@ router.get("/summary",async(req,res)=>{
                 })
             }
         })
-            
-        res.send(datasend)
         })
+        res.send(datasend)
     }
     catch(e){
     console.log(e.message);

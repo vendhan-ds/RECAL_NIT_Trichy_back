@@ -25,6 +25,7 @@ import Sign from './pages/Sign';
 import Basedat from './pages/Basedata';
 import Quit from './pages/quit';
 import Feedback from './pages/Feedback';
+import Report from './reports/Report';
 import Navbar from './Navbar'
 import Payment from './pages/Payment';
 
@@ -50,6 +51,8 @@ const App = () => {
                 <Route path='tours' element={<Tours />} />
                 <Route path='previews' element={<Previews />} />
                 <Route path='/report'>
+                    <Route index element={<Previews />} />
+                    <Route path='report' element={<Report/>} />
                     <Route index element={<Previews />} />
                     <Route path='registered' element={<ReportRegistered />} />
                     <Route path='summary' element={<ReportSummary />} />

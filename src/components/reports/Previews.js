@@ -130,7 +130,7 @@ function Previews() {
         document.querySelector('#nv2').innerText = res.data[8].count.veg;
         document.querySelector('#v3').innerText = res.data[8].count.nonveg;
         document.querySelector('.cloth').innerText = res.data[10];
-        document.querySelector('.t1').innerText = res.data[11][1].TableRowichy;
+        document.querySelector('.t1').innerText = res.data[11][1].trichy;
         document.querySelector('.t2').innerText = res.data[11][1].phuketKrabi;
         document.querySelector('.t3').innerText = res.data[11][1].mysoreBandipur;
         document.querySelector('.t4').innerText = res.data[11][1].belurHampi;
@@ -430,7 +430,6 @@ function Previews() {
                     </Table>
                     </TableContainer>
 
-                    <p className='cloth'></p>
                     <h1>T-Shirt</h1>
                     <TableContainer component = {Paper}>
 
@@ -571,7 +570,7 @@ function Previews() {
                         <TableCell>26th JAN DEP</TableCell>
                     </TableRow>
                     <TableRow>
-                        <TableCell>TableRowichy Local</TableCell>
+                        <TableCell>Trichy Local</TableCell>
                         <TableCell className='t1'>no of participation</TableCell>
                         <TableCell>no of participation</TableCell>
 
@@ -633,7 +632,7 @@ function Previews() {
                             <TableCell>Full amount</TableCell>
                         </TableRow>
                         <TableRow>
-                            <TableCell>TableRowichy Local Tour</TableCell>
+                            <TableCell>Trichy Local Tour</TableCell>
                             <TableCell>Pending</TableCell>
                             <TableCell>Sep 23</TableCell>
                         </TableRow>
