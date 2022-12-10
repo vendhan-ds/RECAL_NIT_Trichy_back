@@ -964,24 +964,62 @@ router.get("/userpaid", async(req,res)=>{
 
 router.get("/listpayment" , async(req,res)=>{
     try{
-        await Payment.findOne({username:"main"}, function(err,foundUser){
-            console.log('kakaka');
-            if(err){
+        var finallist=[]
+        var list=[]
+
+        Registration.find(function (err, docs) {
+            if (err) {
                 console.log(err);
+            } else {
+                console.log(docs);
+                var paid= []
+                Payment.findOne({username:"main"},(err,user)=>{
+                        if(err){console.log(err)}
+                        else{
+                            paid=user.PaymentStatus;
+                        }
+                    })
+                docs.forEach( (element,index) => {
+                    console.log(index)
+                    var tempfam={}
+                    var tempcosts={}
+                    RegList.findOne({username:element.username},(err,paydata)=>{
+                        if(err){console.log(err)}
+                        else{
+                            tempcosts=paydata.paymentReport
+                        }
+                    }).clone
+                    Accomodation.findOne({username:element.username},(err,famdata)=>{
+                        if(err){console.log(err)}
+                        else{
+                            tempfam=famdata.pax
+                        }
+                    }).clone
+                    finallist.push({
+                        SNo:index+1,
+                        branch:element.branch,
+                        Alumini_Name: element.username,
+                        Spouse:tempfam.spouse,
+                        Family:tempfam.familyMembers,
+                        Grand_Children:tempfam.grandKids,
+                        Total:tempfam.spouse+tempfam.familyMembers+tempfam.grandKids,
+                        Room:tempcosts.Room,
+                        Participation:tempcosts.Participation,
+                        Dinner:tempcosts.Dinner,
+                        Tshirts:tempcosts.Tshirt,
+                        Tours:tempcosts.tours,
+                        GrandTotal:tempcosts.GrandTotal,
+                        Amount_Paid:tempcosts.AmountPaid,
+                        Balnace_Due:tempcosts.GrandTotal-tempcosts.AmountPaid,
+                    })
+                });
             }
-            else{
-                if(foundUser){
-                    console.log('sdsdsdsd');
-                    var data = foundUser.PaymentStatus;
-                    console.log(data);
-                    res.send(data);
-                }
-            }
-        }).clone();
+        }).clone
+        res.send(finallist)
     }
-    catch{
+    catch(e){
         console.log('error');
-        res.send('failure');
+        res.send(e.message);
     }
 })
 
