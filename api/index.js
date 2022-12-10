@@ -512,37 +512,65 @@ router.get("/summary",async(req,res)=>{
 router.get("/listpayment" , async(req,res)=>{
     try{
         var finallist=[]
-        var list=[]
+     
+        var paymntData=await RegList.find();
+        var famdata=await Accomodation.find();
+        var a=await Payment.find()
+        var paid= []
+        console.log(paymntData,famdata,a)
+        a.forEach(el3 => {
+            if(el3.username=="main"){
 
-        Registration.find(function (err, docs) {
-            if (err) {
-                console.log(err);
-            } else {
-                console.log(docs);
-                var paid= []
-                Payment.findOne({username:"main"},(err,user)=>{
+                paid=el3.PaymentStatus;
+               
+            }
+        });
+
+       /*  var a =await Payment.findOne({username:"main"},(err,user)=>{
                         if(err){console.log(err)}
                         else{
                             paid=user.PaymentStatus;
+                            console.log("herehrehrehrhehhvhgjegfvuab")
+                            console.log(paid)
+                        }
+                    }) */
+        var tempfam={}
+        var tempcosts={}
+        Registration.find(function (err, docs) {
+            if (err) {
+                console.log(err);
+            } else {     
+                docs.forEach( async(element,index) => {
+                    console.log(index)
+                    
+                    paymntData.forEach(el=>{
+                        if(el.username==element.username){
+                            tempcosts=el.paymentReport
                         }
                     })
-                    
-                docs.forEach( (element,index) => {
-                    console.log(index)
-                    var tempfam={}
-                    var tempcosts={}
-                    RegList.findOne({username:element.username},(err,paydata)=>{
+
+                    famdata.forEach(el2=>{
+                        if(el2.username==element.username){
+                            tempfam=el2.pax
+                        }
+                    })
+                   /*  await RegList.findOne({username:element.username},(err,paydata)=>{
                         if(err){console.log(err)}
                         else{
+                           // console.log("first")
                             tempcosts=paydata.paymentReport
+                           // console.log(tempcosts)
                         }
                     }).clone
-                    Accomodation.findOne({username:element.username},(err,famdata)=>{
+                    await Accomodation.findOne({username:element.username},(err,famdata)=>{
                         if(err){console.log(err)}
                         else{
+                           // console.log("second")
                             tempfam=famdata.pax
+                           // console.log(tempfam)
                         }
-                    }).clone
+                    }).clone */
+                    console.log(paid)
                     finallist.push({
                         SNo:index+1,
                         branch:element.branch,
@@ -557,8 +585,8 @@ router.get("/listpayment" , async(req,res)=>{
                         Tshirts:tempcosts.Tshirt,
                         Tours:tempcosts.tours,
                         GrandTotal:tempcosts.GrandTotal,
-                        Amount_Paid:tempcosts.AmountPaid,
-                        Balnace_Due:tempcosts.GrandTotal-tempcosts.AmountPaid,
+                        Amount_Paid:paid[index],
+                        Balance_Due:tempcosts.GrandTotal-paid[index],
                     })
                 });
             }
