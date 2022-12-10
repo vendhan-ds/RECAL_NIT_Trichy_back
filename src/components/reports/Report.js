@@ -4,6 +4,7 @@ import TshirtCSV from './tshirtCSV';
 import ParticipationCSV from './participationCSV';
 import SummaryCSV from './summaryCSV';
 import RegistrationCSV from './registrationsCSV';
+import PaymentsCSV from './paymentsCSV';
 //import ConfirmationsCSV from './confirmationsCSV';
 import axios from 'axios';
 import {Link} from 'react-router-dom'
@@ -33,6 +34,7 @@ function Report(){
             <ParticipationCSV/>
             <SummaryCSV/>
             <RegistrationCSV/>
+            <PaymentsCSV/>
 
                 
                 </Stack>

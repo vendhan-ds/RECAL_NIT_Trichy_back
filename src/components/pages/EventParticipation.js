@@ -96,9 +96,9 @@ function EventParticipation() {
                 
                 document.querySelector('#v1').value = res1.count.veg;
                 document.querySelector('#nv1').value = res1.count.nonveg;
-                document.querySelector('#v2').value = res2.count;
+                document.querySelector('#v3').value = res2.count;
                 document.querySelector('#nv2').value = res3.count.veg;
-                document.querySelector('#v3').value = res3.count.nonveg;
+                document.querySelector('#v2').value = res3.count.nonveg;
 
             });
     }, [])

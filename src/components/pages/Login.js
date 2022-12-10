@@ -18,6 +18,7 @@ function Login() {
         var data = {'username' :  username, 'password' : password };
         axios.post('http://localhost:8080/login' , data).then((res) => console.log("test" + res.data));
         sets(true);
+
     }
     return (
         <div className="login-wrapper">

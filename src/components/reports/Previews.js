@@ -17,7 +17,7 @@ import Checkbox from '@mui/material/Checkbox';
 import { TextField } from '@mui/material';
 
 function Previews() {
-    
+    const [totals,settotals]=useState([0,0,0,0,0,0,0,0,0])
     const [hotel1,seth1] = useState([0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]);
     const [hotel2,seth2] = useState([0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]);
     const [m1a,setm1] = useState([0,0,0,0,0,0]);
@@ -25,10 +25,43 @@ function Previews() {
     const [wa1,setw] = useState([0,0,0,0]);
     const [ba1,setb] = useState([0,0,0]);
     const [ga1,setg] = useState([0,0,0]);
+    
     var data = ['Name', 'Branch' ,'Spouse', 'City' , 'Country' , 'Region' , 'Mobile' , 'Email' , 'T-Shirt_Size' ];
 
     var res;
     var got = 0
+    const [costs,setcost] = useState(0);
+    const [costs2,setcost2] = useState(0);
+
+    function updatecost2(room2){
+        var temp = [2000,2000,1000,2500,2500,1250,3700,3700,1850,4500,4500,2250,350,350,350];
+        var cost = 0;
+        for(var i in room2){
+            if(room2[i] == ""){
+                room2[i] = 0;
+            }
+            cost += (parseInt(room2[i]) * parseInt(temp[i]));
+        }
+        setcost2(cost);
+    }
+
+    function updatecost(room){
+        var temp = [2500,2800,1400,3000,3600,1800,3800,4300,2150,5000,5000,2500,6700,6700,3350];
+        var cost = 0;
+        for(var i in room){
+            if(room[i] == ""){
+                room[i] = 0;
+            }
+            cost += (parseInt(room[i]) * parseInt(temp[i]));
+        }
+        setcost(cost);
+    }
+
+    function register(){
+        data = {registered : true, totals : [ parseInt(document.querySelector('.pcost').innerText),costs + costs2,parseInt(document.querySelector('.dcost').innerText) ,(m1a[0] + m1a[1] + m1a[2] + m1a[3] + m1a[4] + m1a[5] + wa1[0] + wa1[1] + wa1[2] + wa1[3] + ga1[0] + ga1[1] + ga1[2] + ba1[0] + ba1[1] + ba1[2]) * 1200 + (m2a[0] + m2a[1] + m2a[2] + m2a[3] + m2a[4] + m2a[5]) * 600,parseInt(document.querySelector('.rt1').innerText) , parseInt(document.querySelector('.rt2').innerText), parseInt( document.querySelector('.rt3').innerText), parseInt(document.querySelector(".rt4").innerText)]}
+        axios.post('http://localhost:8080/api/userRegistered' , data).then((res) => console.log(res.data));
+    }
+
 
     function updateno(){
         var men1 = [document.querySelector('#m1').value,document.querySelector('#m2').value,document.querySelector('#m3').value,document.querySelector('#m4').value,document.querySelector('#m5').value,document.querySelector('#m6').value];
@@ -93,6 +126,8 @@ function Previews() {
             document.querySelector('#' + datt[i]).value = datt2[i];
         };
 
+
+
         var a1 = res.data[5];
         a1 = [...a1];
         seth2(a1);
@@ -100,6 +135,10 @@ function Previews() {
         a2 = [...a2];
         seth1(a2);
 
+        //var t1=a1
+
+        updatecost(a2);
+        updatecost2(a1);
         var temp = res.data[10];
         var m1 = temp.menQuantity.supimaCotton;
         var am1 = [m1.sSize,m1.mSize,m1.lSize,m1.xlSize,m1.xxlSize,m1.xxxlSize];
@@ -121,6 +160,10 @@ function Previews() {
         document.querySelector('.t2').innerText = res.data[11][1].phuketKrabi;
         document.querySelector('.t3').innerText = res.data[11][1].mysoreBandipur;
         document.querySelector('.t4').innerText = res.data[11][1].belurHampi;
+        document.querySelector('.rt1').innerText = parseInt(res.data[11][1].trichy) * 0;
+        document.querySelector('.rt2').innerText = parseInt(res.data[11][1].phuketKrabi) *53000 ;
+        document.querySelector('.rt3').innerText = parseInt(res.data[11][1].mysoreBandipur) * 20000 ;
+        document.querySelector('.rt4').innerText = parseInt(res.data[11][1].belurHampi) * 15000;
         document.querySelector('.paxtype').innerText = res.data[0];
         document.querySelector('.cin').innerText = res.data[2];
         document.querySelector('.cout').innerText = res.data[3];
@@ -136,7 +179,7 @@ function Previews() {
         document.querySelector('#nv2').innerText = res.data[8].count.veg;
 
         document.querySelector('#v3').innerText = res.data[8].count.nonveg;
-
+        document.querySelector('.dcost').innerText =  850*(parseInt(res.data[6].count.nonveg) + parseInt(res.data[8].count.nonveg)) + 750*(parseInt(res.data[6].count.veg) + parseInt(res.data[8].count.veg));
         //document.querySelector('.cloth').innerText = res.data[10];
         document.querySelector('.cin1').innerText = res.data[13].cin1;
         document.querySelector('.cin2').innerText = res.data[13].cin2;
@@ -144,11 +187,26 @@ function Previews() {
         document.querySelector('.cout1').innerText = res.data[13].cout1;
         document.querySelector('.cout2').innerText = res.data[13].cout2;
         document.querySelector('.cout3').innerText = res.data[13].cout3;
+        var pcost = 0;
+        if(res.data[6].cond2){
+            pcost += 4500;
+        }
+        if(res.data[7].cond2){
+            pcost += 1600;
+        }
+        if(res.data[8].cond1){
+            pcost += 4500;
+        }
 
+        document.querySelector('.pcost').innerText  = pcost;
         updateno();
         
 
+
     });
+
+    
+
     return () => {
         console.log('This will be logged on unmount');
       };
@@ -483,8 +541,12 @@ function Previews() {
                     </TableRow>
                     <TableRow>
                         <TableCell>Total Mens T-Shirt</TableCell>
-                        <TableCell><p className='rm1'></p></TableCell>
-                        <TableCell><p className='rm2'></p></TableCell>
+                        < TableCell > < p className = 'rm1' > {
+                            m1a[0] + m1a[1] + m1a[2] + m1a[3] + m1a[4] + m1a[5] 
+                        } </p></TableCell >
+                        < TableCell > < p className = 'rm2' > {
+                            m2a[0] + m2a[1] + m2a[2] + m2a[3] + m2a[4] + m2a[5]
+                        } </p></TableCell >
 
                     </TableRow>
                     <TableRow>
@@ -514,7 +576,9 @@ function Previews() {
                     </TableRow>
                     <TableRow>
                         <TableCell>Total Womens T-Shirt</TableCell>
-                        <TableCell><p className='rw1'></p></TableCell>
+                        < TableCell > < p className = 'rw1' > {
+                            wa1[0] + wa1[1] + wa1[2] + wa1[3]
+                        } </p></TableCell >
                         <TableCell><p className='rw2'></p></TableCell>
                     </TableRow>
                     <TableRow>
@@ -536,7 +600,7 @@ function Previews() {
                     </TableRow>
                     <TableRow>
                         <TableCell>Total Girls T-Shirt</TableCell>
-                        <TableCell><p className='rg'></p></TableCell>
+                        <TableCell><p className='rg'>{ga1[0]+ga1[1] + ga1[2]}</p></TableCell>
                     </TableRow>
                     <TableRow>
                         <TableCell>Children(Boys) Round Neck T-shirt</TableCell>
@@ -557,7 +621,7 @@ function Previews() {
                     </TableRow>
                     <TableRow>
                         <TableCell>Total Boys T-Shirt</TableCell>
-                        <TableCell><p className='rb'></p></TableCell>
+                        <TableCell><p className='rb'>{ba1[0]+ba1[1]+ba1[2]}</p></TableCell>
                     </TableRow>
                 </TableBody>
             </Table>
@@ -617,42 +681,45 @@ function Previews() {
                     <TableBody>
                         <TableRow>
                             <TableCell>Participation Fee</TableCell>
-                            <TableCell>Pending</TableCell>
+                            <TableCell className='pcost' >Pending</TableCell>
                             <TableCell>Full amount</TableCell>
                         </TableRow>
                         <TableRow>
                             <TableCell>Hotel Room</TableCell>
-                            <TableCell>Pending</TableCell>
+                            <TableCell>{costs + costs2}</TableCell>
                             <TableCell>50%</TableCell>
                         </TableRow>
                         <TableRow>
                             <TableCell>Dinner for event</TableCell>
-                            <TableCell>Pending</TableCell>
+                            <TableCell className='dcost'>Pending</TableCell>
                             <TableCell>Full amount</TableCell>
                         </TableRow>
                         <TableRow>
                             <TableCell>T-Shirt</TableCell>
-                            <TableCell>Pending</TableCell>
+                            < TableCell > {
+                                (m1a[0] + m1a[1] + m1a[2] + m1a[3] + m1a[4] + m1a[5] + wa1[0] + wa1[1] + wa1[2] + wa1[3] + ga1[0] + ga1[1] + ga1[2] + ba1[0] + ba1[1] + ba1[2]) * 1200 + (m2a[0] + m2a[1] + m2a[2] + m2a[3] + m2a[4] + m2a[5]) * 600
+                            }
+                            </TableCell>
                             <TableCell>Full amount</TableCell>
                         </TableRow>
                         <TableRow>
                             <TableCell>Trichy Local Tour</TableCell>
-                            <TableCell>Pending</TableCell>
+                            <TableCell className='rt1'>Pending</TableCell>
                             <TableCell>Sep 23</TableCell>
                         </TableRow>
                         <TableRow>
                             <TableCell>Phuket-Krabi Tour</TableCell>
-                            <TableCell>Pending</TableCell>
+                            <TableCell className='rt2'>Pending</TableCell>
                             <TableCell>Sep 23</TableCell>
                         </TableRow>
                         <TableRow>
                             <TableCell>Mysore Tour</TableCell>
-                            <TableCell>Pending</TableCell>
+                            <TableCell className='rt3'>Pending</TableCell>
                             <TableCell>Sep 23</TableCell>
                         </TableRow>
                         <TableRow>
                             <TableCell>Belur-Hampi Tour</TableCell>
-                            <TableCell>Pending</TableCell>
+                            <TableCell className='rt4'>Pending</TableCell>
                             <TableCell>Sep 23</TableCell>
                         </TableRow>
                     </TableBody>
@@ -687,7 +754,7 @@ function Previews() {
 </div>
             <div>
             <br />
-            <Button size="large" variant="contained" color = 'warning'>
+            <Button size="large" variant="contained" color = 'warning' onClick={register}>
                     Submit Registration
                 </Button>
             </div>

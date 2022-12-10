@@ -51,10 +51,10 @@ export default function Basedat(){
                 for(var i in data){
                     console.log(res[i]);
                     if(res[i] == undefined){
-                    document.querySelector('#' + data[i]).value = "";
+                    document.querySelector('#s' + data[i]).innerText = "No data found";
                     }
                     else{
-                    document.querySelector('#' + data[i]).value = res[i];
+                    document.querySelector('#s' + data[i]).innerText = res[i];
                     }
                 }
 
@@ -87,7 +87,7 @@ export default function Basedat(){
                     {data.map(dat => (
                         <TableRow>
                             <TableCell >{dat}</TableCell>
-                            <TableCell>as per Base Data</TableCell>
+                            <TableCell><p id={"s" + dat}>as per Base Data</p></TableCell>
                             <TableCell><TextField size = "small" id={dat} label={dat} variant="outlined" /></TableCell>
                         </TableRow>
                     )

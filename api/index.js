@@ -6,11 +6,14 @@ import Tour from '../app/models/Tour';
 import Tshirt from '../app/models/Tshirt';
 import Users from '../app/models/Users';
 import FeedBack from '../app/models/FeedBack';
+import RegList from '../app/models/Registered';
 import Payment from '../app/models/Payment';
 import {default as pdfTemplate} from './template';
 import {create} from 'html-pdf'
 
 const router = express.Router();
+
+
 
 router.post('/create-pdf', async (req, res) => {
     console.log(req.body)
@@ -506,6 +509,62 @@ router.get("/summary",async(req,res)=>{
    }
 })
 
+router.post('/userRegistered', async (req, res)=>{
+    try{
+        const data=req.body;
+        var id=req.session.passport.user;
+        var currentUser;
+        console.log(data);
+        await Users.findById(id,function(err,docs){
+            if(err){console.log(err)}
+            else{console.log(docs.username)
+                currentUser=docs.username;
+            }
+        }).clone();
+        var entry={
+            username: currentUser,
+            isRegistered:data.registered,
+            paymentReport: {
+                Room: data.totals[0],
+                Participation: data.totals[1],
+                Dinner: data.totals[2],
+                Tshirt: data.totals[3],
+                tours: data.totals[4] + data.totals[5] + data.totals[6] + data.totals[7],
+                GrandTotal: data.totals[0] + data.totals[1] + data.totals[2] + data.totals[3] + data.totals[4] + data.totals[5] + data.totals[6] + data.totals[7],   
+            }
+        
+        }
+        var entry2= new RegList(entry);
+        var set = 0
+        RegList.exists({
+            username: currentUser
+        }, async function (err, doc) {
+            if (err) {
+                console.log(err)
+            } else {
+                set = doc;
+                console.log("Result :", doc) // false
+                if (!set) {
+                    await entry2.save();
+                    console.log("saved reglist successfully2");
+                    res.send("saved reglist")
+                } else {
+                    await Accomodation.findOneAndUpdate({
+                        username: currentUser
+                    }, entry);
+                    console.log("updated reglist successfully")
+                    res.send("updated reglist")
+                }
+            }
+        });
+        
+    }
+    catch (e) {
+        console.log(e.message)
+        res.send("failed to save")
+    }
+})
+
 router.post('/accomodationSave', async(req,res)=>{
     try{var currentUser
         const data=req.body;
@@ -822,14 +881,15 @@ router.post("/PaymentSave", async(req,res)=>{
             if (err){
                 console.log(err)
             }else{
+
                 var set=doc;
                 console.log("Result :", doc) // false
                 if(!set){await data2.save();
-                    console.log("saved tours successfully2");
+                    console.log("saved payment successfully2");
                     res.send("saved")}
                 else{
                     await Payment.findOneAndUpdate({username:"main" }, payment);
-                    console.log("updated tours successfully")
+                    console.log("updated payments successfully")
                     res.send("updated")
                 }
             }

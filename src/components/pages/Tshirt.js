@@ -181,18 +181,29 @@ function Tshirt() {
     }
 
     return (
+        <>
+        <div className="main2">
+            <Button style={{margin : "2rem"}} className='closetshirt' onClick={() => {document.querySelector('.main2').style.display = "none"}} >Close</Button>
+            <div className="main">
+                <img src='tshirts.png'></img>
+            </div>
+        </div>
         <motion.div variants={variants1} initial ={{opacity:0}} animate="anim" exit={{opacity:0}} className = "outerc" transition={{delay : 0.2 , duration  :0.5}}> 
+        
         <motion.div drag dragConstraints={{top:0,bottom:0,left:0,right:0}}  className='mtitle'><h1>Tshirt</h1></motion.div>
         <div className='center'>
             <label >I am Interested in T-Shirt : </label>
             <Checkbox onChange={(e) => setn(e.target.checked)}/>
         <motion.div initial ={{opacity : 0}} animate = {{opacity : 1}} className='rdetails'>
+        
         <TableContainer component = {Paper} style = {mystyle}>
 
             <Table>
                 <TableBody>
-                <h1>T-shirt for men</h1>
+                <Button style={{ marginLeft : "auto"}} onClick = {() => {document.querySelector(".main2").style.display = "block"}} >Pics</Button>
+                <h1 style={{textAlign : 'left'}}>T-shirt for men</h1>
                 
+
                     <TableRow>
                         <TableCell>T-Shirt (Dark Brick Red - Supima Cotton)
 Design - Polo with Collar
@@ -205,7 +216,7 @@ Design - Round Neck for Walking & Exercise
 </TableCell>
                     <TableCell><Checkbox id='c2' checked={isliked2} onChange={handleCheckbox2}/></TableCell>
                     </TableRow>
-                    <h1>T-shirt for Women</h1>
+                    <h1 style={{textAlign : 'left'}}>T-shirt for Women</h1>
                     <TableRow>
                         <TableCell>T-Shirt Navy Blue - Sweat-wicking Fabric)
 Design - Round Neck for Walking & Exercise
@@ -218,7 +229,7 @@ Design - Round Neck for Walking & Exercise)
 </TableCell>
                     <TableCell><Checkbox id='c4' checked={isliked4} onChange={handleCheckbox4}/></TableCell>
                     </TableRow>
-                    <h1>T-Shirt for GrandChildren</h1>
+                    <h1 style={{textAlign : 'left'}}>T-Shirt for GrandChildren</h1>
                     <TableRow>
                         <TableCell>T-Shirt (Maroon - Supima Cotton)
 Design - Round Neck
@@ -409,7 +420,8 @@ Design - Round Neck
                 </Stack>
                 </div>
             </div>
-    </motion.div> );
+    </motion.div>
+    </> );
 }
 
 export default Tshirt;

@@ -12,6 +12,7 @@ import Stack from '@mui/material/Stack';
 import Divider from '@mui/material/Divider';
 import Paper from '@mui/material/Paper';
 import Button from '@mui/material/Button';
+import { TextField } from '@mui/material';
 
 
 export default function Payment(){
@@ -51,7 +52,7 @@ export default function Payment(){
         })
     },[])
 
-    const [checked, setChecked] = React.useState([1]);
+  const [checked, setChecked] = React.useState([1]);
 
   const handleToggle = (value) => () => {
     const currentIndex = checked.indexOf(value);
@@ -67,7 +68,12 @@ export default function Payment(){
   };
 
     function sendpost(){
-        var data = checked;
+        var l = [];
+        for(var i of dat){
+          l.push(document.querySelector("#u" + i.split('@')[0]).value);
+
+        }
+        let data = l;
         axios.post('http://localhost:8080/api/PaymentSave',data).then((res) => console.log(res.data));
 
     }
@@ -82,11 +88,11 @@ export default function Payment(){
   alignItems="center"
   minHeight="100vh"
 >
-            <List dense sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }} >
-      {dat.map((value) => {
+            <List dense sx={{ width: '100%', bgcolor: 'background.paper' }} >
+      {dat.map((value,ind) => {
         const labelId = value;
         return (
-          <ListItem
+          /* <ListItem
             key={value}
             secondaryAction={
               <Checkbox
@@ -94,13 +100,27 @@ export default function Payment(){
                 onChange={handleToggle(value)}
                 checked={checked.indexOf(value) !== -1}
               />
+              <ListItemText />
+
             }
             disablePadding
           >
             <ListItemButton>
               <ListItemText id={labelId} primary={value} />
             </ListItemButton>
-          </ListItem>
+          </ListItem> */
+          <div>
+          <h2>{value}</h2>
+          <p style={{ margin : '1rem'}}>Total Due : {value}   Remaining Due : {value}</p>
+          <p>Amount paid : {checked[ind]}</p>
+          <TextField size = "small" label={"Update amout paid"} id = {"u" +value.split('@')[0]}/>
+
+
+
+          
+          </div>
+          
+          
         );
       })}
     </List>
