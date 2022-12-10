@@ -33,6 +33,7 @@ class TshirtCSV extends Component {
 
     downloadReport = async () => {
         const data = await this.getUserList();
+        console.log("sdsds");
         console.log(data);
         this.setState({
             data: data
@@ -51,7 +52,7 @@ class TshirtCSV extends Component {
         return ( 
             <div >
             <Button size = "large" variant = "contained" onClick = {this.downloadReport} > Click to download payments Report </Button> 
-            < CSVLink
+            <CSVLink
             //headers={headers}
             filename = "Payments_Report.csv"
             data = {
@@ -60,7 +61,8 @@ class TshirtCSV extends Component {
             ref = {
                 this.csvLinkEl
             }
-            /> </div >
+            /> 
+            </div >
         );
     }
 }

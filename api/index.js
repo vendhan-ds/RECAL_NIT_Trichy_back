@@ -509,16 +509,79 @@ router.get("/summary",async(req,res)=>{
    }
 });
 
-router.get("/listpayment",async(req,res)=>{
+router.get("/listpayment" , async(req,res)=>{
     try{
+        var finallist=[]
         var list=[]
-        
 
+        Registration.find(function (err, docs) {
+            if (err) {
+                console.log(err);
+            } else {
+                console.log(docs);
+                var paid= []
+                Payment.findOne({username:"main"},(err,user)=>{
+                        if(err){console.log(err)}
+                        else{
+                            paid=user.PaymentStatus;
+                        }
+                    })
+                    
+                docs.forEach( (element,index) => {
+                    console.log(index)
+                    var tempfam={}
+                    var tempcosts={}
+                    RegList.findOne({username:element.username},(err,paydata)=>{
+                        if(err){console.log(err)}
+                        else{
+                            tempcosts=paydata.paymentReport
+                        }
+                    }).clone
+                    Accomodation.findOne({username:element.username},(err,famdata)=>{
+                        if(err){console.log(err)}
+                        else{
+                            tempfam=famdata.pax
+                        }
+                    }).clone
+                    finallist.push({
+                        SNo:index+1,
+                        branch:element.branch,
+                        Alumini_Name: element.username,
+                        Spouse:tempfam.spouse,
+                        Family:tempfam.familyMembers,
+                        Grand_Children:tempfam.grandKids,
+                        Total:tempfam.spouse+tempfam.familyMembers+tempfam.grandKids,
+                        Room:tempcosts.Room,
+                        Participation:tempcosts.Participation,
+                        Dinner:tempcosts.Dinner,
+                        Tshirts:tempcosts.Tshirt,
+                        Tours:tempcosts.tours,
+                        GrandTotal:tempcosts.GrandTotal,
+                        Amount_Paid:tempcosts.AmountPaid,
+                        Balnace_Due:tempcosts.GrandTotal-tempcosts.AmountPaid,
+                    })
+                });
+            }
+            res.send(finallist)
+
+        }).clone
     }
     catch(e){
-        res.send("failed to send")
+        console.log('error');
+        res.send(e.message);
     }
 })
+
+// router.get("/listpayment",async(req,res)=>{
+//     try{
+//         var list=[]
+        
+
+//     }
+//     catch(e){
+//         res.send("failed to send")
+//     }
+// })
 
 var finalarr = [];
 
@@ -1021,64 +1084,27 @@ router.get("/userpaid", async(req,res)=>{
     }
 })
 
-router.get("/listpayments" , async(req,res)=>{
+router.get("/listpaymentss" , async(req,res)=>{
     try{
-        var finallist=[]
-        var list=[]
-
-        Registration.find(function (err, docs) {
-            if (err) {
+        console.log("sdsd");
+        await Payment.findOne({username:"main"}, function(err,foundUser){
+            console.log('kakaka');
+            if(err){
                 console.log(err);
-            } else {
-                console.log(docs);
-                var paid= []
-                Payment.findOne({username:"main"},(err,user)=>{
-                        if(err){console.log(err)}
-                        else{
-                            paid=user.PaymentStatus;
-                        }
-                    })
-                docs.forEach( (element,index) => {
-                    console.log(index)
-                    var tempfam={}
-                    var tempcosts={}
-                    RegList.findOne({username:element.username},(err,paydata)=>{
-                        if(err){console.log(err)}
-                        else{
-                            tempcosts=paydata.paymentReport
-                        }
-                    }).clone
-                    Accomodation.findOne({username:element.username},(err,famdata)=>{
-                        if(err){console.log(err)}
-                        else{
-                            tempfam=famdata.pax
-                        }
-                    }).clone
-                    finallist.push({
-                        SNo:index+1,
-                        branch:element.branch,
-                        Alumini_Name: element.username,
-                        Spouse:tempfam.spouse,
-                        Family:tempfam.familyMembers,
-                        Grand_Children:tempfam.grandKids,
-                        Total:tempfam.spouse+tempfam.familyMembers+tempfam.grandKids,
-                        Room:tempcosts.Room,
-                        Participation:tempcosts.Participation,
-                        Dinner:tempcosts.Dinner,
-                        Tshirts:tempcosts.Tshirt,
-                        Tours:tempcosts.tours,
-                        GrandTotal:tempcosts.GrandTotal,
-                        Amount_Paid:tempcosts.AmountPaid,
-                        Balnace_Due:tempcosts.GrandTotal-tempcosts.AmountPaid,
-                    })
-                });
             }
-        }).clone
-        res.send(finallist)
+            else{
+                if(foundUser){
+                    console.log('sdsdsdsd');
+                    var data = foundUser.PaymentStatus;
+                    console.log(data);
+                    res.send(data);
+                }
+            }
+        }).clone();
     }
-    catch(e){
+    catch{
         console.log('error');
-        res.send(e.message);
+        res.send('failure');
     }
 });
 

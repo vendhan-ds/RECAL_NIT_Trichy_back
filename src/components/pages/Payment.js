@@ -44,7 +44,7 @@ export default function Payment(){
 
         
         });
-        axios.get("http://localhost:8080/api/listpayments").then((res)=>{
+        axios.get("http://localhost:8080/api/listpaymentss").then((res)=>{
             console.log(res.data);
             var r = res.data;
             console.log(r);
@@ -60,26 +60,28 @@ export default function Payment(){
 
     },[])
 
-  const [checked, setChecked] = React.useState([1]);
-
+  const [checked, setChecked] = React.useState([0]);
+  const [changed,setc] = React.useState([0]);
   const handleToggle = (value) => () => {
-    const currentIndex = checked.indexOf(value);
-    const newChecked = [...checked];
+    const currentIndex = changed.indexOf(value);
+    const newChecked = [...changed];
 
     if (currentIndex === -1) {
       newChecked.push(value);
-    } else {
-      newChecked.splice(currentIndex, 1);
-    }
+    } 
 
-    setChecked(newChecked);
+    setc(newChecked);
   };
 
     function sendpost(){
         var l = [];
-        for(var i of dat){
-          l.push(document.querySelector("#u" + i.split('@')[0]).value);
-
+        for(var i in dat){
+          if(changed.includes(dat[i])){
+            l.push(document.querySelector("#u" + dat[i].split('@')[0]).value);
+          }
+          else{
+            l.push(checked[i]);
+          }
         }
         let data = l;
         axios.post('http://localhost:8080/api/PaymentSave',data).then((res) => console.log(res.data));
@@ -103,11 +105,7 @@ export default function Payment(){
           /* <ListItem
             key={value}
             secondaryAction={
-              <Checkbox
-                edge="end"
-                onChange={handleToggle(value)}
-                checked={checked.indexOf(value) !== -1}
-              />
+              
               <ListItemText />
 
             }
@@ -119,12 +117,9 @@ export default function Payment(){
           </ListItem> */
           <div>
           <h2>{value}</h2>
-          <p style={{ margin : '1rem'}}>Total Due : {totalam[ind]}   Remaining Due : {totalam[ind] - checked[ind]}</p>
+          <p style={{ margin : '1rem'}}>Total Due : {totalam[ind]}   Remaining Due : {totalam[ind] - (checked[ind] || 0)}</p>
           <p>Amount paid : {checked[ind]}</p>
-          <TextField size = "small" label={"Update amout paid"} id = {"u" +value.split('@')[0]}/>
-
-
-
+          <TextField size = "small" label={"Update amout paid"} id = {"u" +value.split('@')[0]} onChange={handleToggle(value)}/>
           
           </div>
           
