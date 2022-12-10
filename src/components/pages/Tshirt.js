@@ -183,7 +183,7 @@ function Tshirt() {
     return (
         <>
         <div className="main2">
-            <Button style={{margin : "2rem"}} className='closetshirt' onClick={() => {document.querySelector('.main2').style.display = "none"}} >Close</Button>
+            <Button variant="contained" style={{margin : "2rem"}} className='closetshirt' onClick={() => {document.querySelector('.main2').style.display = "none"}} >Close</Button>
             <div className="main">
                 <img src='tshirts.png'></img>
             </div>
@@ -194,13 +194,15 @@ function Tshirt() {
         <div className='center'>
             <label >I am Interested in T-Shirt : </label>
             <Checkbox onChange={(e) => setn(e.target.checked)}/>
-        <motion.div initial ={{opacity : 0}} animate = {{opacity : 1}} className='rdetails'>
         
+        <motion.div initial ={{opacity : 0}} animate = {{opacity : 1}} className='rdetails'>
+        <div style={{textAlign : "right"}}>
+        <Button variant="contained" style={{marginLeft : 'auto'}} onClick = {() => {document.querySelector(".main2").style.display = "block"}} >See Product</Button>
+        </div>
         <TableContainer component = {Paper} style = {mystyle}>
 
             <Table>
                 <TableBody>
-                <Button style={{ marginLeft : "auto"}} onClick = {() => {document.querySelector(".main2").style.display = "block"}} >Pics</Button>
                 <h1 style={{textAlign : 'left'}}>T-shirt for men</h1>
                 
 

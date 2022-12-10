@@ -18,6 +18,7 @@ import { TextField } from '@mui/material';
 export default function Payment(){
     const [dat,setdata] = useState([]);
     const [acc,setacc] = useState(false);
+    const [totalam,settot] = useState([]);
     useEffect(() => {
 
         axios.get("http://localhost:8080/api/isadmin").then((res) =>{
@@ -49,6 +50,11 @@ export default function Payment(){
             console.log(r);
             console.log("ssds" + r);
             setChecked(r);
+        });
+        axios.get("http://localhost:8080/api/updatetotal").then((res)=>{
+            console.log(res.data);
+            var r = res.data;
+            settot(r);            
         })
     },[])
 
@@ -88,7 +94,7 @@ export default function Payment(){
   alignItems="center"
   minHeight="100vh"
 >
-            <List dense sx={{ width: '100%', bgcolor: 'background.paper' }} >
+            <List dense sx={{ width: '70%', bgcolor: 'background.paper' }} >
       {dat.map((value,ind) => {
         const labelId = value;
         return (
@@ -111,7 +117,7 @@ export default function Payment(){
           </ListItem> */
           <div>
           <h2>{value}</h2>
-          <p style={{ margin : '1rem'}}>Total Due : {value}   Remaining Due : {value}</p>
+          <p style={{ margin : '1rem'}}>Total Due : {totalam[ind]}   Remaining Due : {totalam[ind] - checked[ind]}</p>
           <p>Amount paid : {checked[ind]}</p>
           <TextField size = "small" label={"Update amout paid"} id = {"u" +value.split('@')[0]}/>
 
@@ -135,8 +141,8 @@ export default function Payment(){
                 </Button>
     </Stack>
     </div>}
-
     {!acc && <h1>Only admin allowed to view this page</h1>}
     </div>
+
     )
 }

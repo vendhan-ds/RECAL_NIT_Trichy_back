@@ -507,7 +507,46 @@ router.get("/summary",async(req,res)=>{
     catch(e){
     console.log(e.message);
    }
-})
+});
+
+router.get("/updatetotal",async(req,res)=>{
+    try{
+        var finalarr = [];
+         Registration.find(async function (err, docs) {
+             if (err) {
+                 console.log(err);
+             } else {
+                 docs.forEach(async (i) => {
+                    await RegList.findOne({
+                        username: i.username
+                    }, function (err, foundUser) {
+            
+                        if (err) {
+                            console.log(err);
+                        } else {
+                            if (foundUser!=null) {
+                                finalarr.push(foundUser.paymentReport.GrandTotal);
+                                console.log(finalarr);
+                                res.send(finalarr);
+
+                            }
+                            else{
+                                finalarr.push(0);
+                            }
+                        }
+                    }).clone();
+                 });
+             }
+         }).clone()
+
+
+    }
+    catch(e){
+        console.log(e.message);
+        res.send("failed")
+    }
+}
+);
 
 router.post('/userRegistered', async (req, res)=>{
     try{
