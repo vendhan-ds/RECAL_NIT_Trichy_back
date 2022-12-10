@@ -509,13 +509,28 @@ router.get("/summary",async(req,res)=>{
    }
 });
 
+router.get("/listpayment",async(req,res)=>{
+    try{
+        var list=[]
+        
+
+    }
+    catch(e){
+        res.send("failed to send")
+    }
+})
+
+var finalarr = [];
+
 router.get("/updatetotal",async(req,res)=>{
     try{
-        var finalarr = [];
+        finalarr = [];
          Registration.find(async function (err, docs) {
              if (err) {
                  console.log(err);
              } else {
+                 var size = Object.keys(docs).length;
+                 console.log(size);
                  docs.forEach(async (i) => {
                     await RegList.findOne({
                         username: i.username
@@ -527,15 +542,20 @@ router.get("/updatetotal",async(req,res)=>{
                             if (foundUser!=null) {
                                 finalarr.push(foundUser.paymentReport.GrandTotal);
                                 console.log(finalarr);
-                                res.send(finalarr);
+                                size -= 1;
 
                             }
                             else{
                                 finalarr.push(0);
+                                size -= 1;
+                            }
+                            if(size == 0){
+                                res.send(finalarr);
                             }
                         }
                     }).clone();
                  });
+
              }
          }).clone()
 
@@ -1001,8 +1021,9 @@ router.get("/userpaid", async(req,res)=>{
     }
 })
 
-router.get("/listpayment" , async(req,res)=>{
+router.get("/listpayments" , async(req,res)=>{
     try{
+        console.log("sdsd");
         await Payment.findOne({username:"main"}, function(err,foundUser){
             console.log('kakaka');
             if(err){
@@ -1022,7 +1043,7 @@ router.get("/listpayment" , async(req,res)=>{
         console.log('error');
         res.send('failure');
     }
-})
+});
 
 router.post("/ToursSave",async(req,res)=>{
     try{let interest;

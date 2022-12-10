@@ -29,7 +29,7 @@ export default function Payment(){
           else{
             setacc(true);
           }
-        })
+        });
 
         axios.get("http://localhost:8080/api/registrationList").then((res) => {
             var arr = [];
@@ -44,18 +44,20 @@ export default function Payment(){
 
         
         });
-        axios.get("http://localhost:8080/api/listpayment").then((res)=>{
+        axios.get("http://localhost:8080/api/listpayments").then((res)=>{
             console.log(res.data);
             var r = res.data;
             console.log(r);
             console.log("ssds" + r);
             setChecked(r);
         });
+
         axios.get("http://localhost:8080/api/updatetotal").then((res)=>{
             console.log(res.data);
             var r = res.data;
             settot(r);            
-        })
+        });
+
     },[])
 
   const [checked, setChecked] = React.useState([1]);
