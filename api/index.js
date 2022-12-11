@@ -572,6 +572,41 @@ router.get("/listpayment" , async(req,res)=>{
     }
 })
 
+router.get("/userName",async(req,res)=>{
+    try{
+        var currentUser
+        var id=req.session.passport.user
+        var paid= []
+        var a=await Payment.find()
+        a.forEach(el3 => {
+            if(el3.username=="main"){
+
+                paid=el3.PaymentStatus;
+               
+            }
+        });
+        await Users.findById(id,function(err,docs){
+            if(err){console.log(err)}
+            else{console.log(docs.username)
+                currentUser=docs.username;
+                console.log(currentUser);
+            }
+        }).clone();
+        var famdata=await Accomodation.find();
+        var i=0;
+        famdata.forEach(element => {
+            for(let i=0;i<1000;i++){
+                if(element.username==currentUser){break;i++;}
+            }
+        });
+        console.log(paid);
+        res.send(paid[i]);
+    }
+    catch(e){
+        console.log('error');
+        res.send(e.message);
+    }
+})
 // router.get("/listpayment",async(req,res)=>{
 //     try{
 //         var list=[]

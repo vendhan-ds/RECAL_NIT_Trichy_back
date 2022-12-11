@@ -64,6 +64,12 @@ function Previews() {
         axios.post('http://localhost:8080/api/userRegistered' , data).then((res) => console.log(res.data));
     }
 
+    axios.get("http://localhost:8080/api/UserName").then((res) => {
+        console.log(res);
+        var temp = parseInt(document.querySelector('.total').innerText) - res.data ;
+        document.querySelector(".due").innerText = "Balance : " + temp;
+    })
+
 
     function updateno(){
         var men1 = [document.querySelector('#m1').value,document.querySelector('#m2').value,document.querySelector('#m3').value,document.querySelector('#m4').value,document.querySelector('#m5').value,document.querySelector('#m6').value];
@@ -163,14 +169,16 @@ function Previews() {
         m1 = temp.grandKids.girls;
         var ga = [m1.category1,m1.category2,m1.category3];
         setg(ga);
-        document.querySelector('.t1').innerText = res.data[11][1].trichy;
-        document.querySelector('.t2').innerText = res.data[11][1].phuketKrabi;
-        document.querySelector('.t3').innerText = res.data[11][1].mysoreBandipur;
-        document.querySelector('.t4').innerText = res.data[11][1].belurHampi;
-        document.querySelector('.rt1').innerText = parseInt(res.data[11][1].trichy) * 0;
-        document.querySelector('.rt2').innerText = parseInt(res.data[11][1].phuketKrabi) *53000 ;
-        document.querySelector('.rt3').innerText = parseInt(res.data[11][1].mysoreBandipur) * 20000 ;
-        document.querySelector('.rt4').innerText = parseInt(res.data[11][1].belurHampi) * 15000;
+
+        document.querySelector('.t1').innerText = res.data[11]? res.data[11][1].trichy : 0;
+        document.querySelector('.t2').innerText = res.data[11]?res.data[11][1].phuketKrabi : 0;
+        document.querySelector('.t3').innerText = res.data[11]?res.data[11][1].mysoreBandipur : 0;
+        document.querySelector('.t4').innerText = res.data[11]?res.data[11][1].belurHampi : 0;
+        document.querySelector('.rt1').innerText = parseInt(res.data[11]?res.data[11][1].trichy : 0) * 0;
+        document.querySelector('.rt2').innerText = parseInt(res.data[11]?res.data[11][1].phuketKrabi : 0) *53000 ;
+        document.querySelector('.rt3').innerText = parseInt(res.data[11]?res.data[11][1].mysoreBandipur : 0) * 20000 ;
+        document.querySelector('.rt4').innerText = parseInt(res.data[11]?res.data[11][1].belurHampi : 0) * 15000;
+
         document.querySelector('.paxtype').innerText = res.data[0];
         document.querySelector('.pax1').innerText = 1
         document.querySelector('.pax2').innerText = res.data[1].spouse;
@@ -186,6 +194,7 @@ function Previews() {
         document.querySelector('#v3').innerText = res.data[8].count.nonveg;
         document.querySelector('.dcost').innerText =  850*(parseInt(res.data[6].count.nonveg) + parseInt(res.data[8].count.nonveg)) + 750*(parseInt(res.data[6].count.veg) + parseInt(res.data[8].count.veg));
         //document.querySelector('.cloth').innerText = res.data[10];
+
         document.querySelector('.cout1').innerText = res.data[13].cin1 ? 'Booked' : '';
         document.querySelector('.cout2').innerText = res.data[13].cin2 ? 'Booked' : '';
         document.querySelector('.cout3').innerText = res.data[13].cin3 ? 'Booked' : '';
@@ -193,18 +202,18 @@ function Previews() {
         document.querySelector('.cin2').innerText = res.data[13].cout2 ? 'Booked' : '';
         document.querySelector('.cin3').innerText = res.data[13].cout3 ? 'Booked' : '';
         var pcost = 0;
-        if(res.data[6].cond2){
+        if(res.data[6] && res.data[6].cond2){
             pcost += 4500;
         }
-        if(res.data[7].cond2){
+        if(res.data[7] && res.data[7].cond2){
             pcost += 1600;
         }
-        if(res.data[8].cond1){
+        if(res.data[8] && res.data[8].cond1){
             pcost += 4500;
         }
+        document.querySelector('.total').innerHTML  = (parseInt(document.querySelector('.pcost').innerText) + costs + costs2 + parseInt(document.querySelector('.dcost').innerText) + (m1a[0] + m1a[1] + m1a[2] + m1a[3] + m1a[4] + m1a[5] + wa1[0] + wa1[1] + wa1[2] + wa1[3] + ga1[0] + ga1[1] + ga1[2] + ba1[0] + ba1[1] + ba1[2]) * 1200 + (m2a[0] + m2a[1] + m2a[2] + m2a[3] + m2a[4] + m2a[5]) * 600 + parseInt(document.querySelector('.rt1').innerText) + parseInt(document.querySelector('.rt2').innerText) + parseInt( document.querySelector('.rt3').innerText) + parseInt(document.querySelector(".rt4").innerText));
 
         document.querySelector('.pcost').innerText  = pcost;
-        document.querySelector('.total').innerHTML  = "Total : " + (parseInt(document.querySelector('.pcost').innerText) + costs + costs2 + parseInt(document.querySelector('.dcost').innerText) + (m1a[0] + m1a[1] + m1a[2] + m1a[3] + m1a[4] + m1a[5] + wa1[0] + wa1[1] + wa1[2] + wa1[3] + ga1[0] + ga1[1] + ga1[2] + ba1[0] + ba1[1] + ba1[2]) * 1200 + (m2a[0] + m2a[1] + m2a[2] + m2a[3] + m2a[4] + m2a[5]) * 600 + parseInt(document.querySelector('.rt1').innerText) + parseInt(document.querySelector('.rt2').innerText) + parseInt( document.querySelector('.rt3').innerText) + parseInt(document.querySelector(".rt4").innerText));
         updateno();
         
 
@@ -708,7 +717,7 @@ function Previews() {
                     <TableBody>
                         <TableRow>
                             <TableCell>Participation Fee</TableCell>
-                            <TableCell className='pcost' >Pending</TableCell>
+                            <TableCell className='pcost' >0</TableCell>
                             <TableCell>Full amount</TableCell>
                         </TableRow>
                         <TableRow>
@@ -718,7 +727,7 @@ function Previews() {
                         </TableRow>
                         <TableRow>
                             <TableCell>Dinner for event</TableCell>
-                            <TableCell className='dcost'>Pending</TableCell>
+                            <TableCell className='dcost'>0</TableCell>
                             <TableCell>Full amount</TableCell>
                         </TableRow>
                         <TableRow>
@@ -731,28 +740,28 @@ function Previews() {
                         </TableRow>
                         <TableRow>
                             <TableCell>Trichy Local Tour</TableCell>
-                            <TableCell className='rt1'>Pending</TableCell>
+                            <TableCell className='rt1'>0</TableCell>
                             <TableCell>Sep 23</TableCell>
                         </TableRow>
                         <TableRow>
                             <TableCell>Phuket-Krabi Tour</TableCell>
-                            <TableCell className='rt2'>Pending</TableCell>
+                            <TableCell className='rt2'>0</TableCell>
                             <TableCell>Sep 23</TableCell>
                         </TableRow>
                         <TableRow>
                             <TableCell>Mysore Tour</TableCell>
-                            <TableCell className='rt3'>Pending</TableCell>
+                            <TableCell className='rt3'>0</TableCell>
                             <TableCell>Sep 23</TableCell>
                         </TableRow>
                         <TableRow>
                             <TableCell>Belur-Hampi Tour</TableCell>
-                            <TableCell className='rt4'>Pending</TableCell>
+                            <TableCell className='rt4'>0</TableCell>
                             <TableCell>Sep 23</TableCell>
                         </TableRow>
                         <TableRow>
+                            <TableCell >Total amount : </TableCell>
                             <TableCell className='total'></TableCell>
-                            <TableCell>Total due : </TableCell>
-                            <TableCell className='due'>Sep 23</TableCell>
+                            <TableCell className='due'></TableCell>
                         </TableRow>
                     </TableBody>
                 </Table>
