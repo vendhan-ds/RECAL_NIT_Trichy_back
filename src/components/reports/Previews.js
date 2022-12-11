@@ -23,6 +23,8 @@ function Previews() {
     const [m1a,setm1] = useState([0,0,0,0,0,0]);
     const [m2a,setm2] = useState([0,0,0,0,0,0]);
     const [wa1,setw] = useState([0,0,0,0]);
+    const [wa2,setw2] = useState([0,0,0,0]);
+
     const [ba1,setb] = useState([0,0,0]);
     const [ga1,setg] = useState([0,0,0]);
     
@@ -123,7 +125,9 @@ function Previews() {
         console.log('sdsdsd');
         console.log(datt2);
         for(var i in datt){
-            document.querySelector('#' + datt[i]).value = datt2[i];
+            if(datt2[i] != null){
+            document.querySelector('#' + datt[i]).innerText = datt2[i];
+            }
         };
 
 
@@ -150,6 +154,9 @@ function Previews() {
         m1 = temp.womenQuantity.supimaCotton;
         var aw1 = [m1.sSize,m1.mSize,m1.lSize,m1.xlSize];
         setw(aw1);
+        m1 = temp.womenQuantity.sweatWickingFabric;
+        var aw2 = [m1.sSize,m1.mSize,m1.lSize,m1.xlSize];
+        setw2(aw2);
         m1 = temp.grandKids.boys;
         var ba = [m1.category1,m1.category2,m1.category3];
         setb(ba);
@@ -165,8 +172,6 @@ function Previews() {
         document.querySelector('.rt3').innerText = parseInt(res.data[11][1].mysoreBandipur) * 20000 ;
         document.querySelector('.rt4').innerText = parseInt(res.data[11][1].belurHampi) * 15000;
         document.querySelector('.paxtype').innerText = res.data[0];
-        document.querySelector('.cin').innerText = res.data[2];
-        document.querySelector('.cout').innerText = res.data[3];
         document.querySelector('.pax1').innerText = 1
         document.querySelector('.pax2').innerText = res.data[1].spouse;
         document.querySelector('.pax3').innerText = res.data[1].familyMembers;
@@ -181,12 +186,12 @@ function Previews() {
         document.querySelector('#v3').innerText = res.data[8].count.nonveg;
         document.querySelector('.dcost').innerText =  850*(parseInt(res.data[6].count.nonveg) + parseInt(res.data[8].count.nonveg)) + 750*(parseInt(res.data[6].count.veg) + parseInt(res.data[8].count.veg));
         //document.querySelector('.cloth').innerText = res.data[10];
-        document.querySelector('.cin1').innerText = res.data[13].cin1;
-        document.querySelector('.cin2').innerText = res.data[13].cin2;
-        document.querySelector('.cin3').innerText = res.data[13].cin3;
-        document.querySelector('.cout1').innerText = res.data[13].cout1;
-        document.querySelector('.cout2').innerText = res.data[13].cout2;
-        document.querySelector('.cout3').innerText = res.data[13].cout3;
+        document.querySelector('.cout1').innerText = res.data[13].cin1 ? 'Booked' : '';
+        document.querySelector('.cout2').innerText = res.data[13].cin2 ? 'Booked' : '';
+        document.querySelector('.cout3').innerText = res.data[13].cin3 ? 'Booked' : '';
+        document.querySelector('.cin1').innerText = res.data[13].cout1 ? 'Booked' : '';
+        document.querySelector('.cin2').innerText = res.data[13].cout2 ? 'Booked' : '';
+        document.querySelector('.cin3').innerText = res.data[13].cout3 ? 'Booked' : '';
         var pcost = 0;
         if(res.data[6].cond2){
             pcost += 4500;
@@ -199,6 +204,7 @@ function Previews() {
         }
 
         document.querySelector('.pcost').innerText  = pcost;
+        document.querySelector('.total').innerHTML  = "Total : " + (parseInt(document.querySelector('.pcost').innerText) + costs + costs2 + parseInt(document.querySelector('.dcost').innerText) + (m1a[0] + m1a[1] + m1a[2] + m1a[3] + m1a[4] + m1a[5] + wa1[0] + wa1[1] + wa1[2] + wa1[3] + ga1[0] + ga1[1] + ga1[2] + ba1[0] + ba1[1] + ba1[2]) * 1200 + (m2a[0] + m2a[1] + m2a[2] + m2a[3] + m2a[4] + m2a[5]) * 600 + parseInt(document.querySelector('.rt1').innerText) + parseInt(document.querySelector('.rt2').innerText) + parseInt( document.querySelector('.rt3').innerText) + parseInt(document.querySelector(".rt4").innerText));
         updateno();
         
 
@@ -229,15 +235,13 @@ function Previews() {
                     <TableRow>
                         <TableCell>Base Data</TableCell>
                         <TableCell >Details</TableCell>
-                        <TableCell >Change by Alumni</TableCell>
                     </TableRow>
                     </TableHead>
                     <TableBody>
                     {data.map(dat => (
                         <TableRow>
                             <TableCell >{dat}</TableCell>
-                            <TableCell>as per Base Data</TableCell>
-                            <TableCell><TextField size = "small" id={dat} variant="outlined" /></TableCell>
+                            <TableCell id={dat}>NO details found</TableCell>
                         </TableRow>
                     )
                     )}
@@ -290,28 +294,34 @@ function Previews() {
                     <TableCell>Early Check-in(23rd Jan)</TableCell>
                     <TableCell>Standard Check-in(24th Jan)</TableCell>
                     <TableCell>Late Check-in(25th Jan)</TableCell>
-
+                    <TableCell></TableCell>
                 </TableRow>
                 <TableRow>
                     <TableCell><p className='cin1'></p></TableCell>
                     <TableCell><p className='cin2'></p></TableCell>
                     <TableCell><p className='cin3'></p></TableCell>
+                    <TableCell></TableCell>
+
                 </TableRow>
                 <TableRow>
                     <TableCell>Early Check-out(25th Jan)</TableCell>
                     <TableCell>Standard Check-out(26th Jan)</TableCell>
                     <TableCell>Extended Stay(27th Jan)</TableCell>
+                    <TableCell></TableCell>
+
 
                 </TableRow>
                 <TableRow>
                     <TableCell><p className='cout1'></p></TableCell>
                     <TableCell><p className='cout2'></p></TableCell>
                     <TableCell><p className='cout3'></p></TableCell>
+                    <TableCell></TableCell>
+
                 </TableRow>
-                <TableRow>
+                {/* <TableRow>
                     <TableCell><p className='cin'></p></TableCell>
                     <TableCell><p className='cout'></p></TableCell>
-                </TableRow>
+                </TableRow> */}
                  </TableBody>
         </Table>
         </TableContainer>
@@ -557,29 +567,31 @@ function Previews() {
                     <TableRow>
                         <TableCell>S</TableCell>
                         <TableCell><TextField id='w1'  value = {wa1[0]}/></TableCell>
-                        <TableCell><TextField id='w12'/></TableCell>
+                        <TableCell><TextField id='w12' value = {wa2[0]}/></TableCell>
                     </TableRow>
                     <TableRow>
                         <TableCell>M</TableCell>
                         <TableCell><TextField id='w2' value = {wa1[1]}/></TableCell>
-                        <TableCell><TextField id='w22'/></TableCell>
+                        <TableCell><TextField id='w22' value = {wa2[1]} /></TableCell>
                     </TableRow>
                     <TableRow>
                         <TableCell>L</TableCell>
                         <TableCell><TextField id='w3' value = {wa1[2]}/></TableCell>
-                        <TableCell><TextField id='w32'/></TableCell>
+                        <TableCell><TextField id='w32'value = {wa2[2]}/></TableCell>
                     </TableRow>
                     <TableRow>
                         <TableCell>XL</TableCell>
                         <TableCell><TextField id='w4' value = {wa1[3]}/></TableCell>
-                        <TableCell><TextField id='w42'/></TableCell>
+                        <TableCell><TextField id='w42'value = {wa2[3]}/></TableCell>
                     </TableRow>
                     <TableRow>
                         <TableCell>Total Womens T-Shirt</TableCell>
                         < TableCell > < p className = 'rw1' > {
                             wa1[0] + wa1[1] + wa1[2] + wa1[3]
                         } </p></TableCell >
-                        <TableCell><p className='rw2'></p></TableCell>
+                        <TableCell><p className='rw2'>{
+                            wa2[0] + wa2[1] + wa2[2] + wa2[3]
+                        }</p></TableCell>
                     </TableRow>
                     <TableRow>
                         <TableCell>Children(Girls) Round Neck T-shirt</TableCell>
@@ -589,18 +601,25 @@ function Previews() {
                     <TableRow>
                         <TableCell>5-8 Years</TableCell>
                         <TableCell><TextField id='g1' value = {ga1[0]}/></TableCell>
+                        <TableCell></TableCell>
                     </TableRow>
                     <TableRow>
                         <TableCell>9-12 Years</TableCell>
                         <TableCell><TextField id='g2' value = {ga1[1]}/></TableCell>
+                        <TableCell></TableCell>
+
                     </TableRow>
                     <TableRow>
                         <TableCell>13-15 Years</TableCell>
                         <TableCell><TextField id='g3' value = {ga1[2]}/></TableCell>
+                        <TableCell></TableCell>
+
                     </TableRow>
                     <TableRow>
                         <TableCell>Total Girls T-Shirt</TableCell>
                         <TableCell><p className='rg'>{ga1[0]+ga1[1] + ga1[2]}</p></TableCell>
+                        <TableCell></TableCell>
+
                     </TableRow>
                     <TableRow>
                         <TableCell>Children(Boys) Round Neck T-shirt</TableCell>
@@ -610,18 +629,26 @@ function Previews() {
                     <TableRow>
                         <TableCell>5-8 Years</TableCell>
                         <TableCell><TextField id='b1' value = {ba1[0]}/></TableCell>
+                        <TableCell></TableCell>
+
                     </TableRow>
                     <TableRow>
                         <TableCell>9-12 Years</TableCell>
                         <TableCell><TextField id='b2' value = {ba1[1]}/></TableCell>
+                        <TableCell></TableCell>
+
                     </TableRow>
                     <TableRow>
                         <TableCell>13-15 Years</TableCell>
                         <TableCell><TextField id='b3' value = {ba1[2]}/></TableCell>
+                        <TableCell></TableCell>
+
                     </TableRow>
                     <TableRow>
                         <TableCell>Total Boys T-Shirt</TableCell>
                         <TableCell><p className='rb'>{ba1[0]+ba1[1]+ba1[2]}</p></TableCell>
+                        <TableCell></TableCell>
+
                     </TableRow>
                 </TableBody>
             </Table>
@@ -673,7 +700,7 @@ function Previews() {
                     <TableHead>
                         <TableRow>
                             <TableCell><h1>Costs payable</h1></TableCell>
-                            <TableCell><h1>Total Due</h1></TableCell>
+                            <TableCell><h1>Total Amount</h1></TableCell>
                             <TableCell><h1>Payable Now</h1></TableCell>
                         </TableRow>
 
@@ -697,7 +724,7 @@ function Previews() {
                         <TableRow>
                             <TableCell>T-Shirt</TableCell>
                             < TableCell > {
-                                (m1a[0] + m1a[1] + m1a[2] + m1a[3] + m1a[4] + m1a[5] + wa1[0] + wa1[1] + wa1[2] + wa1[3] + ga1[0] + ga1[1] + ga1[2] + ba1[0] + ba1[1] + ba1[2]) * 1200 + (m2a[0] + m2a[1] + m2a[2] + m2a[3] + m2a[4] + m2a[5]) * 600
+                                (m1a[0] + m1a[1] + m1a[2] + m1a[3] + m1a[4] + m1a[5] + wa1[0] + wa1[1] + wa1[2] + wa1[3] + ga1[0] + ga1[1] + ga1[2] + ba1[0] + ba1[1] + ba1[2]) * 1200 + (m2a[0] + m2a[1] + m2a[2] + m2a[3] + m2a[4] + m2a[5]+wa2[0] + wa2[1] + wa2[2] + wa2[3]) * 600
                             }
                             </TableCell>
                             <TableCell>Full amount</TableCell>
@@ -721,6 +748,11 @@ function Previews() {
                             <TableCell>Belur-Hampi Tour</TableCell>
                             <TableCell className='rt4'>Pending</TableCell>
                             <TableCell>Sep 23</TableCell>
+                        </TableRow>
+                        <TableRow>
+                            <TableCell className='total'></TableCell>
+                            <TableCell>Total due : </TableCell>
+                            <TableCell className='due'>Sep 23</TableCell>
                         </TableRow>
                     </TableBody>
                 </Table>
