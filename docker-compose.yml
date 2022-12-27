@@ -1,0 +1,27 @@
+version: "3"
+
+services:
+  app:
+    container_name: recal-app
+    build:
+      context: .
+    restart: always
+    volumes:
+      - .:/app
+    ports:
+      - ${SERVER_EXTERNAL_PORT}:8080
+    depends_on:
+      - db
+    env_file:
+      - .env
+
+  db:
+    container_name: recal-db
+    image: mongo:latest
+    restart: always
+    ports:
+      - ${DB_EXTERNAL_PORT}:27017
+    volumes:
+      - ./mongodb/data:/data/db
+    env_file:
+      - .env
