@@ -1,108 +1,110 @@
-import React, { useEffect, useState } from 'react'
-import axios from 'axios'
-import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
-import ListItemButton from '@mui/material/ListItemButton';
-import ListItemText from '@mui/material/ListItemText';
-import ListItemAvatar from '@mui/material/ListItemAvatar';
-import Checkbox from '@mui/material/Checkbox';
-import Avatar from '@mui/material/Avatar';
-import Box from '@mui/material/Box';
-import Stack from '@mui/material/Stack';
-import Divider from '@mui/material/Divider';
-import Paper from '@mui/material/Paper';
-import Button from '@mui/material/Button';
-import { TextField } from '@mui/material';
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+import List from "@mui/material/List";
+import ListItem from "@mui/material/ListItem";
+import ListItemButton from "@mui/material/ListItemButton";
+import ListItemText from "@mui/material/ListItemText";
+import ListItemAvatar from "@mui/material/ListItemAvatar";
+import Checkbox from "@mui/material/Checkbox";
+import Avatar from "@mui/material/Avatar";
+import Box from "@mui/material/Box";
+import Stack from "@mui/material/Stack";
+import Divider from "@mui/material/Divider";
+import Paper from "@mui/material/Paper";
+import Button from "@mui/material/Button";
+import { TextField } from "@mui/material";
 
+export default function Payment() {
+  const [dat, setdata] = useState([]);
+  const [acc, setacc] = useState(false);
+  const [totalam, settot] = useState([]);
+  useEffect(() => {
+    axios
+      .get("http://recal.eastus.cloudapp.azure.com/api/isadmin")
+      .then((res) => {
+        console.log(res);
+        if (res.data == false) {
+          window.location.href = "/basedat";
+        } else {
+          setacc(true);
+        }
+      });
 
-export default function Payment(){
-    const [dat,setdata] = useState([]);
-    const [acc,setacc] = useState(false);
-    const [totalam,settot] = useState([]);
-    useEffect(() => {
+    axios
+      .get("http://recal.eastus.cloudapp.azure.com/api/registrationList")
+      .then((res) => {
+        var arr = [];
+        for (var i of res.data) {
+          arr.push(i.username);
+        }
+        arr = arr.filter((item, index) => arr.indexOf(item) === index);
+        arr = arr.filter((item, index) => item != undefined);
 
-        axios.get("http://localhost:8080/api/isadmin").then((res) =>{
-          console.log(res);
-          if(res.data == false){
-            window.location.href = "/basedat";
-          }
-          else{
-            setacc(true);
-          }
-        });
+        setdata(arr);
+        console.log(arr);
+      });
+    axios
+      .get("http://recal.eastus.cloudapp.azure.com/api/listpaymentss")
+      .then((res) => {
+        console.log(res.data);
+        var r = res.data;
+        console.log(r);
+        console.log("ssds" + r);
+        setChecked(r);
+      });
 
-        axios.get("http://localhost:8080/api/registrationList").then((res) => {
-            var arr = [];
-            for(var i of res.data){
-                arr.push(i.username);
-            }
-            arr = arr.filter((item,index) => arr.indexOf(item) === index);
-            arr = arr.filter((item,index) => item != undefined);
-
-            setdata(arr);
-            console.log(arr);
-
-        
-        });
-        axios.get("http://localhost:8080/api/listpaymentss").then((res)=>{
-            console.log(res.data);
-            var r = res.data;
-            console.log(r);
-            console.log("ssds" + r);
-            setChecked(r);
-        });
-
-        axios.get("http://localhost:8080/api/updatetotal").then((res)=>{
-            console.log(res.data);
-            var r = res.data;
-            settot(r);            
-        });
-
-    },[])
+    axios
+      .get("http://recal.eastus.cloudapp.azure.com/api/updatetotal")
+      .then((res) => {
+        console.log(res.data);
+        var r = res.data;
+        settot(r);
+      });
+  }, []);
 
   const [checked, setChecked] = React.useState([0]);
-  const [changed,setc] = React.useState([0]);
+  const [changed, setc] = React.useState([0]);
   const handleToggle = (value) => () => {
     const currentIndex = changed.indexOf(value);
     const newChecked = [...changed];
 
     if (currentIndex === -1) {
       newChecked.push(value);
-    } 
+    }
 
     setc(newChecked);
   };
 
-    function sendpost(){
-        var l = [];
-        for(var i in dat){
-          if(changed.includes(dat[i])){
-            l.push(document.querySelector("#u" + dat[i].split('@')[0]).value);
-          }
-          else{
-            l.push(checked[i]);
-          }
-        }
-        let data = l;
-        axios.post('http://localhost:8080/api/PaymentSave',data).then((res) => console.log(res.data));
-
+  function sendpost() {
+    var l = [];
+    for (var i in dat) {
+      if (changed.includes(dat[i])) {
+        l.push(document.querySelector("#u" + dat[i].split("@")[0]).value);
+      } else {
+        l.push(checked[i]);
+      }
     }
+    let data = l;
+    axios
+      .post("http://recal.eastus.cloudapp.azure.com/api/PaymentSave", data)
+      .then((res) => console.log(res.data));
+  }
 
-    return(
-        <div>
-
-        <h1>Payment Status</h1>
-        {acc && <Box
-  display="flex"
-  justifyContent="center"
-  alignItems="center"
-  minHeight="100vh"
->
-            <List dense sx={{ width: '70%', bgcolor: 'background.paper' }} >
-      {dat.map((value,ind) => {
-        const labelId = value;
-        return (
-          /* <ListItem
+  return (
+    <div>
+      <h1>Payment Status</h1>
+      {acc && (
+        <Box
+          display="flex"
+          justifyContent="center"
+          alignItems="center"
+          minHeight="100vh"
+        >
+          <List dense sx={{ width: "70%", bgcolor: "background.paper" }}>
+            {dat.map((value, ind) => {
+              const labelId = value;
+              return (
+                /* <ListItem
             key={value}
             secondaryAction={
               
@@ -115,31 +117,44 @@ export default function Payment(){
               <ListItemText id={labelId} primary={value} />
             </ListItemButton>
           </ListItem> */
-          <div>
-          <h2>{value}</h2>
-          <p style={{ margin : '1rem'}}>Total Due : {totalam[ind]}   Remaining Due : {totalam[ind] - (checked[ind] || 0)}</p>
-          <p>Amount paid : {checked[ind]}</p>
-          <TextField size = "small" label={"Update amout paid"} id = {"u" +value.split('@')[0]} onChange={handleToggle(value)}/>
-          
-          </div>
-          
-          
-        );
-      })}
-    </List>
-    </Box>}
-    <br />
-    <br />
-    {acc && <div className='center'>
-
-    <Stack direction="row" spacing={2} style = {{padding : '1rem'}} align = 'center' divider={<Divider orientation="vertical" flexItem />} component = {Paper}>
-                <Button size="large" variant="contained" onClick={() => sendpost()} >
-                    Save
-                </Button>
-    </Stack>
-    </div>}
-    {!acc && <h1>Only admin allowed to view this page</h1>}
+                <div>
+                  <h2>{value}</h2>
+                  <p style={{ margin: "1rem" }}>
+                    Total Due : {totalam[ind]} Remaining Due :{" "}
+                    {totalam[ind] - (checked[ind] || 0)}
+                  </p>
+                  <p>Amount paid : {checked[ind]}</p>
+                  <TextField
+                    size="small"
+                    label={"Update amout paid"}
+                    id={"u" + value.split("@")[0]}
+                    onChange={handleToggle(value)}
+                  />
+                </div>
+              );
+            })}
+          </List>
+        </Box>
+      )}
+      <br />
+      <br />
+      {acc && (
+        <div className="center">
+          <Stack
+            direction="row"
+            spacing={2}
+            style={{ padding: "1rem" }}
+            align="center"
+            divider={<Divider orientation="vertical" flexItem />}
+            component={Paper}
+          >
+            <Button size="large" variant="contained" onClick={() => sendpost()}>
+              Save
+            </Button>
+          </Stack>
+        </div>
+      )}
+      {!acc && <h1>Only admin allowed to view this page</h1>}
     </div>
-
-    )
+  );
 }
