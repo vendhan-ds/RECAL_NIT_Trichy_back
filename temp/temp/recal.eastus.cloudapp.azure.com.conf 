@@ -1,0 +1,18 @@
+<VirtualHost *:80>
+        ServerName recal.eastus.cloudapp.azure.com
+        ServerAlias www.recal.eastus.cloudapp.azure.com
+        # DocumentRoot /var/www
+        ErrorLog ${APACHE_LOG_DIR}/error.log
+        CustomLog ${APACHE_LOG_DIR}/access.log combined
+	# ProxyPreserveHost On
+	#<Proxy *>
+	#	Order deny,allow
+	#	Allow from all
+	#</Proxy>
+	<Location /pgadmin/>
+          ProxyPass http://localhost:3030/pgadmin/
+          ProxyPassReverse http://localhost:3030/pgadmin/
+        </Location>
+	ProxyPass / http://localhost:8080/
+	ProxyPassReverse / http://localhost:8080/
+</VirtualHost>
