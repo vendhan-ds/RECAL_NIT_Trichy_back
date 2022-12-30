@@ -9,14 +9,13 @@ function Login() {
 
     function sendPost(){
       sets(false);
-        console.log("sendPost");
         var username = document.querySelector('#username').value;
         var password = document.querySelector('#password').value;
         if(!username || !password){
             return;
         }
         var data = {'username' :  username, 'password' : password };
-        axios.post('http://localhost:8080/login' , data).then((res) => console.log("test" + res.data));
+        axios.post('http://localhost:8080/login' , data).then((res) => console.log("User : " + res.data));
         sets(true);
 
     }

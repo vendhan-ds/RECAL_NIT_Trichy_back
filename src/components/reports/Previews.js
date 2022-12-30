@@ -1,6 +1,5 @@
 import React from 'react';
 import axios from 'axios';
-import {motion} from 'framer-motion'
 import {Link} from 'react-router-dom'
 import {useState, useEffect} from 'react'
 import Table from '@mui/material/Table';
@@ -13,11 +12,9 @@ import Paper from '@mui/material/Paper';
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
 import Divider from '@mui/material/Divider';
-import Checkbox from '@mui/material/Checkbox';
 import { TextField } from '@mui/material';
 
 function Previews() {
-    const [totals,settotals]=useState([0,0,0,0,0,0,0,0,0])
     const [hotel1,seth1] = useState([0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]);
     const [hotel2,seth2] = useState([0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]);
     const [m1a,setm1] = useState([0,0,0,0,0,0]);
@@ -30,8 +27,6 @@ function Previews() {
     
     var data = ['Name', 'Branch' ,'Spouse', 'City' , 'Country' , 'Region' , 'Mobile' , 'Email' , 'T-Shirt_Size' ];
 
-    var res;
-    var got = 0
     const [costs,setcost] = useState(0);
     const [costs2,setcost2] = useState(0);
 
@@ -85,27 +80,27 @@ function Previews() {
                 sm1 += parseInt(i);
             }
         }
-        for(var i of men2){
+        for( i of men2){
             if(i != ''){
                 sm2 += parseInt(i);
             }
         }
-        for(var i of women1){
+        for( i of women1){
             if(i != ''){
                 sw1 += parseInt(i);
             }
         }
-        for(var i of women2){
+        for( i of women2){
             if(i != ''){
                 sw2 += parseInt(i);
             }
         }
-        for(var i of girls1){
+        for( i of girls1){
             if(i != ''){
                 sg += parseInt(i);
             }
         }
-        for(var i of boys1){
+        for( i of boys1){
             if(i != ''){
                 sb += parseInt(i);
             }
@@ -122,7 +117,7 @@ function Previews() {
     }
 
     useEffect(() => {
-        res = axios.get('http://localhost:8080/api/previewData').then((res) => {
+        var res = axios.get('http://localhost:8080/api/previewData').then((res) => {
         res.data.shift();
         console.log(res);
         
@@ -134,7 +129,7 @@ function Previews() {
             if(datt2[i] != null){
             document.querySelector('#' + datt[i]).innerText = datt2[i];
             }
-        };
+        }
 
 
 

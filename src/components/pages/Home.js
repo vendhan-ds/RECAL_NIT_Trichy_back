@@ -1,9 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import {motion} from 'framer-motion'
-import Paper from '@mui/material/Paper';
-import Button from '@mui/material/Button';
 import {Link} from 'react-router-dom';
-import curtain from './curtain.jpg'
 function Home() {
     const variants1 = {
         anim : {

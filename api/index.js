@@ -44,7 +44,7 @@ router.get("/previewData",async(req,res)=>{
     var currentUser
         const data=req.body;
         //console.log("req body "+JSON.stringify(req.user;));
-        var id=req.user;;
+        var id=req.user;
         console.log(id);
         await Users.findById(id,function(err,docs){
             if(err){console.log(err)}
@@ -702,7 +702,7 @@ router.get("/updatetotal",async(req,res)=>{
 router.post('/userRegistered', async (req, res)=>{
     try{
         const data=req.body;
-        var id=req.user;;
+        var id=req.user;
         var currentUser;
         console.log(data);
         await Users.findById(id,function(err,docs){
@@ -991,7 +991,7 @@ router.post("/registrationData",async(req,res)=>{
 
         var currentUser;
         console.log(req.session);
-        var id=req.user;;
+        var id=req.user;
         await Users.findById(id,function(err,docs){
             if(err){console.log(err)}
             else{console.log(docs.username)

@@ -7,7 +7,6 @@ import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
-import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import Stack from '@mui/material/Stack';
@@ -24,7 +23,6 @@ function Tshirt() {
         padding : '1rem',
       };
     const [need,setn] = useState(false);
-    const [saved,sets] = useState(false);
     useEffect(() => {
         axios.get('http://localhost:8080/api/previewData').then(
             (res) => {
@@ -97,7 +95,6 @@ function Tshirt() {
       };
 
     function sendpost(){
-        sets(false);
         if(need){
         var c = [true,isliked1,isliked2,isliked3,isliked4,isliked5]; //change interested
         console.log(c);
@@ -114,7 +111,6 @@ function Tshirt() {
             data = {'need' : 0, 'c' : [0,0,0,0,0], 'men1' : [0,0,0,0,0,0] , 'men2' : [0,0,0,0,0,0], 'women1' : [0,0,0,0], 'women2' : [0,0,0,0], 'girls1' : [0,0,0] , 'boys1' : [0,0,0]}
         }
         axios.post('http://localhost:8080/api/tshirtSave' , data).then((res) => alert(res.data));
-        sets(true);
     }
 
 
@@ -133,27 +129,27 @@ function Tshirt() {
                 sm1 += parseInt(i);
             }
         }
-        for(var i of men2){
+        for( i of men2){
             if(i != ''){
                 sm2 += parseInt(i);
             }
         }
-        for(var i of women1){
+        for( i of women1){
             if(i != ''){
                 sw1 += parseInt(i);
             }
         }
-        for(var i of women2){
+        for( i of women2){
             if(i != ''){
                 sw2 += parseInt(i);
             }
         }
-        for(var i of girls1){
+        for( i of girls1){
             if(i != ''){
                 sg += parseInt(i);
             }
         }
-        for(var i of boys1){
+        for( i of boys1){
             if(i != ''){
                 sb += parseInt(i);
             }

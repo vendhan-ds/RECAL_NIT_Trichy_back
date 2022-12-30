@@ -47,9 +47,7 @@ export default function Basedat(){
         axios.get('http://localhost:8080/api/previewData').then(
             (res) => {
                 res = res.data[13];
-                console.log(res);
                 for(var i in data){
-                    console.log(res[i]);
                     if(res[i] == undefined){
                     document.querySelector('#s' + data[i]).innerText = "No data found";
                     }
@@ -67,7 +65,7 @@ export default function Basedat(){
                 document.querySelector('.pay').innerText = "NOT Paid";
             }
         })
-    };
+    }
 
     prepop();
 

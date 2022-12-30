@@ -1,12 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
-import ListItemButton from '@mui/material/ListItemButton';
-import ListItemText from '@mui/material/ListItemText';
-import ListItemAvatar from '@mui/material/ListItemAvatar';
-import Checkbox from '@mui/material/Checkbox';
-import Avatar from '@mui/material/Avatar';
 import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
 import Divider from '@mui/material/Divider';
@@ -22,7 +16,6 @@ export default function Payment(){
     useEffect(() => {
 
         axios.get("http://localhost:8080/api/isadmin").then((res) =>{
-          console.log(res);
           if(res.data == false){
             window.location.href = "/basedat";
           }
@@ -37,23 +30,18 @@ export default function Payment(){
                 arr.push(i.username);
             }
             arr = arr.filter((item,index) => arr.indexOf(item) === index);
-            arr = arr.filter((item,index) => item != undefined);
+            arr = arr.filter((item) => item != undefined);
 
             setdata(arr);
-            console.log(arr);
 
         
         });
         axios.get("http://localhost:8080/api/listpaymentss").then((res)=>{
-            console.log(res.data);
             var r = res.data;
-            console.log(r);
-            console.log("ssds" + r);
             setChecked(r);
         });
 
         axios.get("http://localhost:8080/api/updatetotal").then((res)=>{
-            console.log(res.data);
             var r = res.data;
             settot(r);            
         });
@@ -84,7 +72,7 @@ export default function Payment(){
           }
         }
         let data = l;
-        axios.post('http://localhost:8080/api/PaymentSave',data).then((res) => console.log(res.data));
+        axios.post('http://localhost:8080/api/PaymentSave',data).then((res) => alert(res.data));
 
     }
 
@@ -100,7 +88,6 @@ export default function Payment(){
 >
             <List dense sx={{ width: '70%', bgcolor: 'background.paper' }} >
       {dat.map((value,ind) => {
-        const labelId = value;
         return (
           /* <ListItem
             key={value}

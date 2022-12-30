@@ -23,7 +23,6 @@ import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 
 
 function EventParticipation() {
-    const [saved,sets] = useState(false);
 
 
     const mystyle = {
@@ -32,7 +31,6 @@ function EventParticipation() {
       };
 
     function sendpost(){
-        sets(false);
         var a1 = document.querySelector('#a1').checked;
         var a2 = document.querySelector('#a2').checked;
         var a3 = document.querySelector('#a3').checked;
@@ -64,18 +62,14 @@ function EventParticipation() {
         }
         
         var arr = [a1,a2,a3,a4,a5,a6,a8];
-        console.log(arr);
         var data = {'conditions' : arr , 'd1v' : v1, 'd1nv' : nv1 , 'd2c' : v3 , 'd3v' : v2 , 'd3nv' : nv2};
-        console.log(data);
         axios.post('http://localhost:8080/api/eventsSave' , data).then((res) => alert(res.data));
-        sets(true);
     }
 
     useEffect(() => {
         axios.get('http://localhost:8080/api/previewData').then(
             (res) => {
                 res = res.data;
-                console.log(res);
                 var res1 = res[7];
                 var res2 = res[8];
                 var res3 = res[9];

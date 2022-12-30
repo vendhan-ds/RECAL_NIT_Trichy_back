@@ -1,12 +1,8 @@
 import React from 'react'
 import './styles2.css'
-import Image from './logo2.png'
 import {motion} from 'framer-motion'
-import {Link} from 'react-router-dom'
-import TextField from '@mui/material/TextField';
 import { useState } from 'react'
 import axios from 'axios'
-import { func } from 'prop-types'
 
 export default function Sign(){
   const variants1 = {
@@ -35,35 +31,23 @@ function sendPost(){
     try{
     axios.post('http://localhost:8080/login' , data).then((res) => {
     
-    if(res.data.errors){
-      console.log(res.data);
-    }
 
     if(res.data.success){
       window.location.href = "/basedat";
     }
     else{
       alert("Wrong username or password");
-    };
+    }
     sets(true);
 
     })}
     catch(e){
-      console.log("sdsdsd");
-    };
-  //   axios.post('http://localhost:8080/api/logincheck' , data).then((res) => {
-  //     console.log(res);
-  //     if(res){
-  //     }
-  //     else{
-  //       console.log("not logged in");
-  //     }
-  // });
-       //window.location.href = "/basedat";
+      console.log("Error");
+    }
 
   document.querySelector(".button-24").style.backgroundColor = 'green';
 
- };
+ }
 
   document.addEventListener("keypress" , (e) => {
     if(e.key == "Enter"){

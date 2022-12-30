@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios'
-import {AnimatePresence,motion} from 'framer-motion'
+import {motion} from 'framer-motion'
 import {Link} from 'react-router-dom'
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -23,19 +23,13 @@ import Checkbox from '@mui/material/Checkbox';
 
 function Accomodation() {
 
-    const [fam,setfam] = useState("single");
+    const [fam,setfam] = useState(false);
     const [rreq,setroom] = useState("not required");
-    const [roomt,setroomt] = useState(null);
-    const [cin,setcin] = useState(null);
-    const [cout,setcout] = useState(null);
-    const [hotel,sethotel] = useState(null);
     const [room,setrooms] = useState([0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]);
     const [costs,setcost] = useState(0)
     const [room2,setrooms2] = useState([0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]);
     const [costs2,setcost2] = useState(0)
-    const [saved,sets] = useState(false);
     
-    var key = 0;
     
     const mystyle = {
         width : 'fit-content',
@@ -110,7 +104,6 @@ function Accomodation() {
 
 
 
-        sets(false);
 
         console.log('ss');
         
@@ -126,7 +119,6 @@ function Accomodation() {
 
         var data = {'participationType' : fam, 'hotelRoom' : rreq, 'dates' : dates ,'alumni' : a ,'spouse' : s,'familyMembers' : f,'grandKids' : g,'hotel1' : room , 'hotel2' : room2 ,'totalcost' : costs + costs2};
         axios.post('http://localhost:8080/api/accomodationSave',data).then((res) => alert(res.data));
-        sets(true);
         
     }
 
@@ -182,8 +174,8 @@ function Accomodation() {
       };
 
     return (
+        
         <motion.div variants={variants1} exit={{opacity:'0'}} initial ={{opacity:'0'}} animate="anim" className = "outerc" transition={{duration : 0.3}}>
-         
          <motion.div drag dragConstraints ={{top:0,bottom:0,left:0,right:0}} className='mtitle'><h1>Accomodation</h1></motion.div>
          
          <div className='center'>
@@ -198,7 +190,7 @@ function Accomodation() {
                         <TableRow>
                             <TableCell><h3>Participation Type</h3></TableCell>
                             <TableCell>Single</TableCell>
-                            <TableCell>With Family</TableCell>
+                            <TableCell>With Family <Checkbox id = "parttype" checked={fam} onChange={() => setfam(!fam)}/></TableCell>
                         </TableRow>
                         <TableRow>
                         <TableCell></TableCell>

@@ -1,6 +1,5 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import {
-    BrowserRouter as Router,
     Route,
     Routes,useLocation
 } from 'react-router-dom';
@@ -9,7 +8,6 @@ import Home, { NotFound } from './pages/Home';
 import Accomodation from './pages/Accomodation';
 import EventParticipation from './pages/EventParticipation';
 import Login from './pages/Login';
-import Register from './pages/Register';
 import Tours from './pages/Tours';
 import Tshirt from './pages/Tshirt';
 import { AnimatePresence } from 'framer-motion';
@@ -26,7 +24,6 @@ import Basedat from './pages/Basedata';
 import Quit from './pages/quit';
 import Feedback from './pages/Feedback';
 import Report from './reports/Report';
-import Navbar from './Navbar'
 import Payment from './pages/Payment';
 
 
