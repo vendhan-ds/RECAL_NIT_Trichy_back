@@ -45,10 +45,10 @@ router.get("/previewData",async(req,res)=>{
         const data=req.body;
         //console.log("req body "+JSON.stringify(req.user;));
         var id=req.user;
-        console.log(id);
+        //console.log(id);
         await Users.findById(id,function(err,docs){
             if(err){console.log(err)}
-            else{console.log(docs.username)
+            else{//console.log(docs.username)
                 currentUser=docs.username;
             }
         }).clone();
@@ -71,7 +71,7 @@ router.get("/previewData",async(req,res)=>{
     try{
         
         await Accomodation.findOne({username:currentUser},function(err,foundUser){
-            console.log(foundUser);
+            //console.log(foundUser);
             if(err){
                 console.log("error");
             }else{
@@ -79,20 +79,20 @@ router.get("/previewData",async(req,res)=>{
                 //console.log('ttrtt');
 
                 if(foundUser){
-                     console.log("hlo5");
+                     //console.log("hlo5");
                      particitype=foundUser.participationType;
                      inpax=foundUser.pax;
                      dates=foundUser.Dates;
                      htl1=foundUser.hotel11;
                      htl2=foundUser.hotel22;
-                     console.log(particitype);
+                     //console.log(particitype);
     
                 }
             }
         }).clone();
         var regdat = []
         await Registration.findOne({username:currentUser},function(err,foundUser){
-            console.log(foundUser);
+            //console.log(foundUser);
             if(err){
                 console.log("error")
             }else{
@@ -100,9 +100,9 @@ router.get("/previewData",async(req,res)=>{
                 //console.log('ttrtt');
 
                 if(foundUser){
-                    console.log("hlo4")
+                    //console.log("hlo4")
                     regdat =  [foundUser.name,foundUser.branch,foundUser.spouse,foundUser.city,foundUser.country,foundUser.region,foundUser.mobile,foundUser.email,foundUser.tshirt];
-                    console.log(regdat);
+                    //console.log(regdat);
                 }
             }
         }).clone();
@@ -112,7 +112,7 @@ router.get("/previewData",async(req,res)=>{
             }else{
                 //console.log(String(foundUser));
                 if(foundUser){
-                    console.log("hlo2")
+                    //console.log("hlo2")
                      eventpart=foundUser.Date1;
                      member=foundUser.Date2;
                      foodmembers=foundUser.Date3;
@@ -127,7 +127,7 @@ router.get("/previewData",async(req,res)=>{
                 }else{
                     //console.log(String(foundUser));
                     if(foundUser){
-                        console.log("hlo")
+                        //console.log("hlo")
                          tourop=[foundUser.isInterested,
                         foundUser.paxCount]
                     }
@@ -141,10 +141,10 @@ router.get("/previewData",async(req,res)=>{
                 }else{
                     //console.log(String(foundUser));
                     if(foundUser){
-                        console.log("endddd");
+                        //console.log("endddd");
                          options=[foundUser.menOption, foundUser.womenOption, foundUser.grandKidsOption]
                          quantity=foundUser.quantity
-                          console.log('sssssss');
+                          //console.log('sssssss');
                           
                           
                     }
@@ -157,7 +157,7 @@ router.get("/previewData",async(req,res)=>{
             else{
                 if(foundUser){
                     previewData=[currentUser,particitype,inpax,chkin,chkout,htl1,htl2,eventpart,member,foodmembers,options, quantity,tourop,regdat,dates];
-                    console.log(previewData);
+                    //console.log(previewData);
                     res.send(previewData);
                 }
             }
@@ -169,7 +169,7 @@ router.get("/previewData",async(req,res)=>{
         res.send(previewData)*/
         
         var previewDatas=[currentUser,particitype,inpax,chkin,chkout,htl1,htl2,eventpart,member,foodmembers,options, quantity,tourop,regdat,dates];
-        console.log('dsdsdsds' + previewDatas);
+        //console.log('dsdsdsds' + previewDatas);
         // res.send(previewDatas);
     
         
@@ -181,7 +181,7 @@ router.get("/previewData",async(req,res)=>{
 })
 
 router.get('/registered',async(req,res)=>{
-    console.log("hello");
+    //console.log("hello");
     try{var list=[]
    /*
    Accomodation.find({},{username:1,pax:1, _id:0})
@@ -196,7 +196,7 @@ router.get('/registered',async(req,res)=>{
             family:doc.pax.familyMembers,
             grandKids:doc.pax.grandKids,
             total:doc.pax.spouse+doc.pax.familyMembers+doc.pax.grandKids+1})
-            console.log(list);
+            //console.log(list);
             
         })
         res.send(list);
@@ -215,14 +215,14 @@ router.get('/participation',async(req,res)=>{
     var accomdata=await Accomodation.find()
         // console.log(accomdata)
     try{
-        console.log("accom01")
+        //console.log("accom01")
         await Accomodation.find(function(err,docs){
             if(err){
                 // console.log(err)
             }else{
                 // console.log(docs)
                 docs.forEach((doc)=>{
-                    console.log(doc)
+                    //console.log(doc)
                     // console.log("Updated -> ")
                     // console.log(doc.checkInDate.getDate().toString())
                     //console.log(Date('2022-10-24T00:00:00.000Z').getDate())
@@ -272,13 +272,13 @@ router.get('/participation',async(req,res)=>{
             }
             else{
                 doc3.forEach( (doc34)=>{
-                    console.log("doc34")
-                    console.log(doc34)
+                    //console.log("doc34")
+                    //console.log(doc34)
                     accomdata.forEach ( (user)=>{
                         if(user.username==doc34.username){
                             if(doc34.Date2.cond1==true){
-                                console.log("helo")
-                                console.log(user)
+                                //console.log("helo")
+                                //console.log(user)
                                 campvis[0]++;
                                 campvis[1]=campvis[1]+user.pax.spouse
                                 campvis[2]=campvis[2]+user.pax.familyMembers
@@ -299,7 +299,7 @@ router.get('/participation',async(req,res)=>{
                         else{console.log("No UserFound")}})
 
                         total1=[(campvis[0]+evening24[0]+evening25[0]),(campvis[1]+evening24[1]+evening25[1]),(campvis[2]+evening24[2]+evening25[2]),(campvis[3]+evening24[3]+evening25[3])];
-                        console.log(campvis)
+                        //console.log(campvis)
                          })
                         
                         var datasend={
@@ -387,7 +387,7 @@ router.get('/tshirt',async(req,res)=>{
 
         })
         var datasent={mensPolo1,mensPolo2,womensshirt1,womensshirt2,girlshirt,boyshirt}
-        console.log(datasent)
+        //console.log(datasent)
         res.send(datasent)}
        }) 
     }
@@ -403,7 +403,7 @@ router.get("/registrationList",async(req,res)=>{
             if(err){
                 console.log(err);
             }else{
-                console.log(docs);
+                //console.log(docs);
                 res.send(docs)
             }
         }).clone()
@@ -518,7 +518,7 @@ router.get("/listpayment", async (req, res) => {
         var famdata = await Accomodation.find();
         var a = await Payment.find()
         var paid = []
-        console.log(paymntData, famdata, a)
+        //console.log(paymntData, famdata, a)
         a.forEach(el3 => {
             if (el3.username == "main") {
 
@@ -542,7 +542,7 @@ router.get("/listpayment", async (req, res) => {
                 console.log(err);
             } else {
                 docs.forEach(async (element, index) => {
-                    console.log(index)
+                    //console.log(index)
 
                     paymntData.forEach(el => {
                         if (el.username == element.username) {
@@ -571,7 +571,7 @@ router.get("/listpayment", async (req, res) => {
                             // console.log(tempfam)
                          }
                      }).clone */
-                    console.log(paid)
+                    //console.log(paid)
                     finallist.push({
                         SNo: index + 1,
                         branch: element.branch,
@@ -623,7 +623,7 @@ router.get("/userName",async(req,res)=>{
         var i=0;
        //console.log(currentUser)
        
-            for(i=0;i<50;i++){
+            /*for(i=0;i<50;i++){
                 console.log(i);
                 if(famdata[i].username==currentUser){
                     console.log(famdata[i].username,currentUser);
@@ -631,7 +631,7 @@ router.get("/userName",async(req,res)=>{
                     break;
                 }
             }
-        console.log(paid[i-1])
+        console.log(paid[i-1])*/
         res.send(paid[i-1])
         
     }
@@ -661,7 +661,7 @@ router.get("/updatetotal",async(req,res)=>{
                  console.log(err);
              } else {
                  var size = Object.keys(docs).length;
-                 console.log(size);
+                 //console.log(size);
                  docs.forEach(async (i) => {
                     await RegList.findOne({
                         username: i.username
@@ -672,7 +672,7 @@ router.get("/updatetotal",async(req,res)=>{
                         } else {
                             if (foundUser!=null) {
                                 finalarr.push(foundUser.paymentReport.GrandTotal);
-                                console.log(finalarr);
+                                //console.log(finalarr);
                                 size -= 1;
 
                             }
@@ -704,10 +704,10 @@ router.post('/userRegistered', async (req, res)=>{
         const data=req.body;
         var id=req.user;
         var currentUser;
-        console.log(data);
+        //console.log(data);
         await Users.findById(id,function(err,docs){
             if(err){console.log(err)}
-            else{console.log(docs.username)
+            else{//console.log(docs.username)
                 currentUser=docs.username;
             }
         }).clone();
@@ -733,16 +733,16 @@ router.post('/userRegistered', async (req, res)=>{
                 console.log(err)
             } else {
                 set = doc;
-                console.log("Result :", doc) // false
+                //console.log("Result :", doc) // false
                 if (!set) {
                     await entry2.save();
-                    console.log("saved reglist successfully2");
+                    //console.log("saved reglist successfully2");
                     res.send("saved reglist")
                 } else {
                     await Accomodation.findOneAndUpdate({
                         username: currentUser
                     }, entry);
-                    console.log("updated reglist successfully")
+                    //console.log("updated reglist successfully")
                     res.send("updated reglist")
                 }
             }
@@ -763,7 +763,7 @@ router.post('/accomodationSave', async(req,res)=>{
         var id=req.user;
         await Users.findById(id,function(err,docs){
             if(err){console.log(err)}
-            else{console.log(docs.username)
+            else{//console.log(docs.username)
                 currentUser=docs.username;
             }
         }).clone();
@@ -869,13 +869,13 @@ router.post('/accomodationSave', async(req,res)=>{
                 console.log(err)
             }else{
                 set=doc;
-                console.log("Result :", doc) // false
+                //console.log("Result :", doc) // false
                 if(!set){await data2.save();
-                    console.log("saved accomodation successfully2");
+                    //console.log("saved accomodation successfully2");
                     res.send("saved")}
             else{
                 await Accomodation.findOneAndUpdate({username:currentUser }, newAcc);
-                console.log("updated accomodation successfully")
+                //console.log("updated accomodation successfully")
                 res.send("updated")
             }
             }
@@ -902,7 +902,7 @@ router.post('/eventsSave',async(req,res)=>{
         var id=req.user;
         await Users.findById(id,function(err,docs){
             if(err){console.log(err)}
-            else{console.log(docs.username)
+            else{//console.log(docs.username)
                 currentUser=docs.username;
             }
         }).clone();
@@ -964,13 +964,13 @@ router.post('/eventsSave',async(req,res)=>{
                 console.log(err)
             }else{
                 set=doc;
-                console.log("Result :", doc) // false
+                //console.log("Result :", doc) // false
                 if(!set){await data2.save();
-                    console.log("saved event successfully2");
+                    //console.log("saved event successfully2");
                     res.send("saved")}
             else{
                 await Event.findOneAndUpdate({username:currentUser }, newEve);
-                console.log("updated event successfully")
+                //console.log("updated event successfully")
                 res.send("updated")
             }
             }
@@ -990,16 +990,16 @@ router.post("/registrationData",async(req,res)=>{
     try{
 
         var currentUser;
-        console.log(req.session);
+        //console.log(req.session);
         var id=req.user;
         await Users.findById(id,function(err,docs){
             if(err){console.log(err)}
-            else{console.log(docs.username)
+            else{//console.log(docs.username)
                 currentUser=docs.username;
             }
         }).clone();
         const data=req.body;
-        console.log('sssss' + data);
+       // console.log('sssss' + data);
         const newReg1={
             username : currentUser,
             name: data[0],
@@ -1026,21 +1026,21 @@ router.post("/registrationData",async(req,res)=>{
         var data2=new Registration(newReg1);
         var set;
         Registration.exists({username:currentUser}, async function (err, doc) {
-            console.log(doc);
+            //console.log(doc);
             if (err){
                 console.log(err)
             }else{
                 set=doc;
-                console.log("Result :", doc) // false
-                console.log(set);
-                console.log('sdsdsd');
-                console.log(newReg);
+               // console.log("Result :", doc) // false
+                //console.log(set);
+                //console.log('sdsdsd');
+                //console.log(newReg);
                 if(!set){await data2.save(); //Put this insied the exists, set becomes null outside for some reason.
-                        console.log("saved basedata successfully2");
+                        //console.log("saved basedata successfully2");
                         res.send("saved")}
                 else{
                     await Registration.findOneAndUpdate({username:currentUser }, newReg);//now curly brackets
-                    console.log("updated basedata successfully")
+                    //console.log("updated basedata successfully")
                     res.send("updated")
         }    
             }
@@ -1060,7 +1060,7 @@ router.post("/registrationData",async(req,res)=>{
 router.post("/PaymentSave", async(req,res)=>{
     try{
         const data = req.body;
-        console.log(data);
+        //console.log(data);
         const payment = {
             username : 'main',
             PaymentStatus : data,
@@ -1073,13 +1073,13 @@ router.post("/PaymentSave", async(req,res)=>{
             }else{
 
                 var set=doc;
-                console.log("Result :", doc) // false
+                //console.log("Result :", doc) // false
                 if(!set){await data2.save();
-                    console.log("saved payment successfully2");
+                    //console.log("saved payment successfully2");
                     res.send("saved")}
                 else{
                     await Payment.findOneAndUpdate({username:"main" }, payment);
-                    console.log("updated payments successfully")
+                    //console.log("updated payments successfully")
                     res.send("updated")
                 }
             }
@@ -1096,7 +1096,7 @@ router.get("/isadmin" , async(req,res) => {
         var id=req.user;
         await Users.findById(id,function(err,docs){
             if(err){console.log(err)}
-            else{console.log(docs.username)
+            else{//console.log(docs.username)
                 currentUser=docs.username;
             }
         }).clone();
@@ -1123,20 +1123,20 @@ router.get("/userpaid", async(req,res)=>{
         var id=req.user;
         await Users.findById(id,function(err,docs){
             if(err){console.log(err)}
-            else{console.log(docs.username)
+            else{//console.log(docs.username)
                 currentUser=docs.username;
             }
         }).clone();
         await Payment.findOne({username:"main"}, function(err,foundUser){
-            console.log('kakaka');
+            //console.log('kakaka');
             if(err){
                 console.log(err);
             }
             else{
                 if(foundUser){
-                    console.log('sdsdsdsd');
+                    //console.log('sdsdsdsd');
                     var data = foundUser.PaymentStatus;
-                    console.log(data);
+                    //console.log(data);
                     var ex = false;
                     if(data.includes(currentUser)){
                         ex = true;
@@ -1154,17 +1154,17 @@ router.get("/userpaid", async(req,res)=>{
 
 router.get("/listpaymentss" , async(req,res)=>{
     try{
-        console.log("sdsd");
+        //console.log("sdsd");
         await Payment.findOne({username:"main"}, function(err,foundUser){
-            console.log('kakaka');
+            //console.log('kakaka');
             if(err){
                 console.log(err);
             }
             else{
                 if(foundUser){
-                    console.log('sdsdsdsd');
+                    //console.log('sdsdsdsd');
                     var data = foundUser.PaymentStatus;
-                    console.log(data);
+                    //console.log(data);
                     res.send(data);
                 }
             }
@@ -1182,12 +1182,12 @@ router.post("/ToursSave",async(req,res)=>{
         //interest=data.need?True:False;
         var currentUser
         const data=req.body;
-        console.log(data);
+        //console.log(data);
         //console.log("req body "+JSON.stringify(req.user;));
         var id=req.user;
         await Users.findById(id,function(err,docs){
             if(err){console.log(err)}
-            else{console.log(docs.username)
+            else{//console.log(docs.username)
                 currentUser=docs.username;
             }
         }).clone();
@@ -1217,7 +1217,7 @@ router.post("/ToursSave",async(req,res)=>{
                 console.log(err)
             }else{
                 set=doc;
-                console.log("Result :", doc) // false
+                //console.log("Result :", doc) // false
                 if(!set){await data2.save();
                     console.log("saved tours successfully2");
                     res.send("saved")}
@@ -1242,12 +1242,12 @@ router.post("/FeedSave",async(req,res)=>{
     try{let interest;
         var currentUser
         const data=req.body;
-        console.log(data);
+        //console.log(data);
         //console.log("req body "+JSON.stringify(req.user;));
         var id=req.user;
         await Users.findById(id,function(err,docs){
             if(err){console.log(err)}
-            else{console.log(docs.username)
+            else{//console.log(docs.username)
                 currentUser=docs.username;
             }
         }).clone();
@@ -1263,7 +1263,7 @@ router.post("/FeedSave",async(req,res)=>{
                 console.log(err)
             }else{
                 set=doc;
-                console.log("Result :", doc) // false
+                //console.log("Result :", doc) // false
             }
         });
         if(!set){await data2.save();
@@ -1285,17 +1285,17 @@ router.post("/FeedSave",async(req,res)=>{
 router.post("/logincheck",async(req,res)=>{
     try{let interest;
         var currentUser
-        console.log('sss');
+        //console.log('sss');
         //console.log("req body "+JSON.stringify(req.user;));
         var id=req.user;
         await Users.findById(id,function(err,docs){
             if(err){console.log(err)}
-            else{console.log(docs.username)
+            else{//console.log(docs.username)
                 currentUser=docs.username;
             }
         }).clone();
         res.send(true);
-        console.log(currentUser);
+        //console.log(currentUser);
         console.log("success")
     }catch(e){
         res.send(false);
@@ -1311,12 +1311,12 @@ router.post("/tshirtSave",async(req,res)=>{
         //const data=req.body;
         var currentUser
         const data=req.body;
-        console.log(data);
+        //console.log(data);
         //console.log("req body "+JSON.stringify(req.user;));
         var id=req.user;
         await Users.findById(id,function(err,docs){
             if(err){console.log(err)}
-            else{console.log(docs.username)
+            else{//console.log(docs.username)
                 currentUser=docs.username;
             }
         }).clone();
@@ -1344,7 +1344,7 @@ router.post("/tshirtSave",async(req,res)=>{
             if(elem==""){return "0"}
             else return elem;
         });
-        console.log(data);
+        //console.log(data);
         const newTshirt1={
             username : currentUser,
             isInterested:data.c[0],
@@ -1475,7 +1475,7 @@ router.post("/tshirtSave",async(req,res)=>{
                 console.log(err)
             }else{
                 set=doc;
-                console.log("Result :", doc) // false
+                //console.log("Result :", doc) // false
                 if(!set){await data2.save();
                     console.log("saved tshirt successfully2");
                     res.send("saved")}
