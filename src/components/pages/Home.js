@@ -31,11 +31,8 @@ function Home() {
             <motion.div className='rightscreen' initial = {{x : 0}} animate = {{x : '100vw'}} transition = {{delay :  2 , duration : 1}}>
 
             </motion.div>
-            <motion.div className='centerv mainc '>
-            <h1>REC-NIT Trichy </h1><h1>
-Batch of 1974 Graduates</h1><h1>
-Golden Jubilee Reunion</h1><h1>
-24th & 25th Jan 2024</h1>
+            <motion.div className='centerv mainc ' style={{marginTop : '1rem'}}>
+            <img src='landing.png' />
             </motion.div>
 
             <motion.div className='screenbut' initial = {{opacity : 0}} animate = {{opacity : 1}} transition = {{delay : 3}} >

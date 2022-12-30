@@ -45,7 +45,7 @@ export default function Quit(){
             <Link to="/basedat"><Button size="large" variant="contained" >
                     Go Back
                 </Button></Link>
-                <Button onClick={() => (window.location = "www.google.com")} size="large" variant="contained" >
+                <Button onClick={() => (window.location = "/")} size="large" variant="contained" >
                     Quit
                 </Button>
                 
