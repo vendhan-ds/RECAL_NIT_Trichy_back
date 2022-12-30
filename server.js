@@ -44,11 +44,12 @@ server.use(
     store: MongoStore.create({mongoUrl: config.mongodb.dbURI}),
     secret: "texy",
     resave: false,
-    saveUninitialized: true,
+    saveUninitialized: false,
   })
 );
 
 // Passport Middleware
+server.use(passport.authenticate('session'));
 server.use(passport.initialize());
 server.use(passport.session());
 

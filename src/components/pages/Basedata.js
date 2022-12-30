@@ -39,7 +39,7 @@ export default function Basedat(){
         for(var i of data){
             post.push(document.querySelector('#' + i).value);
         }
-        axios.post('http://localhost:8080/api/registrationData' , post).then((res) => console.log(res.data));
+        axios.post('http://localhost:8080/api/registrationData' , post).then((res) => alert(res.data));
 
     }
 

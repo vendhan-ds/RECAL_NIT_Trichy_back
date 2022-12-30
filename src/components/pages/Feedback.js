@@ -23,7 +23,7 @@ export default function Feedback(){
         var rat = rating;
         var com = document.querySelector('#comment').value;
         var data = {'rat' : rat , 'com' : com};
-        axios.post('http://localhost:8080/api/FeedSave' , data).then((res) => console.log(res.data));
+        axios.post('http://localhost:8080/api/FeedSave' , data).then((res) => alert(res.data));
     }
 
     const [rating,setValue] = useState(0);

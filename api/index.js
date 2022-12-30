@@ -43,8 +43,8 @@ router.get('/', (req, res) => {
 router.get("/previewData",async(req,res)=>{
     var currentUser
         const data=req.body;
-        //console.log("req body "+JSON.stringify(req.session.passport.user));
-        var id=req.session.passport.user;
+        //console.log("req body "+JSON.stringify(req.user;));
+        var id=req.user;;
         console.log(id);
         await Users.findById(id,function(err,docs){
             if(err){console.log(err)}
@@ -222,10 +222,11 @@ router.get('/participation',async(req,res)=>{
             }else{
                 // console.log(docs)
                 docs.forEach((doc)=>{
+                    console.log(doc)
                     // console.log("Updated -> ")
                     // console.log(doc.checkInDate.getDate().toString())
                     //console.log(Date('2022-10-24T00:00:00.000Z').getDate())
-                  if(doc.checkInDate.getDate().toString()=='24' &&doc.checkOutDate.getDate().toString()=='25'){
+                  if (doc.Dates.cin1 == true && doc.Dates.cout1 == true /* doc.checkInDate.getDate().toString()=='24' &&doc.checkOutDate.getDate().toString()=='25' */ ) {
                 //   console.log("inin")
                   singl=singl+doc.hotel11[0]+doc.hotel11[3]+doc.hotel11[9]+doc.hotel11[6]+doc.hotel11[12];
                   doubl=doubl+doc.hotel11[1]+doc.hotel11[4]+doc.hotel11[10]+doc.hotel11[7]+doc.hotel11[13];
@@ -509,64 +510,91 @@ router.get("/summary",async(req,res)=>{
    }
 });
 
-router.get("/listpayment" , async(req,res)=>{
-    try{
-        var finallist=[]
-        var list=[]
+router.get("/listpayment", async (req, res) => {
+    try {
+        var finallist = []
 
+        var paymntData = await RegList.find();
+        var famdata = await Accomodation.find();
+        var a = await Payment.find()
+        var paid = []
+        console.log(paymntData, famdata, a)
+        a.forEach(el3 => {
+            if (el3.username == "main") {
+
+                paid = el3.PaymentStatus;
+
+            }
+        });
+
+        /*  var a =await Payment.findOne({username:"main"},(err,user)=>{
+                         if(err){console.log(err)}
+                         else{
+                             paid=user.PaymentStatus;
+                             console.log("herehrehrehrhehhvhgjegfvuab")
+                             console.log(paid)
+                         }
+                     }) */
+        var tempfam = {}
+        var tempcosts = {}
         Registration.find(function (err, docs) {
             if (err) {
                 console.log(err);
             } else {
-                console.log(docs);
-                var paid= []
-                Payment.findOne({username:"main"},(err,user)=>{
-                        if(err){console.log(err)}
-                        else{
-                            paid=user.PaymentStatus;
+                docs.forEach(async (element, index) => {
+                    console.log(index)
+
+                    paymntData.forEach(el => {
+                        if (el.username == element.username) {
+                            tempcosts = el.paymentReport
                         }
                     })
-                    
-                docs.forEach( (element,index) => {
-                    console.log(index)
-                    var tempfam={}
-                    var tempcosts={}
-                    RegList.findOne({username:element.username},(err,paydata)=>{
-                        if(err){console.log(err)}
-                        else{
-                            tempcosts=paydata.paymentReport
+
+                    famdata.forEach(el2 => {
+                        if (el2.username == element.username) {
+                            tempfam = el2.pax
                         }
-                    }).clone
-                    Accomodation.findOne({username:element.username},(err,famdata)=>{
-                        if(err){console.log(err)}
-                        else{
-                            tempfam=famdata.pax
-                        }
-                    }).clone
+                    })
+                    /*  await RegList.findOne({username:element.username},(err,paydata)=>{
+                         if(err){console.log(err)}
+                         else{
+                            // console.log("first")
+                             tempcosts=paydata.paymentReport
+                            // console.log(tempcosts)
+                         }
+                     }).clone
+                     await Accomodation.findOne({username:element.username},(err,famdata)=>{
+                         if(err){console.log(err)}
+                         else{
+                            // console.log("second")
+                             tempfam=famdata.pax
+                            // console.log(tempfam)
+                         }
+                     }).clone */
+                    console.log(paid)
                     finallist.push({
-                        SNo:index+1,
-                        branch:element.branch,
+                        SNo: index + 1,
+                        branch: element.branch,
                         Alumini_Name: element.username,
-                        Spouse:tempfam.spouse,
-                        Family:tempfam.familyMembers,
-                        Grand_Children:tempfam.grandKids,
-                        Total:tempfam.spouse+tempfam.familyMembers+tempfam.grandKids,
-                        Room:tempcosts.Room,
-                        Participation:tempcosts.Participation,
-                        Dinner:tempcosts.Dinner,
-                        Tshirts:tempcosts.Tshirt,
-                        Tours:tempcosts.tours,
-                        GrandTotal:tempcosts.GrandTotal,
-                        Amount_Paid:tempcosts.AmountPaid,
-                        Balnace_Due:tempcosts.GrandTotal-tempcosts.AmountPaid,
+                        Spouse: tempfam.spouse,
+                        Family: tempfam.familyMembers,
+                        Grand_Children: tempfam.grandKids,
+                        Total: tempfam.spouse + tempfam.familyMembers + tempfam.grandKids,
+                        Room: tempcosts.Room,
+                        Participation: tempcosts.Participation,
+                        Dinner: tempcosts.Dinner,
+                        Tshirts: tempcosts.Tshirt,
+                        Tours: tempcosts.tours,
+                        GrandTotal: tempcosts.GrandTotal,
+                        Amount_Paid: paid[index],
+                        Balance_Due: tempcosts.GrandTotal - paid[index],
                     })
                 });
             }
             res.send(finallist)
 
         }).clone
-    }
-    catch(e){
+    } catch (e) {
         console.log('error');
         res.send(e.message);
     }
@@ -575,7 +603,7 @@ router.get("/listpayment" , async(req,res)=>{
 router.get("/userName",async(req,res)=>{
     try{
         var currentUser
-        var id=req.session.passport.user
+        var id=req.user;
         var paid= []
         var a=await Payment.find()
         a.forEach(el3 => {
@@ -587,20 +615,25 @@ router.get("/userName",async(req,res)=>{
         });
         await Users.findById(id,function(err,docs){
             if(err){console.log(err)}
-            else{console.log(docs.username)
+            else{//console.log(docs.username)
                 currentUser=docs.username;
-                console.log(currentUser);
             }
         }).clone();
         var famdata=await Accomodation.find();
         var i=0;
-        famdata.forEach(element => {
-            for(let i=0;i<1000;i++){
-                if(element.username==currentUser){break;i++;}
+       //console.log(currentUser)
+       
+            for(i=0;i<50;i++){
+                console.log(i);
+                if(famdata[i].username==currentUser){
+                    console.log(famdata[i].username,currentUser);
+                    
+                    break;
+                }
             }
-        });
-        console.log(paid);
-        res.send(paid[i]);
+        console.log(paid[i-1])
+        res.send(paid[i-1])
+        
     }
     catch(e){
         console.log('error');
@@ -669,7 +702,7 @@ router.get("/updatetotal",async(req,res)=>{
 router.post('/userRegistered', async (req, res)=>{
     try{
         const data=req.body;
-        var id=req.session.passport.user;
+        var id=req.user;;
         var currentUser;
         console.log(data);
         await Users.findById(id,function(err,docs){
@@ -726,8 +759,8 @@ router.post('/accomodationSave', async(req,res)=>{
     try{var currentUser
         const data=req.body;
         console.log(data);
-        //console.log("req body "+JSON.stringify(req.session.passport.user));
-        var id=req.session.passport.user
+        //console.log("req body "+JSON.stringify(req.user;));
+        var id=req.user;
         await Users.findById(id,function(err,docs){
             if(err){console.log(err)}
             else{console.log(docs.username)
@@ -865,8 +898,8 @@ router.post('/eventsSave',async(req,res)=>{
         //const data=req.body;console.log(data);
         var currentUser
         const data=req.body;
-        //console.log("req body "+JSON.stringify(req.session.passport.user));
-        var id=req.session.passport.user
+        //console.log("req body "+JSON.stringify(req.user;));
+        var id=req.user;
         await Users.findById(id,function(err,docs){
             if(err){console.log(err)}
             else{console.log(docs.username)
@@ -958,7 +991,7 @@ router.post("/registrationData",async(req,res)=>{
 
         var currentUser;
         console.log(req.session);
-        var id=req.session.passport.user;
+        var id=req.user;;
         await Users.findById(id,function(err,docs){
             if(err){console.log(err)}
             else{console.log(docs.username)
@@ -1060,7 +1093,7 @@ router.post("/PaymentSave", async(req,res)=>{
 router.get("/isadmin" , async(req,res) => {
     try{
         var currentUser;
-        var id=req.session.passport.user
+        var id=req.user;
         await Users.findById(id,function(err,docs){
             if(err){console.log(err)}
             else{console.log(docs.username)
@@ -1087,7 +1120,7 @@ router.get("/isadmin" , async(req,res) => {
 router.get("/userpaid", async(req,res)=>{
     try{
         var currentUser
-        var id=req.session.passport.user
+        var id=req.user;
         await Users.findById(id,function(err,docs){
             if(err){console.log(err)}
             else{console.log(docs.username)
@@ -1150,8 +1183,8 @@ router.post("/ToursSave",async(req,res)=>{
         var currentUser
         const data=req.body;
         console.log(data);
-        //console.log("req body "+JSON.stringify(req.session.passport.user));
-        var id=req.session.passport.user
+        //console.log("req body "+JSON.stringify(req.user;));
+        var id=req.user;
         await Users.findById(id,function(err,docs){
             if(err){console.log(err)}
             else{console.log(docs.username)
@@ -1210,8 +1243,8 @@ router.post("/FeedSave",async(req,res)=>{
         var currentUser
         const data=req.body;
         console.log(data);
-        //console.log("req body "+JSON.stringify(req.session.passport.user));
-        var id=req.session.passport.user
+        //console.log("req body "+JSON.stringify(req.user;));
+        var id=req.user;
         await Users.findById(id,function(err,docs){
             if(err){console.log(err)}
             else{console.log(docs.username)
@@ -1253,8 +1286,8 @@ router.post("/logincheck",async(req,res)=>{
     try{let interest;
         var currentUser
         console.log('sss');
-        //console.log("req body "+JSON.stringify(req.session.passport.user));
-        var id=req.session.passport.user
+        //console.log("req body "+JSON.stringify(req.user;));
+        var id=req.user;
         await Users.findById(id,function(err,docs){
             if(err){console.log(err)}
             else{console.log(docs.username)
@@ -1279,8 +1312,8 @@ router.post("/tshirtSave",async(req,res)=>{
         var currentUser
         const data=req.body;
         console.log(data);
-        //console.log("req body "+JSON.stringify(req.session.passport.user));
-        var id=req.session.passport.user
+        //console.log("req body "+JSON.stringify(req.user;));
+        var id=req.user;
         await Users.findById(id,function(err,docs){
             if(err){console.log(err)}
             else{console.log(docs.username)

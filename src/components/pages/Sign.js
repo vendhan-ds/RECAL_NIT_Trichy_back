@@ -32,22 +32,38 @@ function sendPost(){
         return;
     }
     var data = {'username' :  username, 'password' : password };
+    try{
     axios.post('http://localhost:8080/login' , data).then((res) => {
+    
+    if(res.data.errors){
+      console.log(res.data);
+    }
 
-    console.log("test" + res.data)});
+    if(res.data.success){
+      window.location.href = "/basedat";
+    }
+    else{
+      alert("Wrong username or password");
+    };
     sets(true);
-    axios.post('http://localhost:8080/api/logincheck' , data).then((res) => {
-      console.log(res);
-      if(res){
-        window.location.href = "/basedat";
-      }
-      else{
-        console.log("not logged in");
-      }
-  });
+
+    })}
+    catch(e){
+      console.log("sdsdsd");
+    };
+  //   axios.post('http://localhost:8080/api/logincheck' , data).then((res) => {
+  //     console.log(res);
+  //     if(res){
+  //     }
+  //     else{
+  //       console.log("not logged in");
+  //     }
+  // });
+       //window.location.href = "/basedat";
+
   document.querySelector(".button-24").style.backgroundColor = 'green';
 
- }
+ };
 
   document.addEventListener("keypress" , (e) => {
     if(e.key == "Enter"){

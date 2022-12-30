@@ -61,7 +61,7 @@ function Previews() {
 
     function register(){
         data = {registered : true, totals : [ parseInt(document.querySelector('.pcost').innerText),costs + costs2,parseInt(document.querySelector('.dcost').innerText) ,(m1a[0] + m1a[1] + m1a[2] + m1a[3] + m1a[4] + m1a[5] + wa1[0] + wa1[1] + wa1[2] + wa1[3] + ga1[0] + ga1[1] + ga1[2] + ba1[0] + ba1[1] + ba1[2]) * 1200 + (m2a[0] + m2a[1] + m2a[2] + m2a[3] + m2a[4] + m2a[5]) * 600,parseInt(document.querySelector('.rt1').innerText) , parseInt(document.querySelector('.rt2').innerText), parseInt( document.querySelector('.rt3').innerText), parseInt(document.querySelector(".rt4").innerText)]}
-        axios.post('http://localhost:8080/api/userRegistered' , data).then((res) => console.log(res.data));
+        axios.post('http://localhost:8080/api/userRegistered' , data).then((res) => {if(res.data == "updated reglist"){alert("Successfully registered");} else{alert("Error")}});
     }
 
     axios.get("http://localhost:8080/api/UserName").then((res) => {

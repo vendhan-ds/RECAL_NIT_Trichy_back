@@ -71,19 +71,18 @@ login.post("/", (req, res, next) => {
 
       console.log(info.message);
       if (err) {
-          return res.status(400).json({ errors: err });
+          return res.status(200).json({ errors: err });
       }
       if (!user) {
-          return res.status(400).json({ errors: "No user found" });
+          return res.status(200).json({ errors: "No user found" });
       }
       req.logIn(user, function(err) {
           if (err) {
-              return res.status(400).json({ errors: err });
+              return res.status(200).json({ errors: err });
           }
           return res.status(200).json({ success: `logged in ${user.id}` });
       });
   })(req, res, next);
-
 });
 
 export default login;

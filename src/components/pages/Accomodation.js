@@ -125,7 +125,7 @@ function Accomodation() {
         var dates = [isliked1,isliked2,isliked3,isliked4,isliked5,isliked6];
 
         var data = {'participationType' : fam, 'hotelRoom' : rreq, 'dates' : dates ,'alumni' : a ,'spouse' : s,'familyMembers' : f,'grandKids' : g,'hotel1' : room , 'hotel2' : room2 ,'totalcost' : costs + costs2};
-        axios.post('http://localhost:8080/api/accomodationSave',data).then((res) => console.log(res.data));
+        axios.post('http://localhost:8080/api/accomodationSave',data).then((res) => alert(res.data));
         sets(true);
         
     }

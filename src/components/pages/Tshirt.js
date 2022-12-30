@@ -113,7 +113,7 @@ function Tshirt() {
         else{
             data = {'need' : 0, 'c' : [0,0,0,0,0], 'men1' : [0,0,0,0,0,0] , 'men2' : [0,0,0,0,0,0], 'women1' : [0,0,0,0], 'women2' : [0,0,0,0], 'girls1' : [0,0,0] , 'boys1' : [0,0,0]}
         }
-        axios.post('http://localhost:8080/api/tshirtSave' , data).then((res) => console.log(res.data));
+        axios.post('http://localhost:8080/api/tshirtSave' , data).then((res) => alert(res.data));
         sets(true);
     }
 

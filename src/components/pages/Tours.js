@@ -36,7 +36,7 @@ function Tours() {
         else{
             var data = {'need' : 0 , 'tour' : [0,0,0,0]};
         }
-        axios.post('http://localhost:8080/api/ToursSave' , data).then((res) => console.log(res.data));
+        axios.post('http://localhost:8080/api/ToursSave' , data).then((res) => alert(res.data));
         sets(true);
 
 
