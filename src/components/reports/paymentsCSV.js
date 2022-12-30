@@ -20,9 +20,9 @@ class TshirtCSV extends Component {
   }
 
   getUserList = () => {
-    return fetch(
-      "http://recal.eastus.cloudapp.azure.com:8080/api/listpayment"
-    ).then((res) => res.json());
+    return fetch("http://recal.eastus.cloudapp.azure.com/api/listpayment").then(
+      (res) => res.json()
+    );
   };
 
   downloadReport = async () => {

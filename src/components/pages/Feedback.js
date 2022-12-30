@@ -23,7 +23,7 @@ export default function Feedback() {
     var com = document.querySelector("#comment").value;
     var data = { rat: rat, com: com };
     axios
-      .post("http://recal.eastus.cloudapp.azure.com:8080/api/FeedSave", data)
+      .post("http://recal.eastus.cloudapp.azure.com/api/FeedSave", data)
       .then((res) => alert(res.data));
   }
 

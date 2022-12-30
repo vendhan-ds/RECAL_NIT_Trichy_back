@@ -7,7 +7,7 @@ function ReportParticipation() {
   // const[campvis,setcampvis]=useState([0,0,0,0]);
   // const[even24hotel,seteven24hotel]=useState([])
 
-  // var response= axios.get("http://recal.eastus.cloudapp.azure.com:8080/api/participation")
+  // var response= axios.get("http://recal.eastus.cloudapp.azure.com/api/participation")
   // .then((response)=>{
   //     console.log(response.data);
   //     setcampvis (response.data.campusvisit);
@@ -29,7 +29,7 @@ function ReportParticipation() {
 
   useEffect(() => {
     axios
-      .get("http://recal.eastus.cloudapp.azure.com:8080/api/participation")
+      .get("http://recal.eastus.cloudapp.azure.com/api/participation")
       .then((response) => {
         response = response.data;
         console.log(response);

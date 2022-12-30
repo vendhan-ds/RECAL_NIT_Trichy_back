@@ -8,7 +8,7 @@ function ReportRegistered() {
   ]);
   //const [paxdata, setpaxdata]=useState(null)
   /* useEffect(()=>{
-         fetch("http://recal.eastus.cloudapp.azure.com:8080/api/registered")
+         fetch("http://recal.eastus.cloudapp.azure.com/api/registered")
     .then((response)=>console.log(response))
     .then((response) => response.json())
     .then(response => {
@@ -18,7 +18,7 @@ function ReportRegistered() {
     },[]) */
   useEffect(() => {
     axios
-      .get("http://recal.eastus.cloudapp.azure.com:8080/api/registered")
+      .get("http://recal.eastus.cloudapp.azure.com/api/registered")
       .then((res) => {
         res = res.data;
         console.log(res);

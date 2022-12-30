@@ -111,10 +111,7 @@ function Previews() {
       ],
     };
     axios
-      .post(
-        "http://recal.eastus.cloudapp.azure.com:8080/api/userRegistered",
-        data
-      )
+      .post("http://recal.eastus.cloudapp.azure.com/api/userRegistered", data)
       .then((res) => {
         if (res.data == "updated reglist") {
           alert("Successfully registered");
@@ -125,7 +122,7 @@ function Previews() {
   }
 
   axios
-    .get("http://recal.eastus.cloudapp.azure.com:8080/api/UserName")
+    .get("http://recal.eastus.cloudapp.azure.com/api/UserName")
     .then((res) => {
       console.log(res);
       var temp =
@@ -214,7 +211,7 @@ function Previews() {
 
   useEffect(() => {
     res = axios
-      .get("http://recal.eastus.cloudapp.azure.com:8080/api/previewData")
+      .get("http://recal.eastus.cloudapp.azure.com/api/previewData")
       .then((res) => {
         res.data.shift();
         console.log(res);

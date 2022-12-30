@@ -21,7 +21,7 @@ class ParticipationCSV extends Component {
 
   getUserList = () => {
     return fetch(
-      "http://recal.eastus.cloudapp.azure.com:8080/api/participation"
+      "http://recal.eastus.cloudapp.azure.com/api/participation"
     ).then((res) => res.json());
   };
 

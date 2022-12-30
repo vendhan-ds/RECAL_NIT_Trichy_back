@@ -70,14 +70,14 @@ function EventParticipation() {
     };
     console.log(data);
     axios
-      .post("http://recal.eastus.cloudapp.azure.com:8080/api/eventsSave", data)
+      .post("http://recal.eastus.cloudapp.azure.com/api/eventsSave", data)
       .then((res) => alert(res.data));
     sets(true);
   }
 
   useEffect(() => {
     axios
-      .get("http://recal.eastus.cloudapp.azure.com:8080/api/previewData")
+      .get("http://recal.eastus.cloudapp.azure.com/api/previewData")
       .then((res) => {
         res = res.data;
         console.log(res);

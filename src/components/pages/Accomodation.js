@@ -60,7 +60,7 @@ function Accomodation() {
 
   useEffect(() => {
     axios
-      .get("http://recal.eastus.cloudapp.azure.com:8080/api/previewData")
+      .get("http://recal.eastus.cloudapp.azure.com/api/previewData")
       .then((res) => {
         res = res.data;
         var arr = [...res[5]];
@@ -74,7 +74,7 @@ function Accomodation() {
 
   useEffect(() => {
     axios
-      .get("http://recal.eastus.cloudapp.azure.com:8080/api/previewData")
+      .get("http://recal.eastus.cloudapp.azure.com/api/previewData")
       .then((res) => {
         res = res.data;
         console.log(res);
@@ -133,10 +133,7 @@ function Accomodation() {
       totalcost: costs + costs2,
     };
     axios
-      .post(
-        "http://recal.eastus.cloudapp.azure.com:8080/api/accomodationSave",
-        data
-      )
+      .post("http://recal.eastus.cloudapp.azure.com/api/accomodationSave", data)
       .then((res) => alert(res.data));
     sets(true);
   }

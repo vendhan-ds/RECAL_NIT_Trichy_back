@@ -16,7 +16,7 @@ function Login() {
     }
     var data = { username: username, password: password };
     axios
-      .post("http://recal.eastus.cloudapp.azure.com:8080/login", data)
+      .post("http://recal.eastus.cloudapp.azure.com/login", data)
       .then((res) => console.log("test" + res.data));
     sets(true);
   }

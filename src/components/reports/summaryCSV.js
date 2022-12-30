@@ -21,9 +21,9 @@ class SummaryCSV extends Component {
   }
 
   getUserList = () => {
-    return fetch(
-      "http://recal.eastus.cloudapp.azure.com:8080/api/summary"
-    ).then((res) => res.json());
+    return fetch("http://recal.eastus.cloudapp.azure.com/api/summary").then(
+      (res) => res.json()
+    );
   };
 
   downloadReport = async () => {

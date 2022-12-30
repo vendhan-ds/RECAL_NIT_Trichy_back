@@ -20,7 +20,7 @@ export default function Payment() {
   const [totalam, settot] = useState([]);
   useEffect(() => {
     axios
-      .get("http://recal.eastus.cloudapp.azure.com:8080/api/isadmin")
+      .get("http://recal.eastus.cloudapp.azure.com/api/isadmin")
       .then((res) => {
         console.log(res);
         if (res.data == false) {
@@ -31,7 +31,7 @@ export default function Payment() {
       });
 
     axios
-      .get("http://recal.eastus.cloudapp.azure.com:8080/api/registrationList")
+      .get("http://recal.eastus.cloudapp.azure.com/api/registrationList")
       .then((res) => {
         var arr = [];
         for (var i of res.data) {
@@ -44,7 +44,7 @@ export default function Payment() {
         console.log(arr);
       });
     axios
-      .get("http://recal.eastus.cloudapp.azure.com:8080/api/listpaymentss")
+      .get("http://recal.eastus.cloudapp.azure.com/api/listpaymentss")
       .then((res) => {
         console.log(res.data);
         var r = res.data;
@@ -54,7 +54,7 @@ export default function Payment() {
       });
 
     axios
-      .get("http://recal.eastus.cloudapp.azure.com:8080/api/updatetotal")
+      .get("http://recal.eastus.cloudapp.azure.com/api/updatetotal")
       .then((res) => {
         console.log(res.data);
         var r = res.data;
@@ -86,7 +86,7 @@ export default function Payment() {
     }
     let data = l;
     axios
-      .post("http://recal.eastus.cloudapp.azure.com:8080/api/PaymentSave", data)
+      .post("http://recal.eastus.cloudapp.azure.com/api/PaymentSave", data)
       .then((res) => console.log(res.data));
   }
 

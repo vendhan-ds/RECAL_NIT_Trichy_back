@@ -33,7 +33,7 @@ export default function Sign() {
     var data = { username: username, password: password };
     try {
       axios
-        .post("http://recal.eastus.cloudapp.azure.com:8080/login", data)
+        .post("http://recal.eastus.cloudapp.azure.com/login", data)
         .then((res) => {
           if (res.data.errors) {
             console.log(res.data);
@@ -49,7 +49,7 @@ export default function Sign() {
     } catch (e) {
       console.log("sdsdsd");
     }
-    //   axios.post('http://recal.eastus.cloudapp.azure.com:8080/api/logincheck' , data).then((res) => {
+    //   axios.post('http://recal.eastus.cloudapp.azure.com/api/logincheck' , data).then((res) => {
     //     console.log(res);
     //     if(res){
     //     }

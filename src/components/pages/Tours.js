@@ -39,7 +39,7 @@ function Tours() {
       var data = { need: 0, tour: [0, 0, 0, 0] };
     }
     axios
-      .post("http://recal.eastus.cloudapp.azure.com:8080/api/ToursSave", data)
+      .post("http://recal.eastus.cloudapp.azure.com/api/ToursSave", data)
       .then((res) => alert(res.data));
     sets(true);
   }
@@ -48,7 +48,7 @@ function Tours() {
 
   useEffect(() => {
     axios
-      .get("http://recal.eastus.cloudapp.azure.com:8080/api/previewData")
+      .get("http://recal.eastus.cloudapp.azure.com/api/previewData")
       .then((res) => {
         res = res.data;
         console.log(res);

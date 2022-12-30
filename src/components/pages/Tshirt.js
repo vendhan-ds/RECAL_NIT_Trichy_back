@@ -25,7 +25,7 @@ function Tshirt() {
   const [saved, sets] = useState(false);
   useEffect(() => {
     axios
-      .get("http://recal.eastus.cloudapp.azure.com:8080/api/previewData")
+      .get("http://recal.eastus.cloudapp.azure.com/api/previewData")
       .then((res) => {
         console.log(res);
         res = res.data;
@@ -179,7 +179,7 @@ function Tshirt() {
       };
     }
     axios
-      .post("http://recal.eastus.cloudapp.azure.com:8080/api/tshirtSave", data)
+      .post("http://recal.eastus.cloudapp.azure.com/api/tshirtSave", data)
       .then((res) => alert(res.data));
     sets(true);
   }

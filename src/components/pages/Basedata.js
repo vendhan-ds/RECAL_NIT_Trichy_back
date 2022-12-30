@@ -47,16 +47,13 @@ export default function Basedat() {
       post.push(document.querySelector("#" + i).value);
     }
     axios
-      .post(
-        "http://recal.eastus.cloudapp.azure.com:8080/api/registrationData",
-        post
-      )
+      .post("http://recal.eastus.cloudapp.azure.com/api/registrationData", post)
       .then((res) => alert(res.data));
   }
 
   function prepop() {
     axios
-      .get("http://recal.eastus.cloudapp.azure.com:8080/api/previewData")
+      .get("http://recal.eastus.cloudapp.azure.com/api/previewData")
       .then((res) => {
         res = res.data[13];
         console.log(res);
@@ -70,7 +67,7 @@ export default function Basedat() {
         }
       });
     axios
-      .get("http://recal.eastus.cloudapp.azure.com:8080/api/userpaid")
+      .get("http://recal.eastus.cloudapp.azure.com/api/userpaid")
       .then((res) => {
         if (res.data == true) {
           document.querySelector(".pay").innerText = "Paid";

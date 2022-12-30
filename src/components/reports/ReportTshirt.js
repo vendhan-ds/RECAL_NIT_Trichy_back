@@ -11,7 +11,7 @@ function ReportTshirt() {
 
   useEffect(() => {
     axios
-      .get("http://recal.eastus.cloudapp.azure.com:8080/api/tshirt")
+      .get("http://recal.eastus.cloudapp.azure.com/api/tshirt")
       .then((res) => {
         res = res.data;
         console.log(res);

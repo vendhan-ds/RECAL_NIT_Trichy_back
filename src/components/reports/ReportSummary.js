@@ -6,7 +6,7 @@ function ReportSummary() {
   const [user, setuser] = useState([1, 2, 23, 4, 5]);
   //const [paxdata, setpaxdata]=useState(null)
   useEffect(() => {
-    axios("http://recal.eastus.cloudapp.azure.com:8080/api/summary").then(
+    axios("http://recal.eastus.cloudapp.azure.com/api/summary").then(
       (response) => {
         console.log(response.data);
         setuser(response.data);
