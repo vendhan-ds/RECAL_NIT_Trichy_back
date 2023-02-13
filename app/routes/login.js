@@ -10,27 +10,29 @@ const LocalStrategy = require("passport-local").Strategy;
 passport.use(new LocalStrategy((username, password, done) => {
   User.findOne({username}).then(user => {
   if(!user){
+    console.log("User Does not exists");
+    return done(null, false, { message: "user does not exist" });
     // return done(null, false, { message: "Wrong username or password" });
 
     //To add test data with hashed passwords uncomment below code and comment out the above return statement. Then use the login route with random data
 
-    const isAdmin = false;
-    const newUser = new User({ username, password, isAdmin });
-                    // Hash password before saving in database
-    bcrypt.genSalt(10, (err, salt) => {
-        bcrypt.hash(newUser.password, salt, (err, hash) => {
-            if (err) throw err;
-            newUser.password = hash;
-            newUser
-                .save()
-                .then(user => {
-                    return done(null, user, { message: "success"});
-                })
-                .catch(err => {
-                    return done(null, false, { message: err });
-                });
-        });
-    });
+    // const isAdmin = false;
+    // const newUser = new User({ username, password, isAdmin });
+    //                 // Hash password before saving in database
+    // bcrypt.genSalt(10, (err, salt) => {
+    //     bcrypt.hash(newUser.password, salt, (err, hash) => {
+    //         if (err) throw err;
+    //         newUser.password = hash;
+    //         newUser
+    //             .save()
+    //             .then(user => {
+    //                 return done(null, user, { message: "success"});
+    //             })
+    //             .catch(err => {
+    //                 return done(null, false, { message: err });
+    //             });
+    //     });
+    // });
     }
     else{
       bcrypt.compare(password, user.password, (err, isMatch) => {

@@ -118,6 +118,9 @@ function Previews() {
 
     useEffect(() => {
         var res = axios.get('http://localhost:8080/api/previewData').then((res) => {
+            if(res.data=="user not found"){
+                window.location.href="/signin"
+            }
         res.data.shift();
         console.log(res);
         
@@ -480,13 +483,19 @@ function Previews() {
                         <TableBody>
                             <TableRow>
                                 <TableCell>Event Participation</TableCell>
+                                <TableCell></TableCell>
+                                <TableCell></TableCell>
+                                <TableCell></TableCell>
+                                <TableCell></TableCell>
+
                             </TableRow>
-                            <TableRow><TableCell>No. of Participants for Event at Hotel
-</TableCell>   
-<TableCell>Veg</TableCell>
-                    <TableCell><p id='v1'></p></TableCell>
-                    <TableCell>Non-Veg</TableCell>
-                    <TableCell><p id='nv1'></p></TableCell>
+                            <TableRow>
+                            <TableCell>No. of Participants for Event at Hotel
+                            </TableCell>   
+                            <TableCell>Veg</TableCell>
+                            <TableCell><p id='v1'></p></TableCell>
+                            <TableCell>Non-Veg</TableCell>
+                            <TableCell><p id='nv1'></p></TableCell>
                     </TableRow>
                     <TableRow><TableCell>No. of Participants for Event at Campus
 
@@ -494,6 +503,9 @@ function Previews() {
 
 </TableCell>
                     <TableCell><p id='v3'></p></TableCell>
+                    <TableCell></TableCell>
+                    <TableCell></TableCell>
+                    <TableCell></TableCell>
                     </TableRow>
                     <TableRow><TableCell>No. of Participants for Event at Hotel
 </TableCell>   
@@ -502,7 +514,7 @@ function Previews() {
                     <TableCell>Non-Veg</TableCell>
                     <TableCell><p id='nv2'></p></TableCell>
                     </TableRow>
-                        </TableBody>
+                </TableBody>
                     </Table>
                     </TableContainer>
 

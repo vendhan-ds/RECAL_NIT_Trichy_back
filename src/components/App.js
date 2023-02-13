@@ -25,11 +25,15 @@ import Quit from './pages/quit';
 import Feedback from './pages/Feedback';
 import Report from './reports/Report';
 import Payment from './pages/Payment';
+import { useEffect } from 'react';
+
 
 
 const App = () => {
     const location = useLocation();
-
+    useEffect(() => {
+        document.title = 'Recal';
+      }, []);
     return (
             <>         
             <AnimatePresence>

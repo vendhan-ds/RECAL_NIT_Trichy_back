@@ -26,7 +26,7 @@ function EventParticipation() {
 
 
     const mystyle = {
-        width : 'fit-content',
+        width : '80vw',
         padding : '1rem',
       };
 
@@ -69,6 +69,9 @@ function EventParticipation() {
     useEffect(() => {
         axios.get('http://localhost:8080/api/previewData').then(
             (res) => {
+                if(res.data=="user not found"){
+                    window.location.href="/signin"
+                }
                 res = res.data;
                 var res1 = res[7];
                 var res2 = res[8];
@@ -148,7 +151,7 @@ function EventParticipation() {
 
     return (
         <motion.div initial ={{opacity:0}} variants={variants1} animate="anim" exit={{opacity:0}} className = "outerc" transition={{delay : 0.2 , duration  :0.5}}> 
-        <motion.div drag dragConstraints={{top:0,bottom:0,left:0,right:0}} className='mtitle'><h1>EventParticipation</h1></motion.div>
+        <motion.div drag dragConstraints={{top:0,bottom:0,left:0,right:0}} className='mtitle'><h1>Event Participation</h1></motion.div>
         
         <div className='center'>
             <h2>24th Jan</h2>
@@ -159,8 +162,8 @@ function EventParticipation() {
                     <TableCell><h3>Please select event participation from the list below</h3></TableCell>
                     <TableCell></TableCell>
                     <TableCell></TableCell>
-                    <TableCell><h3>Add to cart</h3></TableCell>
-                    <TableCell><h3>Cart</h3></TableCell>
+                    {/* <TableCell><h3>Add to cart</h3></TableCell>
+                    <TableCell><h3>Cart</h3></TableCell> */}
 
 
                 </TableRow>
@@ -169,22 +172,22 @@ function EventParticipation() {
                     <TableRow><TableCell>I will join the evening event at the Hotel</TableCell>
                     <TableCell><Checkbox min="0" id='a1' checked={isliked1} onChange={handleCheckbox1} /></TableCell>
                     <TableCell></TableCell>
-                    <TableCell><IconButton color="primary" aria-label="add to shopping cart"><AddShoppingCartIcon /></IconButton></TableCell>
-                        <TableCell></TableCell>
+                    {/* <TableCell><IconButton color="primary" aria-label="add to shopping cart"><AddShoppingCartIcon /></IconButton></TableCell>
+                        <TableCell></TableCell> */}
                     </TableRow>
                     <TableRow>
                         <TableCell>I agree to pay the Lumpsum Participation Fee of Rs.4,500 towards this for Myself & Family</TableCell>
                         <TableCell><Checkbox min="0" id='a2' checked={isliked2} onChange={handleCheckbox2} /></TableCell>
                         <TableCell></TableCell>
-                        <TableCell><IconButton color="primary" aria-label="add to shopping cart"><AddShoppingCartIcon /></IconButton></TableCell>
-                        <TableCell></TableCell>
+                        {/* <TableCell><IconButton color="primary" aria-label="add to shopping cart"><AddShoppingCartIcon /></IconButton></TableCell>
+                        <TableCell></TableCell> */}
                     </TableRow>
                     <TableRow>
                         <TableCell>I agree to pay Rs.750 per Head for Veg-Dinner & Rs.850 per Head for Non-Veg Dinner for the Participants (including Family). I also understand there is no Charge for Grand Children</TableCell>
 <TableCell><Checkbox min="0" id='a3' checked={isliked3} onChange={handleCheckbox3} /></TableCell>
 <TableCell></TableCell>
-<TableCell><IconButton color="primary" aria-label="add to shopping cart"><AddShoppingCartIcon /></IconButton></TableCell>
-                        <TableCell></TableCell>
+{/* <TableCell><IconButton color="primary" aria-label="add to shopping cart"><AddShoppingCartIcon /></IconButton></TableCell>
+                        <TableCell></TableCell> */}
                     </TableRow>
                     <TableRow>
                     <TableCell>No. of Participants for Event at Hotel</TableCell>   
@@ -205,8 +208,8 @@ function EventParticipation() {
                 <TableRow>
                     <TableCell><h3>Please select event participation from the list below</h3></TableCell>
                     <TableCell></TableCell>
-                    <TableCell><h3>Add to cart</h3></TableCell>
-                    <TableCell><h3>Cart</h3></TableCell>
+                    {/* <TableCell><h3>Add to cart</h3></TableCell>
+                    <TableCell><h3>Cart</h3></TableCell> */}
 
 
                 </TableRow>
@@ -215,16 +218,16 @@ function EventParticipation() {
                     <TableRow><TableCell>I will join for the Event at the Campus
 </TableCell>
                     <TableCell><Checkbox min="0" id='a4' checked={isliked4} onChange={handleCheckbox4} /></TableCell>
-                    <TableCell><IconButton color="primary" aria-label="add to shopping cart"><AddShoppingCartIcon /></IconButton></TableCell>
-                        <TableCell></TableCell>
+                    {/* <TableCell><IconButton color="primary" aria-label="add to shopping cart"><AddShoppingCartIcon /></IconButton></TableCell>
+                        <TableCell></TableCell> */}
                     </TableRow>
                     <TableRow>
                         <TableCell>I agree to pay the Lumpsum Participation Fee of Rs.1,600 towards this for Myself & Family. I understand there is no charge for the Lunch at Campus
 
 </TableCell>
 <TableCell><Checkbox min="0" id='a5' checked={isliked5} onChange={handleCheckbox5} /></TableCell>
-<TableCell><IconButton color="primary" aria-label="add to shopping cart"><AddShoppingCartIcon /></IconButton></TableCell>
-                        <TableCell></TableCell>
+{/* <TableCell><IconButton color="primary" aria-label="add to shopping cart"><AddShoppingCartIcon /></IconButton></TableCell>
+                        <TableCell></TableCell> */}
                     </TableRow>
                     <TableRow><TableCell>No. of Participants for Event at Campus
 
@@ -247,8 +250,8 @@ function EventParticipation() {
                     <TableCell><h3>Please select event participation from the list below</h3></TableCell>
                     <TableCell></TableCell>
                     <TableCell></TableCell>
-                    <TableCell><h3>Add to cart</h3></TableCell>
-                    <TableCell><h3>Cart</h3></TableCell>
+                    {/* <TableCell><h3>Add to cart</h3></TableCell>
+                    <TableCell><h3>Cart</h3></TableCell> */}
 
 
                 </TableRow>
@@ -265,8 +268,8 @@ I agree to pay the Lumpsum Participation Fee of Rs.4,500 towards this for Myself
                     <TableCell><Checkbox min="0" id='a6' checked={isliked6} onChange={handleCheckbox6}/></TableCell>
 
                     <TableCell></TableCell>
-                    <TableCell><IconButton color="primary" aria-label="add to shopping cart"><AddShoppingCartIcon /></IconButton></TableCell>
-                        <TableCell></TableCell>
+                    {/* <TableCell><IconButton color="primary" aria-label="add to shopping cart"><AddShoppingCartIcon /></IconButton></TableCell>
+                        <TableCell></TableCell> */}
                     </TableRow>
                     <TableRow><TableCell>I agree to pay Rs.750 per Head for Veg-Dinner & Rs.850 per Head for Non-Veg Dinner for the Participants (including Family). I also understand there is no Charge for Grand Children
 
@@ -274,8 +277,8 @@ I agree to pay the Lumpsum Participation Fee of Rs.4,500 towards this for Myself
 </TableCell>
                     <TableCell><Checkbox min="0" id='a8' checked={isliked7} onChange={handleCheckbox7}/></TableCell>
                     <TableCell></TableCell>
-                    <TableCell><IconButton color="primary" aria-label="add to shopping cart"><AddShoppingCartIcon /></IconButton></TableCell>
-                        <TableCell></TableCell>
+                    {/* <TableCell><IconButton color="primary" aria-label="add to shopping cart"><AddShoppingCartIcon /></IconButton></TableCell>
+                        <TableCell></TableCell> */}
                     </TableRow>
                     <TableRow><TableCell>No. of Participants for Event at Hotel
 </TableCell>   

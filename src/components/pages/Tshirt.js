@@ -22,10 +22,13 @@ function Tshirt() {
         width : 'fit-content',
         padding : '1rem',
       };
-    const [need,setn] = useState(false);
-    useEffect(() => {
+
+    function getData(){
         axios.get('http://localhost:8080/api/previewData').then(
             (res) => {
+                if(res.data=="user not found"){
+                    window.location.href="/signin"
+                }
                 console.log(res);
                 res = res.data;
                 var res1 = res[10];
@@ -65,6 +68,17 @@ function Tshirt() {
                 document.querySelector('#b3').value = res2.grandKids.boys.category3;
                 updateno();
             });
+    }
+      
+    const [need,setn] = useState(false);
+    useEffect(() => {
+        if(need){
+        getData();
+        }
+    },[need]);
+
+    useEffect(() => {
+        getData();
     },[]);
         
 
@@ -179,9 +193,9 @@ function Tshirt() {
     return (
         <>
         <div className="main2">
-            <Button variant="contained" style={{margin : "2rem"}} className='closetshirt' onClick={() => {document.querySelector('.main2').style.display = "none"}} >Close</Button>
+            <Button variant="contained" style={{margin : "2rem", position : "absolute", left : "2rem"}} className='closetshirt' onClick={() => {document.querySelector('.main2').style.display = "none"}} >Close</Button>
             <div className="main">
-                <img src='tshirts.png'></img>
+                <img src='tshirts.png' style={{width : "40%", marginTop : "2.5rem"}}></img>
             </div>
         </div>
         <motion.div variants={variants1} initial ={{opacity:0}} animate="anim" exit={{opacity:0}} className = "outerc" transition={{delay : 0.2 , duration  :0.5}}> 
@@ -193,9 +207,9 @@ function Tshirt() {
         
         <motion.div initial ={{opacity : 0}} animate = {{opacity : 1}} className='rdetails'>
         <div style={{textAlign : "right"}}>
-        <Button variant="contained" style={{marginLeft : 'auto'}} onClick = {() => {document.querySelector(".main2").style.display = "block"}} >See Product</Button>
+        {need && <Button variant="contained" style={{position : "relative" , top : "4.8rem",right : "1rem"}} onClick = {() => {document.querySelector(".main2").style.display = "block"}} >See Product</Button>}
         </div>
-        <TableContainer component = {Paper} style = {mystyle}>
+        {need && <TableContainer component = {Paper} style = {mystyle}>
 
             <Table>
                 <TableBody>
@@ -236,7 +250,7 @@ Design - Round Neck
                     </TableRow>
                 </TableBody>
             </Table>
-            </TableContainer>
+            </TableContainer>}
         </motion.div>
         
         
@@ -245,7 +259,7 @@ Design - Round Neck
 
         <div className='center'>
         <motion.div initial ={{opacity : 0}} animate = 'anim' variants={variants1} transition ={{duration : 2}} className='rdetails'>
-        <TableContainer component = {Paper} style = {mystyle}>
+        {need && <TableContainer component = {Paper} style = {mystyle}>
 
             <Table>
                 <thead>
@@ -388,7 +402,7 @@ Design - Round Neck
                     </TableRow>
                 </TableBody>
             </Table>
-            </TableContainer>
+            </TableContainer>}
             </motion.div>
 
         {!need && <p>No Tshirts Selected</p>}

@@ -46,6 +46,9 @@ export default function Basedat(){
     function prepop(){
         axios.get('http://localhost:8080/api/previewData').then(
             (res) => {
+                if(res.data=="user not found"){
+                    window.location.href="/signin"
+                }
                 res = res.data[13];
                 for(var i in data){
                     if(res[i] == undefined){
@@ -58,6 +61,9 @@ export default function Basedat(){
 
             });
         axios.get("http://localhost:8080/api/userpaid").then((res)=>{
+            if(res.data=="user not found"){
+                window.location.href="/signin"
+            }
             if(res.data == true){
                 document.querySelector('.pay').innerText = "Paid";
             }
@@ -103,9 +109,9 @@ export default function Basedat(){
                 <br />
                 <div className='center'>
                 <Stack direction="row" spacing={2} style = {{padding : '1rem'}} align = 'center' divider={<Divider orientation="vertical" flexItem />} component = {Paper}>
-                <Button size="large" variant="contained" color="success">
+                {/* <Button size="large" variant="contained" color="success">
                     Register
-                </Button>
+                </Button> */}
                 <Link to="/quit"><Button size="large" variant="contained" color="error">
                     Not interested
                 </Button></Link>
@@ -125,13 +131,13 @@ export default function Basedat(){
                 <Button size="large" variant="contained" onClick={() => sendpost()} >
                     Save
                 </Button>
-                <Link to="/accomodation"><Button size="large" variant="contained" >
-                    Next
+                <Link to="/accomodation"><Button size="large" variant="contained" color="success">
+                    Continue to register
                 </Button></Link>
                 
-                <Button size="large" variant="contained" >
+                {/* <Button size="large" variant="contained" >
                     Edit previous login
-                </Button>
+                </Button> */}
                 
                 </Stack>
                 </div>

@@ -41,7 +41,7 @@ router.get('/', (req, res) => {
     }
 */
 router.get("/previewData",async(req,res)=>{
-    var currentUser
+    var currentUser = undefined;
         const data=req.body;
         //console.log("req body "+JSON.stringify(req.user;));
         var id=req.user;
@@ -49,11 +49,19 @@ router.get("/previewData",async(req,res)=>{
         await Users.findById(id,function(err,docs){
             if(err){console.log(err)}
             else{//console.log(docs.username)
-                currentUser=docs.username;
+                if(docs && docs.username){
+                    currentUser=docs.username;
+
+                }
+                else{
+                    res.send("user not found")
+                    return;
+                }
             }
         }).clone();
     //var currentUser="TestUser1";//req.body.username;
     //console.log("h1")
+    if(currentUser){
     var particitype,inpax,chkin,chkout,htl1,htl2,eventpart,member,foodmembers,tourop,options,quantity,dates;
     particitype = null;
     inpax = {'familyMembers' : 0 , 'grandKids' : 0, 'spouse' : 0};
@@ -173,10 +181,11 @@ router.get("/previewData",async(req,res)=>{
         // res.send(previewDatas);
     
         
-
+    
     }
     catch(e){
         console.log(e.message)
+    }
     }
 })
 
@@ -602,7 +611,7 @@ router.get("/listpayment", async (req, res) => {
 
 router.get("/userName",async(req,res)=>{
     try{
-        var currentUser
+        var currentUser = undefined;
         var id=req.user;
         var paid= []
         var a=await Payment.find()
@@ -616,9 +625,16 @@ router.get("/userName",async(req,res)=>{
         await Users.findById(id,function(err,docs){
             if(err){console.log(err)}
             else{//console.log(docs.username)
+                if(docs && docs.username){
                 currentUser=docs.username;
+                }
+                else{
+                    res.send("user not found");
+                
+                }
             }
         }).clone();
+        if(currentUser){
         var famdata=await Accomodation.find();
         var i=0;
        //console.log(currentUser)
@@ -633,7 +649,7 @@ router.get("/userName",async(req,res)=>{
             }
         console.log(paid[i-1])*/
         res.send(paid[i-1])
-        
+        }
     }
     catch(e){
         console.log('error');
@@ -1092,14 +1108,20 @@ router.post("/PaymentSave", async(req,res)=>{
 
 router.get("/isadmin" , async(req,res) => {
     try{
-        var currentUser;
+        var currentUser = undefined;
         var id=req.user;
         await Users.findById(id,function(err,docs){
             if(err){console.log(err)}
             else{//console.log(docs.username)
-                currentUser=docs.username;
+                if(docs && docs.username){
+                    currentUser=docs.username;
+                }
+                else{
+                    res.send("user not found");
+                }
             }
         }).clone();
+        if(currentUser){
         await Users.findOne({username:currentUser}, function(err,foundUser){
             if(err){
                 console.log(err);
@@ -1112,6 +1134,7 @@ router.get("/isadmin" , async(req,res) => {
         }).clone();
 
     }
+    }
     catch{
         res.send("failure");
     }
@@ -1119,14 +1142,21 @@ router.get("/isadmin" , async(req,res) => {
 
 router.get("/userpaid", async(req,res)=>{
     try{
-        var currentUser
+        var currentUser = undefined;
         var id=req.user;
         await Users.findById(id,function(err,docs){
             if(err){console.log(err)}
             else{//console.log(docs.username)
+                if(docs && docs.username){
                 currentUser=docs.username;
+                }
+                else{
+                    res.send("user not found");
+                    
+                }
             }
         }).clone();
+        if(currentUser){
         await Payment.findOne({username:"main"}, function(err,foundUser){
             //console.log('kakaka');
             if(err){
@@ -1145,6 +1175,7 @@ router.get("/userpaid", async(req,res)=>{
                 }
             }
         }).clone();
+        }
     }
     catch{
         console.log("error");

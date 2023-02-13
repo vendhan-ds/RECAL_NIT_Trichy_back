@@ -16,7 +16,10 @@ export default function Payment(){
     useEffect(() => {
 
         axios.get("http://localhost:8080/api/isadmin").then((res) =>{
-          if(res.data == false){
+          if(res.data == "user not found"){
+            window.location.href = "/signin";
+          }
+          else if(res.data == false){
             window.location.href = "/basedat";
           }
           else{

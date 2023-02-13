@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import Button from '@mui/material/Button';
 import {motion} from 'framer-motion'
 import {Link} from 'react-router-dom'
@@ -15,6 +15,16 @@ export default function Feedback(){
         var data = {'rat' : rat , 'com' : com};
         axios.post('http://localhost:8080/api/FeedSave' , data).then((res) => alert(res.data));
     }
+
+    useEffect(() => {
+        axios.get('http://localhost:8080/api/previewData').then(
+            (res) => {
+                if(res.data=="user not found"){
+                    window.location.href="/signin"
+                }
+            }
+        )
+    })
 
     const [rating,setValue] = useState(0);
 

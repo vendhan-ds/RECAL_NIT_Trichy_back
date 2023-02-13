@@ -44,9 +44,12 @@ function Tours() {
 
     const [toursa,sett] = useState([0,0,0,0]);
     
-    useEffect(()=>{
-            axios.get('http://localhost:8080/api/previewData').then(
+    function getData(){
+        axios.get('http://localhost:8080/api/previewData').then(
                 (res) => {
+                    if(res.data=="user not found"){
+                        window.location.href="/signin"
+                    }
                     res = res.data;
                     var arr = res[12][1];
                     document.querySelector('#c1').value = arr.trichy;
@@ -55,8 +58,16 @@ function Tours() {
                     document.querySelector('#c4').value = arr.belurHampi;
                     sett([arr.trichy,arr.phuketKrabi,arr.mysoreBandipur,arr.belurHampi]);
                 });
-    
-        
+            
+    }
+
+    useEffect(()=>{
+        if(tour){
+            getData();
+    }},[tour]);
+
+    useEffect(() => {
+        getData();
     },[]);
 
 
@@ -81,7 +92,7 @@ function Tours() {
         <br />
         <br />
         <motion.div initial ={{opacity : 0}} animate = {{opacity : 1}} className='rdetails'>
-         <TableContainer component = {Paper} style = {mystyle}>
+        {tour && <TableContainer component = {Paper} style = {mystyle}>
 
         <Table>
             <TableHead>
@@ -171,7 +182,7 @@ function Tours() {
             </TableRow>
             </TableBody>
         </Table>
-        </TableContainer>
+        </TableContainer>}
         </motion.div>
 {/*            
         </div>

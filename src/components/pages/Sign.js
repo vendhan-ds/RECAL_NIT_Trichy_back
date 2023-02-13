@@ -58,7 +58,6 @@ function sendPost(){
     <motion.div className='container' initial = {{opacity : 0}} animate = {{opacity : 1}} exit = {{opacity : 0}}>
     <div className='logos'>
     {/* <img src = {Image} className = "logo"></img> */}
-    <h1><span>Recal</span></h1>
     </div>
 
         <motion.h1 variants={variants1} exit={{opacity : 0}} initial ={{opacity:0}} animate="anim" className='weltext'>Good to see you again</motion.h1>
