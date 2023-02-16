@@ -130,7 +130,11 @@ function Previews() {
         console.log(datt2);
         for(var i in datt){
             if(datt2[i] != null){
-            document.querySelector('#' + datt[i]).innerText = datt2[i];
+                let t = datt2[i];
+                if(t == ""){
+                    t = "No details found";
+                }
+            document.querySelector('#' + datt[i]).innerText = t;
             }
         }
 
@@ -177,11 +181,17 @@ function Previews() {
         document.querySelector('.rt3').innerText = parseInt(res.data[11]?res.data[11][1].mysoreBandipur : 0) * 20000 ;
         document.querySelector('.rt4').innerText = parseInt(res.data[11]?res.data[11][1].belurHampi : 0) * 15000;
 
-        document.querySelector('.paxtype').innerText = res.data[0];
+        let type = res.data[0];
+
+        if(type == "withFamily"){
+            type = "With Family"; 
+        }
+
+        document.querySelector('.paxtype').innerText = type;
         document.querySelector('.pax1').innerText = 1
-        document.querySelector('.pax2').innerText = res.data[1].spouse;
-        document.querySelector('.pax3').innerText = res.data[1].familyMembers;
-        document.querySelector('.pax4').innerText = res.data[1].grandKids;
+        document.querySelector('.pax2').innerText = res.data[1].spouse?res.data[1].spouse:0;
+        document.querySelector('.pax3').innerText = res.data[1].familyMembers?res.data[1].familyMembers:0;
+        document.querySelector('.pax4').innerText = res.data[1].grandKids?res.data[1].grandKids:0;
 
         document.querySelector('#v1').innerText = res.data[6].count.veg;
         document.querySelector('#nv1').innerText = res.data[6].count.nonveg;
@@ -193,12 +203,12 @@ function Previews() {
         document.querySelector('.dcost').innerText =  850*(parseInt(res.data[6].count.nonveg) + parseInt(res.data[8].count.nonveg)) + 750*(parseInt(res.data[6].count.veg) + parseInt(res.data[8].count.veg));
         //document.querySelector('.cloth').innerText = res.data[10];
 
-        document.querySelector('.cout1').innerText = res.data[13].cin1 ? 'Booked' : '';
-        document.querySelector('.cout2').innerText = res.data[13].cin2 ? 'Booked' : '';
-        document.querySelector('.cout3').innerText = res.data[13].cin3 ? 'Booked' : '';
-        document.querySelector('.cin1').innerText = res.data[13].cout1 ? 'Booked' : '';
-        document.querySelector('.cin2').innerText = res.data[13].cout2 ? 'Booked' : '';
-        document.querySelector('.cin3').innerText = res.data[13].cout3 ? 'Booked' : '';
+        document.querySelector('.cout1').innerText = res.data[13].cin1 ? 'Booked' : 'Not Booked';
+        document.querySelector('.cout2').innerText = res.data[13].cin2 ? 'Booked' : 'Not Booked';
+        document.querySelector('.cout3').innerText = res.data[13].cin3 ? 'Booked' : 'Not Booked';
+        document.querySelector('.cin1').innerText = res.data[13].cout1 ? 'Booked' : 'Not Booked';
+        document.querySelector('.cin2').innerText = res.data[13].cout2 ? 'Booked' : 'Not Booked';
+        document.querySelector('.cin3').innerText = res.data[13].cout3 ? 'Booked' : 'Not booked';
         var pcost = 0;
         if(res.data[6] && res.data[6].cond2){
             pcost += 4500;
@@ -248,7 +258,7 @@ function Previews() {
                     {data.map(dat => (
                         <TableRow>
                             <TableCell >{dat}</TableCell>
-                            <TableCell id={dat}>NO details found</TableCell>
+                            <TableCell id={dat}>No details found</TableCell>
                         </TableRow>
                     )
                     )}
@@ -264,21 +274,21 @@ function Previews() {
         <TableContainer component = {Paper}>
         <Table>
             <TableBody>
-                <TableRow>
+                {/* <TableRow>
                     <TableCell>Registered</TableCell>
                     <TableCell>Not interested</TableCell>
                     <TableCell>I cant say</TableCell>
                     <TableCell></TableCell>
-                </TableRow>
-                <TableRow>
+                </TableRow> */}
+                {/* <TableRow>
                     <TableCell>Hotel room required</TableCell>
                     <TableCell>Pending</TableCell>
                     <TableCell></TableCell>
                     <TableCell></TableCell>
 
-                </TableRow>
+                </TableRow> */}
                 <TableRow>
-                <TableCell>participationType(with family)</TableCell>
+                <TableCell>Participation Type  </TableCell>
                 <TableCell><p className='paxtype'></p></TableCell>
                 <TableCell></TableCell>
                 <TableCell></TableCell>
@@ -481,14 +491,7 @@ function Previews() {
 
                     <Table>
                         <TableBody>
-                            <TableRow>
-                                <TableCell>Event Participation</TableCell>
-                                <TableCell></TableCell>
-                                <TableCell></TableCell>
-                                <TableCell></TableCell>
-                                <TableCell></TableCell>
-
-                            </TableRow>
+                            
                             <TableRow>
                             <TableCell>No. of Participants for Event at Hotel
                             </TableCell>   
